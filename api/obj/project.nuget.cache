@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DjVne73U/YvP8K1TY4cceOwmoliayOUJ619gCo5V4bmuHGudkBaznW2lPT1Ww3VOmvATK7uXflmoz3A12+w6Yg==",
+  "dgSpecHash": "3ozz72TZhahhz3qrmFNrUcU9UqSpnz3GUuDPlp+bgjPhblOBmUWy65fZyw9felhhwxVb/Apd0Ho2gTNet1B7LQ==",
   "success": true,
-  "projectFilePath": "E:\\3 Módulo\\TCC\\Ecoleta\\api\\api.csproj",
+  "projectFilePath": "D:\\ArturCaio3DS\\Ecoleta\\api\\api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\etechas\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.0\\microsoft.aspnetcore.openapi.8.0.0.nupkg.sha512",
     "C:\\Users\\etechas\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
