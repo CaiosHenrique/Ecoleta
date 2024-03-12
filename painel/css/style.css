@@ -1,0 +1,271 @@
+html {
+  scroll-behavior: smooth;
+  border-left: #009989 5px solid;
+  border-right: #009989 5px solid;
+  border-bottom: #009989 5px solid;
+}
+
+.svgshapeinverted
+{
+  transform: rotate(180deg);
+  transform: scaleY(-1);
+  position: relative;
+  top: -2px;
+}
+
+.LogoSusten
+{
+  width: 140px;
+  position: relative;
+  top: -2px;
+}
+
+.svgshape
+{
+  padding: 0;
+  margin: 0;
+  display: block;
+  width: calc(100vw - 25px);
+ 
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+  
+}
+
+body {
+  color: #26313b;
+}
+header {
+  background-color: #009989;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 80px;
+  padding-right: 80px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+  /* opacity: 0.1; */
+}
+
+/* Classe para o cabeçalho quando a página é rolada
+.header.scrolled {
+  background-color: white;
+} */
+
+header nav a {
+  color: white;
+  font-weight: 600;
+  padding: 32px;
+  text-decoration: none;
+  opacity: 1;
+}
+#header
+{
+  width: 92;
+  height: 75px;
+}
+
+
+#inicio {
+  position: relative;
+  top: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 24px 80px 128px 80px;
+  position: relative;
+}
+
+h1,
+h2 {
+  font-weight: 600;
+  font-size: 32px;
+  margin-bottom: 32px;
+}
+.CaixaParagrafo {
+  border: #cccc solid 2px;
+  max-width: 600px;
+  padding: 40px;
+  border-radius: 6px;
+  box-shadow: #009989 0px 0px 10px;
+  display: flex;
+}
+.paragrafo {
+  line-height: 150%;
+  margin-bottom: 32px;
+  border: #cccc solid 2px;
+  box-shadow: #009989 0px 0px 10px;
+  font-style: bold;
+  display: flex;
+}
+
+.botao {
+  background-color: #009989;
+  border-radius: 8px;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+}
+
+.botao-transparente {
+  background-color: transparent;
+  color: #009989;
+  padding: 16px 32px;
+  text-underline-offset: 4px;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.absolute {
+  background-color: #04dbc6;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: -10;
+}
+
+#sobre {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  padding: 64px 80px;
+  padding-bottom: 40px;
+  margin-left: 200px;
+  margin-top: 50px;
+}
+
+#sobre li {
+  margin-bottom: 16px;
+  margin-left: 32px;
+  list-style-type: none;
+}
+
+#como {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  padding: 64px 80px;
+  margin-right: 200px;
+  margin-bottom: 10px;
+}
+
+#como img{
+  margin: 64px auto;
+}
+
+#sobre img {
+  margin: 64px auto;
+}
+
+#sobre .paragrafo {
+  width: 950px;
+  margin: 0 auto;
+}
+
+#duvidas {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  padding: 64px 80px;
+  padding-right: 90px;
+  margin-bottom: 10px;
+}
+.duvida {
+  position: relative;
+}
+
+.duvida h3 {
+  border: 2px solid #009989;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 24px 48px;
+}
+
+.duvida img {
+  position: absolute;
+  top: 32px;
+  right: 24px;
+}
+
+.duvida .paragrafo {
+  border-right: 1px solid #009989;
+  border-bottom: 1px solid #009989;
+  border-left: 1px solid #009989;
+  border-radius: 0 0 8px 8px;
+  margin-top: -8px;
+  padding: 0 24px;
+  height: 0;
+  opacity: 0.5;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.duvida.ativa .paragrafo {
+  height: fit-content;
+  opacity: 1;
+  padding: 24px;
+}
+
+footer {
+  background-color: #04dbc6;
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  padding: 64px 80px;
+  align-items: center;
+  position: relative;
+}
+
+.ImageFooter
+{
+  margin-left: 130px;
+  margin-right: 15px;
+  height: 60px;
+}
+
+.titulo
+{
+  margin-bottom: 8px;
+}
+
+footer nav a {
+  margin-right: 145px;
+  color: #26313b;
+  display: block;
+  margin-bottom: 8px;
+  text-decoration: none;
+  text-align: left;
+}
+
+footer p {
+  margin-right: 20px;
+  margin-bottom: 16px;
+  max-width: 350px;
+}
+
+footer p a {
+  color: #26313b;
+  text-decoration: none;
+}
+
+#copyright {
+  background-color: #26313b;
+  padding: 24px;
+  text-align: center;
+  color: white;
+}
+
+#copyright a {
+  color: #009989;
+}
+
