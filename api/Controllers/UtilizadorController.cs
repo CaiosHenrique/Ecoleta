@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using api.Models;
 using api.Models.Enuns;
 using System.Collections.Generic;
+using api.Data;
 
 namespace api.Controllers
 {
@@ -10,10 +11,12 @@ namespace api.Controllers
     public class UtilizadorController : ControllerBase
     {
         private readonly List<UtilizadorModel> utilizadores;
+        private readonly DataContext _context;
 
-        public UtilizadorController()
+        public UtilizadorController(DataContext context)
         {
             utilizadores = new List<UtilizadorModel>();
+            _context = context;
         }
 
         // GET: api/Utilizador
