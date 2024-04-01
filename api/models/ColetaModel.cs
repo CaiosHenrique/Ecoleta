@@ -1,4 +1,4 @@
-namespace api.Models
+namespace api.models
 {
     public class ColetaModel
     {

@@ -32,3 +32,14 @@ E:\3 Módulo\TCC\Ecoleta\api\obj\Debug\net8.0\refint\api.dll
 E:\3 Módulo\TCC\Ecoleta\api\obj\Debug\net8.0\api.pdb
 E:\3 Módulo\TCC\Ecoleta\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 E:\3 Módulo\TCC\Ecoleta\api\obj\Debug\net8.0\ref\api.dll
+D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\api.csproj.AssemblyReference.cache
+D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\api.GeneratedMSBuildEditorConfig.editorconfig
+D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\api.AssemblyInfoInputs.cache
+D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\api.AssemblyInfo.cs
+D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\api.csproj.CoreCompileInputs.cache
+D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\api.MvcApplicationPartsAssemblyInfo.cs
+D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\api.MvcApplicationPartsAssemblyInfo.cache
+D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\api.sourcelink.json
+D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\api.dll
+D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\refint\api.dll
+D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\api.pdb
