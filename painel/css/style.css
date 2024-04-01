@@ -172,50 +172,6 @@ h2 {
   margin: 0 auto;
 }
 
-#duvidas {
-  display: flex;
-  align-items: center;
-  gap: 64px;
-  padding: 64px 80px;
-  padding-right: 90px;
-  margin-bottom: 10px;
-}
-.duvida {
-  position: relative;
-}
-
-.duvida h3 {
-  border: 2px solid #009989;
-  border-radius: 8px;
-  cursor: pointer;
-  padding: 24px 48px;
-}
-
-.duvida img {
-  position: absolute;
-  top: 32px;
-  right: 24px;
-}
-
-.duvida .paragrafo {
-  border-right: 1px solid #009989;
-  border-bottom: 1px solid #009989;
-  border-left: 1px solid #009989;
-  border-radius: 0 0 8px 8px;
-  margin-top: -8px;
-  padding: 0 24px;
-  height: 0;
-  opacity: 0.5;
-  overflow: hidden;
-  transition: 0.2s;
-}
-
-.duvida.ativa .paragrafo {
-  height: fit-content;
-  opacity: 1;
-  padding: 24px;
-}
-
 footer {
   background-color: #04dbc6;
   display: flex;

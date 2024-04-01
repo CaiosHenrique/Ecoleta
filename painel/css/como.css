@@ -1,0 +1,172 @@
+html {
+    scroll-behavior: smooth;
+    border-left: #009989 5px solid;
+    border-right: #009989 5px solid;
+    border-bottom: #009989 5px solid;
+  }
+
+  
+  .LogoSusten
+  {
+    width: 140px;
+    position: relative;
+    top: -2px;
+  }
+  
+  .svgshape
+  {
+    padding: 0;
+    margin: 0;
+    display: block;
+    width: calc(100vw - 25px);
+   
+  }
+  
+  * {
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    padding: 0;
+    
+  }
+  
+  body {
+    color: #26313b;
+  }
+  header {
+    background-color: #009989;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    /* opacity: 0.7; */
+  }
+  
+  /* Classe para o cabeçalho quando a página é rolada
+  .header.scrolled {
+    background-color: white;
+  } */
+  
+  header nav a {
+    color: white;
+    font-weight: 600;
+    padding: 32px;
+    text-decoration: none;
+    opacity: 1;
+  }
+  #header
+  {
+    width: 92;
+    height: 75px;
+  }
+  
+  
+  #inicio {
+    position: relative;
+    top: 75px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding: 24px 80px 128px 80px;
+    position: relative;
+  }
+  
+  h1,
+  h2 {
+    font-weight: 600;
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
+  .CaixaParagrafo {
+    border: #cccc solid 2px;
+    max-width: 600px;
+    padding: 40px;
+    border-radius: 6px;
+    box-shadow: #009989 0px 0px 10px;
+    display: flex;
+  }
+  .paragrafo {
+    line-height: 150%;
+    margin-bottom: 32px;
+    border: #cccc solid 2px;
+    box-shadow: #009989 0px 0px 10px;
+    font-style: bold;
+    display: flex;
+  }
+
+  
+  #como {
+    display: flex;
+    align-items: center;
+    gap: 64px;
+    padding: 64px 80px;
+    margin-right: 200px;
+    margin-bottom: 10px;
+  }
+  
+  #como img{
+    margin: 64px auto;
+  }
+  
+  
+  footer {
+    background-color: #04dbc6;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    padding: 64px 80px;
+    align-items: center;
+    position: relative;
+  }
+  
+  .ImageFooter
+  {
+    margin-left: 130px;
+    margin-right: 15px;
+    height: 60px;
+  }
+  
+  .titulo
+  {
+    margin-bottom: 8px;
+  }
+  
+  footer nav a {
+    margin-right: 145px;
+    color: #26313b;
+    display: block;
+    margin-bottom: 8px;
+    text-decoration: none;
+    text-align: left;
+  }
+  
+  footer p {
+    margin-right: 20px;
+    margin-bottom: 16px;
+    max-width: 350px;
+  }
+  
+  footer p a {
+    color: #26313b;
+    text-decoration: none;
+  }
+  
+  #copyright {
+    background-color: #26313b;
+    padding: 24px;
+    text-align: center;
+    color: white;
+  }
+  
+  #copyright a {
+    color: #009989;
+  }
+  
+  

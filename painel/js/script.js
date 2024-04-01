@@ -40,6 +40,10 @@ BotaoTransparente.addEventListener('mouseout', function()
     this.style.color = "#009989";
 });
 
+var PH3 = document.querySelectorAll(h3, p);
+
+
+
 // var ItensNavbar = document.querySelectorAll('#inicio, #sobre, #como, #duvidas');
 
 // ItensNavbar.addEventListener('mouseover', function()
