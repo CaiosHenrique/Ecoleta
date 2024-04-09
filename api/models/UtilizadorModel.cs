@@ -1,5 +1,4 @@
-
-namespace api.models
+namespace api.Models
 {
     public class UtilizadorModel
     {

@@ -12,52 +12,48 @@ namespace api.Controllers
 {
     public class EcoPontoController : ControllerBase
     {
-        private readonly List<EcopontoModel> ecopontos;
+        private readonly List<EcopontoModel> ecoponto;
         private readonly DataContext _context;
 
-        public EcopontoController(DataContext context)
+        public EcoPontoController(DataContext context)
         {
-            ecopontos = new List<EcopontoModel>();
+            ecoponto = new List<EcopontoModel>();
             _context = context;
         }
 
+
         [HttpGet]
-        public ActionResult<IEnumerable<EcopontoModel>> Get()
+        public async Task<ActionResult<IEnumerable<EcopontoModel>>> Get()
         {
-            return Ok(ecopontos);
+            return await _context.TB_ECOPONTO.ToListAsync();
         }
 
          [HttpPost]
-        public ActionResult<EcopontoModel> Post([FromBody] EcopontoModel ecoponto)
-        {
-            ecoponto.Add(ecopontos);
-            return CreatedAtAction(nameof(Get), new { id = ecoponto.IdEcoponto }, ecoponto);
-        }
+         public async Task<ActionResult<EcopontoModel>> Post([FromBody] EcopontoModel ecoponto)
+         {
+            _context.TB_ECOPONTO.Add(ecoponto);
+            await _context.SaveChangesAsync();
+            return ecoponto;
+          }
 
         // PUT: api/ecoponto/5
-        [HttpPut("{id}")]
-        public ActionResult<EcopontoModel> Put(int id, [FromBody] EcopontoModel ecoponto)
+        [HttpPut("{IdEcoponto}")]
+        public async Task<ActionResult> Update(EcopontoModel novoEcoPonto)
         {
-            var index = ecopontos.FindIndex(p => p.IdEcoponto == id);
-            if (index == -1)
-            {
-                return NotFound();
-            }
-            Ecopontoes[index] = ecoponto;
-            return Ok(ecoponto);
+            await _context.TB_ECOPONTO.AddAsync(novoEcoPonto);
+            await _context.SaveChangesAsync();
+            return Ok(novoEcoPonto.IdEcoponto);
+            
         }
 
         // DELETE: api/ecoponto/5
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        [HttpDelete("{IdEcoponto}")]
+        public async Task<ActionResult> Delete(int IdEcoponto)
         {
-            var ecoponto = Ecopontos.Find(p => p.IdEcoponto == id);
-            if (ecoponto == null)
-            {
-                return NotFound();
-            }
-            Ecopontoes.Remove(ecoponto);
-            return NoContent();
+            EcopontoModel ecoponto = await _context.TB_ECOPONTO.FindAsync(x => x.IdEcoponto == IdEcoponto);
+            _context.TB_ECOPONTO.Remove(ecoponto);
+            int linhasAfetadas = await _context.SaveChangesAsync();
+            return Ok(linhasAfetadas);
         }
     }
 }
