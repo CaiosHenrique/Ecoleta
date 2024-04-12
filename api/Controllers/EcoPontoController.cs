@@ -23,9 +23,18 @@ namespace api.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EcopontoModel>>> Get()
+        public async Task<ActionResult> GetEcoponto(int IdEcoponto)
         {
-            return await _context.TB_ECOPONTO.ToListAsync();
+           try
+           {
+                EcopontoModel e = await _context.TB_ECOPONTO.FindAsync(xEcoponto => xEcoponto.IdEcoponto == IdEcoponto);
+                return Ok(e);
+           }
+              catch (System.Exception ex)
+              {
+                return BadRequest(ex.Message);
+              }
+            
         }
 
          [HttpPost]

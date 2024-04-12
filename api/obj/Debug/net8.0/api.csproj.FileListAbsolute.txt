@@ -43,3 +43,14 @@ D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\api.sourcelink.json
 D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\api.dll
 D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\refint\api.dll
 D:\ArturCaio3DS\Ecoleta\api\obj\Debug\net8.0\api.pdb
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\obj\Debug\net8.0\api.csproj.AssemblyReference.cache
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\obj\Debug\net8.0\api.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\obj\Debug\net8.0\api.AssemblyInfoInputs.cache
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\obj\Debug\net8.0\api.AssemblyInfo.cs
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\obj\Debug\net8.0\api.csproj.CoreCompileInputs.cache
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\obj\Debug\net8.0\api.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\obj\Debug\net8.0\api.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\obj\Debug\net8.0\api.sourcelink.json
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\obj\Debug\net8.0\api.dll
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\obj\Debug\net8.0\refint\api.dll
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\obj\Debug\net8.0\api.pdb
