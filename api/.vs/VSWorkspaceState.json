@@ -3,7 +3,7 @@
     "",
     "\\Controllers",
     "\\Data",
-    "\\models"
+    "\\Models"
   ],
   "SelectedNode": "\\Controllers\\EcoPontoController.cs",
   "PreviewInSolutionExplorer": false
