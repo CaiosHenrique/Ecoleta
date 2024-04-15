@@ -27,7 +27,7 @@ namespace api.Controllers
         {
            try
            {
-                EcopontoModel e = await _context.TB_ECOPONTO.FindAsync(xEcoponto => xEcoponto.IdEcoponto == IdEcoponto);
+                EcopontoModel e = await _context.TB_ECOPONTO.FindAsync(IdEcoponto);
                 return Ok(e);
            }
               catch (System.Exception ex)
@@ -40,18 +40,32 @@ namespace api.Controllers
          [HttpPost]
          public async Task<ActionResult<EcopontoModel>> Post([FromBody] EcopontoModel ecoponto)
          {
-            _context.TB_ECOPONTO.Add(ecoponto);
-            await _context.SaveChangesAsync();
-            return ecoponto;
-          }
+            try
+            {
+                await _context.TB_ECOPONTO.AddAsync(ecoponto);
+                await _context.SaveChangesAsync();
+                return ecoponto;
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         // PUT: api/ecoponto/5
         [HttpPut("{IdEcoponto}")]
         public async Task<ActionResult> Update(EcopontoModel novoEcoPonto)
         {
-            await _context.TB_ECOPONTO.AddAsync(novoEcoPonto);
-            await _context.SaveChangesAsync();
-            return Ok(novoEcoPonto.IdEcoponto);
+            try
+            {
+                await _context.TB_ECOPONTO.AddAsync(novoEcoPonto);
+                await _context.SaveChangesAsync();
+                return Ok(novoEcoPonto.IdEcoponto);
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
             
         }
 
@@ -59,10 +73,19 @@ namespace api.Controllers
         [HttpDelete("{IdEcoponto}")]
         public async Task<ActionResult> Delete(int IdEcoponto)
         {
-            EcopontoModel ecoponto = await _context.TB_ECOPONTO.FindAsync(x => x.IdEcoponto == IdEcoponto);
-            _context.TB_ECOPONTO.Remove(ecoponto);
-            int linhasAfetadas = await _context.SaveChangesAsync();
-            return Ok(linhasAfetadas);
-        }
+            try
+            {
+                EcopontoModel ecoponto = await _context.TB_ECOPONTO.FindAsync(IdEcoponto);
+                _context.TB_ECOPONTO.Remove(ecoponto);
+                int linhasAfetadas = await _context.SaveChangesAsync();
+                return Ok(linhasAfetadas);
+
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
     }
+}
 }
