@@ -15,6 +15,7 @@ namespace api.Data
             public DbSet<UtilizadorModel> TB_UTILIZADOR { get; set; }
             public DbSet<EcopontoModel> TB_ECOPONTO { get; set; }
             public DbSet<EcopointsModel> TB_ECOPOINTS { get; set; }
+            public DbSet<ColetaModel> TB_COLETA { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
