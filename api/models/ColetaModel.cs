@@ -1,7 +1,11 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
 namespace api.Models
 {
     public class ColetaModel
-    {
+    {         
+        [Key]
         public int IdColeta { get; set; }
         public int IdEcoponto { get; set; }
          public int  CodigoEcoponto {get;set;}

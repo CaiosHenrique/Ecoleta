@@ -1,7 +1,11 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
 namespace api.Models
 {
     public class EcopontoModel
-    {
+    {   
+        [Key]
         public int IdEcoponto { get; set; }
 
         public string Nome { get; set; }
