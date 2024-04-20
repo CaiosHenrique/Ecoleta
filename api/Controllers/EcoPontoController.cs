@@ -19,45 +19,59 @@ namespace api.Controllers
         {
             ecoponto = new List<EcopontoModel>();
             _context = context;
+
         }
 
 
         [HttpGet("{IdEcoponto}")]
+
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+
         public async Task<ActionResult> GetEcoponto(int IdEcoponto)
         {
             try
             {
                 EcopontoModel e = await _context.TB_ECOPONTO.FindAsync(IdEcoponto);
                 return StatusCode(200, e);
+
             }
+
             catch (Exception)
             {
                 return StatusCode(404);
+
             }
             
         }
 
         [HttpGet("Ecopontos")]
+
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+
         public async Task<ActionResult<IEnumerable<EcopontoModel>>> GetAll()
         {
             try
             {
                 var ecopontos = _context.TB_ECOPONTO.ToList();
                 return StatusCode(200, ecopontos);
+
             }
+
             catch (System.Exception)
             {
                 return StatusCode(500);
+
             }
+
         }
 
          [HttpPost("PostEcoponto")]
+
          [ProducesResponseType(StatusCodes.Status201Created)]
          [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
          public async Task<ActionResult<EcopontoModel>> PostEcoPonto([FromBody] EcopontoModel ecoponto)
          {
             try
@@ -65,17 +79,23 @@ namespace api.Controllers
                 await _context.TB_ECOPONTO.AddAsync(ecoponto);
                 await _context.SaveChangesAsync();
                 return StatusCode(201, ecoponto);
+
             }
+
             catch (System.Exception ex)
             {
                 return StatusCode(400, ex.Message);
+
             }
+
          }
 
-        // PUT: api/ecoponto/5
+        
         [HttpPut("{IdEcoponto}")]
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
         public async Task<ActionResult> Update(EcopontoModel novoEcoPonto)
         {
             try
@@ -83,19 +103,25 @@ namespace api.Controllers
                 await _context.TB_ECOPONTO.AddAsync(novoEcoPonto);
                 await _context.SaveChangesAsync();
                 return StatusCode(200, novoEcoPonto);
+
             }
+
             catch (System.Exception ex)
             {
                 return StatusCode(400, ex.Message);
+
             }
+
         }
         
 
 
-        // DELETE: api/ecoponto/5
+        
         [HttpDelete("{IdEcoponto}")]
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
         public async Task<ActionResult> Delete(int IdEcoponto)
         {
             try
@@ -106,11 +132,12 @@ namespace api.Controllers
                 return StatusCode(200, linhasAfetadas);
 
             }
+
             catch (System.Exception ex)
             {
                 return StatusCode(400, ex.Message);
 
             }
         }
-}
+    }
 }

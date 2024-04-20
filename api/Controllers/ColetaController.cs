@@ -19,26 +19,34 @@ namespace api.Controllers
             _context = context;
         }
 
-    [HttpGet("Coletas")]
-            [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-            [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("Coletas")]
+
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
         public ActionResult<IEnumerable<ColetaModel>> GetAll()
         {
             try
             {
                 var coletas = _context.TB_COLETA.ToList();
                 return StatusCode(200, coletas);
+
             }
+
             catch (System.Exception)
             {
                 return StatusCode(500);
+
             }
+
         }
        
-    [HttpGet("{IdColeta}")]
-            [ProducesResponseType(StatusCodes.Status404NotFound)]
-            [ProducesResponseType(StatusCodes.Status200OK)]
-            [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet("{IdColeta}")]
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
         public ActionResult<ColetaModel> GetId(int IdColeta)
         {
             try
@@ -48,19 +56,25 @@ namespace api.Controllers
                 if (coleta == null)
                 {
                     return StatusCode(404);
-                }
 
-                return StatusCode(200, coleta);
+                }
+                    return StatusCode(200, coleta);
+
             }
+
             catch (System.Exception)
             {
-                return StatusCode(500);
+                    return StatusCode(500);
+
             }
+
         }
 
-    [HttpPost("PostColeta")]
-            [ProducesResponseType(StatusCodes.Status201Created)]
-            [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost("PostColeta")]
+
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
         public ActionResult<ColetaModel> PostColeta([FromBody] ColetaModel coleta)
         {
             try
@@ -68,17 +82,22 @@ namespace api.Controllers
                 _context.TB_COLETA.Add(coleta);
                 _context.SaveChanges();
                 return StatusCode(201, coleta);
+
             }
+
             catch (System.Exception)
             {
                 return StatusCode(500);
+
             }
-        
+
         }
 
-    [HttpPut("{IdColeta}")]
-            [ProducesResponseType(StatusCodes.Status200OK)]
-            [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPut("{IdColeta}")]
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
         public ActionResult<ColetaModel> PutColeta(int IdColeta, [FromBody] ColetaModel coleta)
         {
             try
@@ -102,17 +121,23 @@ namespace api.Controllers
 
                 _context.SaveChanges();
                 return StatusCode(200, coletaAtual);
+
             }
+
             catch (System.Exception)
             {
                 return StatusCode(400);
+
             }
+
         }
 
-    [HttpDelete("{IdColeta}")]
-            [ProducesResponseType(StatusCodes.Status404NotFound)]
-            [ProducesResponseType(StatusCodes.Status200OK)]
-            [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpDelete("{IdColeta}")]
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
         public ActionResult<ColetaModel> Delete(int IdColeta)
         {
             try
@@ -122,17 +147,19 @@ namespace api.Controllers
                 if (coleta == null)
                 {
                     return StatusCode(404);
+
                 }
 
                 _context.TB_COLETA.Remove(coleta);
                 _context.SaveChanges();
                 return StatusCode(200, coleta);
+
             }
             catch (System.Exception)
             {
                 return StatusCode(500);
+
             }
         }
-
     }
 }
