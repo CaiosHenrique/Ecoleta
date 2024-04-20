@@ -18,11 +18,35 @@ namespace api.Controllers
             coletas = new List<ColetaModel>();
             _context = context;
         }
+
+        [HttpGet("Coletas")]
+
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
+        public ActionResult<IEnumerable<ColetaModel>> GetAll()
+        {
+            try
+            {
+                var coletas = _context.TB_COLETA.ToList();
+                return StatusCode(200, coletas);
+
+            }
+
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+
+            }
+
+        }
        
-    [HttpGet("{IdColeta}")]
-            [ProducesResponseType(StatusCodes.Status404NotFound)]
-            [ProducesResponseType(StatusCodes.Status200OK)]
-            [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet("{IdColeta}")]
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
         public ActionResult<ColetaModel> GetId(int IdColeta)
         {
             try
@@ -32,37 +56,88 @@ namespace api.Controllers
                 if (coleta == null)
                 {
                     return StatusCode(404);
-                }
 
-                return StatusCode(200, coleta);
+                }
+                    return StatusCode(200, coleta);
+
             }
+
             catch (System.Exception)
             {
-                return StatusCode(500);
+                    return StatusCode(500);
+
             }
+
         }
 
-    [HttpPost]
-            [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-            [ProducesResponseType(StatusCodes.Status201Created)]
-        public ActionResult<ColetaModel> Post([FromBody] ColetaModel coleta)
+        [HttpPost("PostColeta")]
+
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
+        public ActionResult<ColetaModel> PostColeta([FromBody] ColetaModel coleta)
         {
             try
             {
                 _context.TB_COLETA.Add(coleta);
                 _context.SaveChanges();
                 return StatusCode(201, coleta);
+
             }
+
             catch (System.Exception)
             {
-                    return StatusCode(500);
+                return StatusCode(500);
+
             }
+
         }
 
-    [HttpDelete("{IdColeta}")]
-            [ProducesResponseType(StatusCodes.Status404NotFound)]
-            [ProducesResponseType(StatusCodes.Status200OK)]
-            [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPut("{IdColeta}")]
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public ActionResult<ColetaModel> PutColeta(int IdColeta, [FromBody] ColetaModel coleta)
+        {
+            try
+            {
+                var coletaAtual = _context.TB_COLETA.Find(IdColeta);
+
+                if (coletaAtual == null)
+                {
+                    return StatusCode(400);
+                }
+
+                coletaAtual.IdColeta = coleta.IdColeta;
+                coletaAtual.IdEcoponto = coleta.IdEcoponto;
+                coletaAtual.IdUtilizador = coleta.IdUtilizador;
+                coletaAtual.CodigoEcoponto = coleta.CodigoEcoponto;
+                coletaAtual.CodigoUtilizador = coleta.CodigoUtilizador;
+                coletaAtual.DataColeta = coleta.DataColeta;
+                coletaAtual.TotalEcopoints = coleta.TotalEcopoints;
+                coletaAtual.Peso = coleta.Peso;
+                coletaAtual.SituacaoColeta = coleta.SituacaoColeta;
+
+                _context.SaveChanges();
+                return StatusCode(200, coletaAtual);
+
+            }
+
+            catch (System.Exception)
+            {
+                return StatusCode(400);
+
+            }
+
+        }
+
+        [HttpDelete("{IdColeta}")]
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
         public ActionResult<ColetaModel> Delete(int IdColeta)
         {
             try
@@ -72,15 +147,18 @@ namespace api.Controllers
                 if (coleta == null)
                 {
                     return StatusCode(404);
+
                 }
 
                 _context.TB_COLETA.Remove(coleta);
                 _context.SaveChanges();
                 return StatusCode(200, coleta);
+
             }
             catch (System.Exception)
             {
                 return StatusCode(500);
+
             }
         }
     }
