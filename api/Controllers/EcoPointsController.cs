@@ -8,6 +8,8 @@ using api.Data;
 
 namespace api.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class EcoPointsController : ControllerBase
     {
         private readonly List<EcopointsModel> ecopoints;
@@ -51,7 +53,7 @@ namespace api.Controllers
         }
 
         // GET: api/EcoPoints
-        [HttpGet("Ecopoints")]
+        [HttpGet]
 
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -74,7 +76,7 @@ namespace api.Controllers
         }
         
         // POST: api/EcoPoints
-        [HttpPost("PostEcopoints")]
+        [HttpPost]
 
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

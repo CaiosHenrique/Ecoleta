@@ -22,7 +22,7 @@ namespace api.Controllers
         }
 
         
-        [HttpGet("Utilizadores")]
+        [HttpGet]
 
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -73,7 +73,7 @@ namespace api.Controllers
         }
 
         
-        [HttpPost("PostUtilizador")]
+        [HttpPost]
 
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]

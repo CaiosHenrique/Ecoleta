@@ -7,6 +7,8 @@ using api.Data;
 namespace api.Controllers
 {
 
+    [ApiController]
+    [Route("api/[controller]")]
     public class ColetaController : ControllerBase
     {
         
@@ -19,7 +21,7 @@ namespace api.Controllers
             _context = context;
         }
 
-        [HttpGet("Coletas")]
+        [HttpGet]
 
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -70,7 +72,7 @@ namespace api.Controllers
 
         }
 
-        [HttpPost("PostColeta")]
+        [HttpPost]
 
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
