@@ -6,8 +6,8 @@ using api.Data;
 
 namespace api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class UtilizadorController : ControllerBase
     {
         private readonly List<UtilizadorModel> utilizadores;
