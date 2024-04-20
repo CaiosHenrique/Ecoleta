@@ -3,4 +3,7 @@
 GET {{api_HostAddress}}/weatherforecast/
 Accept: application/json
 
+GET {{api_HostAddress}}/Controllers/Utilizador/
+Accept: application/json
+
 ###
