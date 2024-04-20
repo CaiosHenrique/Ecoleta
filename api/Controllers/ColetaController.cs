@@ -18,6 +18,22 @@ namespace api.Controllers
             coletas = new List<ColetaModel>();
             _context = context;
         }
+
+    [HttpGet("Coletas")]
+            [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+            [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<IEnumerable<ColetaModel>> GetAll()
+        {
+            try
+            {
+                var coletas = _context.TB_COLETA.ToList();
+                return StatusCode(200, coletas);
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
+        }
        
     [HttpGet("{IdColeta}")]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -42,10 +58,10 @@ namespace api.Controllers
             }
         }
 
-    [HttpPost]
-            [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [HttpPost("PostColeta")]
             [ProducesResponseType(StatusCodes.Status201Created)]
-        public ActionResult<ColetaModel> Post([FromBody] ColetaModel coleta)
+            [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<ColetaModel> PostColeta([FromBody] ColetaModel coleta)
         {
             try
             {
@@ -55,7 +71,41 @@ namespace api.Controllers
             }
             catch (System.Exception)
             {
-                    return StatusCode(500);
+                return StatusCode(500);
+            }
+        
+        }
+
+    [HttpPut("{IdColeta}")]
+            [ProducesResponseType(StatusCodes.Status200OK)]
+            [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<ColetaModel> PutColeta(int IdColeta, [FromBody] ColetaModel coleta)
+        {
+            try
+            {
+                var coletaAtual = _context.TB_COLETA.Find(IdColeta);
+
+                if (coletaAtual == null)
+                {
+                    return StatusCode(400);
+                }
+
+                coletaAtual.IdColeta = coleta.IdColeta;
+                coletaAtual.IdEcoponto = coleta.IdEcoponto;
+                coletaAtual.IdUtilizador = coleta.IdUtilizador;
+                coletaAtual.CodigoEcoponto = coleta.CodigoEcoponto;
+                coletaAtual.CodigoUtilizador = coleta.CodigoUtilizador;
+                coletaAtual.DataColeta = coleta.DataColeta;
+                coletaAtual.TotalEcopoints = coleta.TotalEcopoints;
+                coletaAtual.Peso = coleta.Peso;
+                coletaAtual.SituacaoColeta = coleta.SituacaoColeta;
+
+                _context.SaveChanges();
+                return StatusCode(200, coletaAtual);
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(400);
             }
         }
 
@@ -83,5 +133,6 @@ namespace api.Controllers
                 return StatusCode(500);
             }
         }
+
     }
 }

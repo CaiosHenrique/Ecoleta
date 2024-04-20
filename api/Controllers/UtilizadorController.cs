@@ -20,7 +20,7 @@ namespace api.Controllers
         }
 
         // GET: api/Utilizador
-        [HttpGet]
+        [HttpGet("Utilizadores")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<UtilizadorModel>> GetAll()
@@ -51,7 +51,7 @@ namespace api.Controllers
         }
 
         // POST: api/Utilizador
-        [HttpPost]
+        [HttpPost("PostUtilizador")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult<UtilizadorModel> Post([FromBody] UtilizadorModel utilizador)

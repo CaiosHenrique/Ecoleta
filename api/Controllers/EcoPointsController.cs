@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using api.Models;
+using api.Data;
 
 
 namespace api.Controllers
@@ -10,27 +11,14 @@ namespace api.Controllers
     public class EcoPointsController : ControllerBase
     {
         private readonly List<EcopointsModel> ecopoints;
+        private readonly DataContext _context;
 
-        public EcoPointsController()
+        public EcoPointsController(DataContext context)
         {
+            _context = context;
             ecopoints = new List<EcopointsModel>();
         }
 
-        // GET: api/EcoPoints
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<EcopointsModel>> GetAll()
-        {
-            try
-            {
-                return StatusCode(200, ecopoints);
-            }
-            catch (System.Exception)
-            {
-                return StatusCode(500);
-            }
-        }
 
         // GET: api/EcoPoints/5
         [HttpGet("{id}")]
@@ -54,8 +42,25 @@ namespace api.Controllers
             }
         }
 
+        // GET: api/EcoPoints
+        [HttpGet("Ecopoints")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<IEnumerable<UtilizadorModel>> GetAll()
+        {
+            try
+            {
+                var ecopoints = _context.TB_ECOPOINTS.ToList();
+                return StatusCode(200, ecopoints);
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+        
         // POST: api/EcoPoints
-        [HttpPost]
+        [HttpPost("PostEcopoints")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<EcopointsModel> Post([FromBody] EcopointsModel ecopoint)
