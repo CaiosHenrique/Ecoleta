@@ -37,7 +37,7 @@
         Route="MainPage" />
         <Tab Title="info" Route="info">
             <ShellContent Title="Sobre" Route="sobre" ContentTemplate="{DataTemplate local:AboutView}"/>
-
+            <ShellContent Title="Ecopontos" Route="Ecopontos" ContentTemplate="{DataTemplate viewEcopontos:ListagemView}"/>
             <ShellContent Title="Descrição" Route="desc" ContentTemplate="{DataTemplate local:DescriptionView}" />
         </Tab>
     </FlyoutItem>
