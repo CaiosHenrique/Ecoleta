@@ -3,13 +3,49 @@
     x:Class="EcoletaApp.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewEcopontos ="clr-namespace:EcoletaApp.Views.Ecoponto"
     xmlns:local="clr-namespace:EcoletaApp"
-    Shell.FlyoutBehavior="Disabled"
     Title="EcoletaApp">
 
-    <ShellContent
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{OnPlatform Android=130, iOS=200}"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <FlexLayout Grid.Row="0" Direction="Row" AlignContent="Center">
+                    <Frame Padding="0" CornerRadius="40" HeightRequest="80" WidthRequest="80">
+
+                    </Frame>
+                    <VerticalStackLayout Padding="10,0,0,0" Spacing="0">
+                        <Label Text="Ecoleta" FontSize="Medium" FontAttributes="Bold"/>
+
+                    </VerticalStackLayout>
+                </FlexLayout>
+
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+
+        <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+        <Tab Title="info" Route="info">
+            <ShellContent Title="Sobre" Route="sobre" ContentTemplate="{DataTemplate local:AboutView}"/>
+
+            <ShellContent Title="Descrição" Route="desc" ContentTemplate="{DataTemplate local:DescriptionView}" />
+        </Tab>
+    </FlyoutItem>
+
+    <ShellContent Title="Sair" Icon="Exit.png" ContentTemplate="{DataTemplate local:AppShell}"
+           Shell.FlyoutBehavior="Disabled"/>
+    <Shell.FlyoutFooter>
+        <Label x:Name="lblLogin" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
+    </Shell.FlyoutFooter>
 
 </Shell>
