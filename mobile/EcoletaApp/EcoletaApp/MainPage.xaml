@@ -34,41 +34,37 @@
                    </Grid>
             </Frame>
                     <Label Text="Este App oferece recursos para" FontAttributes="Bold" FontSize="Medium"/>
-                    <ScrollView Orientation="Horizontal">
-                        <HorizontalStackLayout>
-                            <Frame Style="{StaticResource FrameOptions}" Padding="0"
+            <ScrollView Orientation="Horizontal">
+                <HorizontalStackLayout>
+                    <Frame Style="{StaticResource FrameOptions}" Padding="0"
                                  HeightRequest="{OnPlatform Android=150, iOS=140}" 
                                   WidthRequest="{OnPlatform Android=120, iOS=140}">
-                                            <VerticalStackLayout Spacing="0" VerticalOptions="Center">
-                                                <Image Source="menupersonagens.svg"/>
-                                                <Label Text="Personagens" FontSize="Small"
+                        <VerticalStackLayout Spacing="0" VerticalOptions="Center">
+                            <Image Source="menupersonagens.svg"/>
+                            <Label Text="Personagens" FontSize="Small"
                                     HorizontalTextAlignment="Center" Margin="10,0"/>
-                                            </VerticalStackLayout>
-                                        </Frame>
-                                        <Frame Style="{StaticResource FrameOptions}" Padding="0"
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Frame Style="{StaticResource FrameOptions}" Padding="0"
                                     HeightRequest="{OnPlatform Android=150, iOS=140}" 
                                    WidthRequest="{OnPlatform Android=120, iOS=140}">
-                                            <VerticalStackLayout Spacing="30" VerticalOptions="Center">
-                                                <Image Source="menuarmas.png"/>
-                                                <Label Text="Armas" FontSize="Small" HorizontalTextAlignment="Center"
+                        <VerticalStackLayout Spacing="30" VerticalOptions="Center">
+                            <Image Source="menuarmas.png"/>
+                            <Label Text="Armas" FontSize="Small" HorizontalTextAlignment="Center"
                                                          Margin="10,0"/>
-                                            </VerticalStackLayout>
-                                        </Frame>
-                                        <Frame Style="{StaticResource FrameOptions}" Padding="0"
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Frame Style="{StaticResource FrameOptions}" Padding="0"
                                     HeightRequest="{OnPlatform Android=150, iOS=140}"
                                      WidthRequest="{OnPlatform Android=120, iOS=140}">
-                                            <VerticalStackLayout Spacing="0" VerticalOptions="Center">
-                                                <Image Source="menudisputas.png"/>
-                                                <Label Text="Disputas" FontSize="Small"
+                        <VerticalStackLayout Spacing="0" VerticalOptions="Center">
+                            <Image Source="menudisputas.png"/>
+                            <Label Text="Disputas" FontSize="Small"
                                     HorizontalTextAlignment="Center" Margin="10,0"/>
-                                            </VerticalStackLayout>
-                            </Frame>
+                        </VerticalStackLayout>
+                    </Frame>
                 </HorizontalStackLayout>
             </ScrollView>
-            <HorizontalStackLayout Margin="10,100">
-                <Image Source="exit.svg" WidthRequest="50"/>
-                <Label Text="Sair" Margin="10,0,0,0" VerticalTextAlignment="Center" />
-            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ContentPage.Content>
 

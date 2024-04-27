@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace EcoletaApp.Services.Ecopontos
 {
-    public class EcopontoService
+    public class EcopontoService : Request
     {
         private readonly Request _request;
         private const string apiURLBase = "http://SustenTechDS.somee.com/Ecoleta/api/Ecoponto/";

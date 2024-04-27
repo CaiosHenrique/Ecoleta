@@ -100,6 +100,10 @@ namespace EcoletaApp.Services
             string serialized = await response.Content.ReadAsStringAsync();
             TResult result = await Task.Run(() =>
             JsonConvert.DeserializeObject<TResult>(serialized));
+           
+            if(response.IsSuccessStatusCode)
+                return result;
+            else
             throw new Exception(serialized);
         }
 

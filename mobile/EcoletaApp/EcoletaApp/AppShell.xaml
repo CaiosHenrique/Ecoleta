@@ -29,23 +29,19 @@
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
 
+  
+        <!-- aqui é o Hamburgue-->
+
+        <ShellContent Title="Home" ContentTemplate="{DataTemplate local:MainPage}"  Route="MainPage" />
+        <ShellContent Title="Sobre" Route="sobre" ContentTemplate="{DataTemplate local:AboutView}"/>
+        <ShellContent Title="Descrição" Route="desc" ContentTemplate="{DataTemplate local:DescriptionView}" />
+        <ShellContent Title="Ecopontos"  ContentTemplate="{DataTemplate viewEcopontos:ListagemView}" />
+
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-
-        <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-        <Tab Title="info" Route="info">
-            <ShellContent Title="Sobre" Route="sobre" ContentTemplate="{DataTemplate local:AboutView}"/>
-            <ShellContent Title="Ecopontos" Route="Ecopontos" ContentTemplate="{DataTemplate viewEcopontos:ListagemView}"/>
-            <ShellContent Title="Descrição" Route="desc" ContentTemplate="{DataTemplate local:DescriptionView}" />
-        </Tab>
-    </FlyoutItem>
-
-    <ShellContent Title="Sair" Icon="Exit.png" ContentTemplate="{DataTemplate local:AppShell}"
+       
+        <ShellContent Title="Sair"  ContentTemplate="{DataTemplate local:AppShell}"
            Shell.FlyoutBehavior="Disabled"/>
-    <Shell.FlyoutFooter>
-        <Label x:Name="lblLogin" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
-    </Shell.FlyoutFooter>
+
+    </FlyoutItem>  
 
 </Shell>
