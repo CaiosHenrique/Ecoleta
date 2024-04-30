@@ -12,7 +12,7 @@ namespace EcoletaApp.Services.Ecopontos
     public class EcopontoService : Request
     {
         private readonly Request _request;
-        private const string apiURLBase = "http://SustenTechDS.somee.com/Ecoleta/api/Ecoponto/";
+        private const string apiURLBase = "http://SustenTechDS.somee.com/Ecoleta/api/Ecoponto";
 
         public EcopontoService()
         { 
@@ -23,7 +23,7 @@ namespace EcoletaApp.Services.Ecopontos
 
         public async Task<Ecoponto>  PostRegsistrarEcopontoAsync(Ecoponto e)
         {
-            string urlComplementar = "/PostEcoponto";
+            string urlComplementar = "EcopPonto/";
             e.IdEcoponto = await _request.PostReturnIntAsync(apiURLBase + urlComplementar, e);
             return e;
         }
