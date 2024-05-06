@@ -191,6 +191,7 @@ namespace api.Controllers
             }
         }
 
+        [HttpPost("Autenticar")]
         public async Task<IActionResult> AutenticarUsuario(UtilizadorModel credenciais)
         {
             try
