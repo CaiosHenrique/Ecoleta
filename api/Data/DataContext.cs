@@ -1,6 +1,7 @@
 using System;
 using api.Controllers;
 using api.Models;
+using api.Utils;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -30,6 +31,14 @@ namespace api.Data
        new EcopontoModel() { IdEcoponto = 1, Nome = "Ecoponto1", CNPJ = 12345678, RazaoSocial = "Paz Mundial", Logradouro = "sla", Endereco = "sla2", Complemento = "sla3", Bairro = "sla4", Cidade = "sla5", UF = "sl", CEP = 03081010, Latitude = 0192, Longitude = 0193 },
        new EcopontoModel() { IdEcoponto = 2, Nome = "Ecoponto2", CNPJ = 12345678, RazaoSocial = "Paz Mundial", Logradouro = "sla", Endereco = "sla2", Complemento = "sla3", Bairro = "sla4", Cidade = "sla5", UF = "sl", CEP = 03081010, Latitude = 0192, Longitude = 0193 }
     );
+
+            UtilizadorModel utilizador = new UtilizadorModel();
+            Criptografia.CriarPasswordHash("123456", out byte[] hash, out byte[]salt);
+            utilizador.IdUtilizador = 1;
+            utilizador.Username = "UsuarioAdmin";
+            utilizador.PasswordString = string.Empty;
+            utilizador.PasswordHash = hash;
+            utilizador.PasswordSalt = salt;
 }
     }
 }
