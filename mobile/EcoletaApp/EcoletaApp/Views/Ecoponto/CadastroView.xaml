@@ -44,6 +44,10 @@
 
             <Label Text="Longitude" FontSize="Medium"/>
             <Entry Text="{Binding Longitude}" FontSize="Medium" />
+
+            <HorizontalStackLayout Spacing="20">
+                <Button Text="Salvar" Command="{Binding SalvarCommand}"></Button>
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

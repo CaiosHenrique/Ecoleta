@@ -3,6 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoletaApp.Views.Ecoponto.ListagemView"
              Title="ListagemView">
+    
+    <Shell.TitleView>
+        <Button Command="{Binding NovoEcoponto}" Text="Novo Ecoponto" HorizontalOptions="End"></Button>
+        </Shell.TitleView>
+        
     <ScrollView>
           <VerticalStackLayout Padding="10, 0, 0, 0" VerticalOptions="FillAndExpand">
             

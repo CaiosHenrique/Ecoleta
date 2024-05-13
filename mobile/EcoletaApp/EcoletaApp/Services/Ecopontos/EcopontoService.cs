@@ -21,11 +21,10 @@ namespace EcoletaApp.Services.Ecopontos
 
        
 
-        public async Task<Ecoponto>  PostRegsistrarEcopontoAsync(Ecoponto e)
+        public async Task<int>  PostRegsistrarEcopontoAsync(Ecoponto e)
         {
-            string urlComplementar = "EcopPonto/";
-            e.IdEcoponto = await _request.PostReturnIntAsync(apiURLBase + urlComplementar, e);
-            return e;
+            string urlComplementar = "/";
+            return await _request.PostReturnIntAsync(apiURLBase + urlComplementar, e);
         }
 
         public async Task<Ecoponto> PostEcopontoAsync(Ecoponto e)

@@ -4,9 +4,16 @@ namespace EcoletaApp.Views.Ecoponto;
 
 public partial class CadastroView : ContentPage
 {
-	public CadastroView()
+	private CadastroEcopontoViewModel cadViewModel;
+
+
+    public CadastroView()
 	{
 		InitializeComponent();
-	 // parei pdf 9 part 12
-	}
+	 
+		cadViewModel = new CadastroEcopontoViewModel();
+		BindingContext = cadViewModel;
+		Title = "Novo Ecoponto";
+
+    }
 }

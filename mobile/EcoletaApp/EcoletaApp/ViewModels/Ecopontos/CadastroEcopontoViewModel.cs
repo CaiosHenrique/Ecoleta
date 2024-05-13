@@ -18,7 +18,7 @@ namespace EcoletaApp.ViewModels.Ecopontos
         public CadastroEcopontoViewModel()
         {
             eService = new EcopontoService();
-
+            
             SalvarCommand = new Command(async () => { await salvarEcoponto(); });
         }
 
@@ -33,23 +33,23 @@ namespace EcoletaApp.ViewModels.Ecopontos
         private string bairro;
         private string cidade;
         private string uf;
-        private string cep;
+        private int cep;
         private int latitude;
         private int longitude;
 
-        public int IdEcoponto { get => idEcoponto; set {idEcoponto = value;OnPropertyChanged(); } }
-        public string Nome { get => nome; set { nome = value; OnPropertyChanged(); } }
-        public int Cnpj { get => cnpj; set { cnpj = value; OnPropertyChanged(); } }   
-        public string RazaoSocial { get => razaoSocial; set { razaoSocial = value; OnPropertyChanged(); } }
-        public string Logradouro { get => logradouro; set { logradouro = value; OnPropertyChanged(); } }
-        public string Endereco { get => endereco; set { endereco = value; OnPropertyChanged(); } }
-        public string Complemento { get => complemento; set { complemento = value; OnPropertyChanged(); }}
-        public string Bairro { get => bairro; set { bairro = value; OnPropertyChanged(); } }
-        public string Cidade { get => cidade; set { cidade = value; OnPropertyChanged(); } }
-        public string Uf { get => uf; set { uf = value; OnPropertyChanged(); } }
-        public string Cep { get => cep; set { cep = value; OnPropertyChanged(); } }
-        public int Latitude { get => latitude; set { latitude = value; OnPropertyChanged(); } }
-        public int Longitude { get => longitude; set { longitude = value; OnPropertyChanged(); } }
+        public int IdEcoponto { get => idEcoponto; set {idEcoponto = value;OnPropertyChanged(nameof(IdEcoponto)); } }
+        public string Nome { get => nome; set { nome = value; OnPropertyChanged(nameof(Nome)); } }
+        public int CNPJ { get => cnpj; set { cnpj = value; OnPropertyChanged(nameof(CNPJ)); } }   
+        public string RazaoSocial { get => razaoSocial; set { razaoSocial = value; OnPropertyChanged(nameof(RazaoSocial)); } }
+        public string Logradouro { get => logradouro; set { logradouro = value; OnPropertyChanged(nameof(Logradouro)); } }
+        public string Endereco { get => endereco; set { endereco = value; OnPropertyChanged(nameof(Endereco)); } }
+        public string Complemento { get => complemento; set { complemento = value; OnPropertyChanged(nameof(Complemento)); }}
+        public string Bairro { get => bairro; set { bairro = value; OnPropertyChanged(nameof(Bairro)); } }
+        public string Cidade { get => cidade; set { cidade = value; OnPropertyChanged(nameof(Cidade)); } }
+        public string UF { get => uf; set { uf = value; OnPropertyChanged(nameof(UF)); } }
+        public int CEP { get => cep; set { cep = value; OnPropertyChanged(nameof(CEP)); } }
+        public int Latitude { get => latitude; set { latitude = value; OnPropertyChanged(nameof(Latitude)); } }
+        public int Longitude { get => longitude; set { longitude = value; OnPropertyChanged(nameof(Longitude)); } }
 
 
         public async Task salvarEcoponto()
@@ -59,21 +59,22 @@ namespace EcoletaApp.ViewModels.Ecopontos
                 Ecoponto model = new Ecoponto();
                 {
                     Nome = this.nome;
-                    Cnpj = this.cnpj;
+                    CNPJ = this.cnpj;
                     RazaoSocial = this.razaoSocial;
                     Logradouro = this.logradouro;
                     Endereco = this.endereco;
                     Complemento = this.complemento;
                     Bairro = this.bairro;
                     Cidade = this.cidade;
-                    Uf = this.uf;
-                    Cep = this.cep;
+                    UF = this.uf;
+                    CEP = this.cep;
                     Latitude = this.latitude;
                     Longitude = this.longitude;
+                    IdEcoponto = this.idEcoponto;
                 };
 
                 if(model.IdEcoponto == 0)
-                    await eService.PostEcopontoAsync(model);
+                    await eService.PostRegsistrarEcopontoAsync(model);
 
                 await Application.Current.MainPage
                     .DisplayAlert("Mensagem", "Dados salvos com sucesso!", "OK");

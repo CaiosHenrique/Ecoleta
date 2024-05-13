@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 
 namespace EcoletaApp.ViewModels.Ecopontos
@@ -22,7 +23,11 @@ namespace EcoletaApp.ViewModels.Ecopontos
             Ecopontos = new ObservableCollection<Ecoponto>();
 
             _ = ObterEcopontos();
+
+            NovoEcoponto = new Command(async () => { await ExibirCadastroEcoponto(); });
         }
+
+        public ICommand NovoEcoponto { get; }
 
 
         public async Task ObterEcopontos()
@@ -38,5 +43,20 @@ namespace EcoletaApp.ViewModels.Ecopontos
                     ex.Message + "Detalhes:" + ex.InnerException, "OK");
             }
         }
+
+        public async Task ExibirCadastroEcoponto()
+        {
+            try
+            {
+                await Shell.Current.GoToAsync("cadEcopontoView");
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage
+                    .DisplayAlert("Ops", ex.Message + "Detalhes" + ex.InnerException, "OK");
+            }
+
         }
+    }
+    
 }
