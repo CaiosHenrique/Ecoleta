@@ -169,6 +169,9 @@ namespace api.Controllers
         }
 
         [HttpPost("Registrar")]
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegistrarUsuario(UtilizadorModel utilizador)
         {
             try
@@ -177,21 +180,26 @@ namespace api.Controllers
                     throw new System.Exception("Nome de usuário já existe");
 
                 Criptografia.CriarPasswordHash(utilizador.PasswordString, out byte[] hash, out byte[] salt);
+
                 utilizador.PasswordString = string.Empty;
                 utilizador.PasswordHash = hash;
                 utilizador.PasswordSalt = salt;
+
                 await _context.TB_UTILIZADOR.AddAsync(utilizador);
                 await _context.SaveChangesAsync();
 
-                return Ok(utilizador.IdUtilizador);
+                return StatusCode(200);
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return return BadRequest(ex.Message);
             }
         }
 
         [HttpPost("Autenticar")]
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AutenticarUsuario(UtilizadorModel credenciais)
         {
             try
@@ -213,7 +221,7 @@ namespace api.Controllers
                     _context.TB_UTILIZADOR.Update(usuario);
                     await _context.SaveChangesAsync(); //Confirma a alteração no banco
 
-                    return Ok(usuario);
+                    return StatusCode(200);
                 }
             }
             catch (System.Exception ex)

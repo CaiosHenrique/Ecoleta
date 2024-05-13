@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace api.Models
 {
     public class EcopontoModel
@@ -31,6 +32,14 @@ namespace api.Models
         public int Latitude { get; set; }
 
         public int Longitude { get; set; }
+
+
+        public string Username { get; set; } = string.Empty;
+        public byte[]? PasswordHash { get; set; } 
+        public byte[]? PasswordSalt { get; set; }
+
+        [NotMapped] // using System.ComponentModel.DataAnnotations.Schema
+        public string PasswordString { get; set; } = string.Empty;
 
     }
 }
