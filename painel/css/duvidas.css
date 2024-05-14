@@ -44,7 +44,7 @@ html {
     width: 100%;
     position: fixed;
     z-index: 1000;
-    /* opacity: 0.1; */
+    opacity: 0.9; 
   }
   
   /* Classe para o cabeçalho quando a página é rolada
@@ -65,7 +65,13 @@ html {
     height: 75px;
   }
   
-  
+  header nav a:hover {
+    background-color: #04dbc6;
+    border-color: #009989;
+    transition: 0.6s;
+    border-radius: 8px;
+    color: black;
+  }
  
  
   .CaixaParagrafo {
@@ -139,8 +145,15 @@ html {
     position: relative;
   }
   
+  @keyframes jumping {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+  }
+  
   .ImageFooter
   {
+    animation: jumping 1s infinite;
     margin-left: 130px;
     margin-right: 15px;
     height: 60px;

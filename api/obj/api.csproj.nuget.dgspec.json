@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "D:\\3DS\\MichelThiago\\Ecoleta\\api\\api.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "D:\\3DS\\MichelThiago\\Ecoleta\\api\\api.csproj",
         "packagesPath": "C:\\Users\\etechas\\.nuget\\packages\\",
         "outputPath": "D:\\3DS\\MichelThiago\\Ecoleta\\api\\obj\\",
+=======
+    "d:\\ArturCaio3DS\\Ecoleta\\api\\api.csproj": {}
+  },
+  "projects": {
+    "d:\\ArturCaio3DS\\Ecoleta\\api\\api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "d:\\ArturCaio3DS\\Ecoleta\\api\\api.csproj",
+        "projectName": "api",
+        "projectPath": "d:\\ArturCaio3DS\\Ecoleta\\api\\api.csproj",
+        "packagesPath": "C:\\Users\\etechas\\.nuget\\packages\\",
+        "outputPath": "d:\\ArturCaio3DS\\Ecoleta\\api\\obj\\",
+>>>>>>> 65f41d7f97bcaefb85d8e0d861d4c2bbf8e258c5
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

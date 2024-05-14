@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "lCHLtfjvog3k991sTZgEOs49yDQkAlY53OxnKXAjpxwL0hgAqrfANOuok7Ddkc2rDHjyRsWc7rkVTzgEXvXSQg==",
   "success": true,
   "projectFilePath": "D:\\3DS\\MichelThiago\\Ecoleta\\api\\api.csproj",
+=======
+  "dgSpecHash": "1bvqNNSb5QI+hXQBd87VgTlL4zQx5alHOMLrr3TmAk0osp6CAJNVjRh9L4K60fQv+Fy+2ONZDZ5yGGH44Vw6cw==",
+  "success": true,
+  "projectFilePath": "d:\\ArturCaio3DS\\Ecoleta\\api\\api.csproj",
+>>>>>>> 65f41d7f97bcaefb85d8e0d861d4c2bbf8e258c5
   "expectedPackageFiles": [
     "C:\\Users\\etechas\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\etechas\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

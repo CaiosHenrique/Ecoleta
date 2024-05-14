@@ -52,7 +52,7 @@ header {
   width: 100%;
   position: fixed;
   z-index: 1000;
-  /* opacity: 0.1; */
+  opacity: 0.9; 
 }
 
 /* Classe para o cabeçalho quando a página é rolada
@@ -73,6 +73,13 @@ header nav a {
   height: 75px;
 }
 
+header nav a:hover {
+  background-color: #04dbc6;
+  border-color: #009989;
+  transition: 0.6s;
+  border-radius: 8px;
+  color: black;
+}
 
 #inicio {
   position: relative;
@@ -163,8 +170,19 @@ h2 {
   margin: 64px auto;
 }
 
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 #sobre img {
   margin: 64px auto;
+   transform-style: preserve-3d;
+  animation: rotation 80s infinite linear;
 }
 
 #sobre .paragrafo {
@@ -182,8 +200,15 @@ footer {
   position: relative;
 }
 
+@keyframes jumping {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
 .ImageFooter
 {
+  animation: jumping 1s infinite;
   margin-left: 130px;
   margin-right: 15px;
   height: 60px;
@@ -223,5 +248,6 @@ footer p a {
 
 #copyright a {
   color: #009989;
+  text-decoration: none;
 }
 

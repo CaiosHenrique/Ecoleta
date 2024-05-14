@@ -7,6 +7,7 @@ using api.Models;
 using api.Models.Enuns;
 using System.Collections.Generic;
 using api.Data;
+using api.Utils;
 
 namespace api.Controllers
 {
@@ -141,5 +142,120 @@ namespace api.Controllers
 
             }
         }
+
+        [HttpPost("CadastrarEcoponto")]
+
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> RegistrarEcoponto([FromBody] EcopontoModel ecoponto)
+        {
+            try
+            {
+                Criptografia.CriarPasswordHash(utilizador.PasswordString, out byte[] hash, out byte[] salt);
+
+                ecoponto.PasswordString = string.Empty;
+                ecoponto.PasswordHash = hash;
+                ecoponto.PasswordSalt = salt;
+
+                await _context.TB_ECOPONTO.AddAsync(ecoponto);
+                await _context.SaveChangesAsync();
+
+                return StatusCode(201, ecoponto);
+
+            }
+
+            catch (System.Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+
+            }
+        }
+
+        [HttpPost("AutenticarEcoponto")]
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> AutenticarEcoponto([FromBody] EcopontoModel ecoponto)
+        {
+            try
+            {
+                EcopontoModel ecoponto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+
+                if (ecoponto == null)
+                    return StatusCode(404);
+
+                if (!Criptografia.VerificarPasswordHash(ecoponto.PasswordHash, ecoponto.PasswordSalt, ecoponto.PasswordString))
+                    return StatusCode(401);
+
+                return StatusCode(200, ecoponto);
+
+            }
+
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+
+            }
+        }
+
+        [HttpPut("AlterarSenha")]
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> AlterarSenha([FromBody] EcopontoModel ecoponto)
+        {
+            try
+            {
+                EcopontoModel ecoponto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+
+                if (ecoponto == null)
+                    return StatusCode(404);
+
+                Criptografia.CriarPasswordHash(ecoponto.PasswordString, out byte[] hash, out byte[] salt);
+
+                ecoponto.PasswordString = string.Empty;
+                ecoponto.PasswordHash = hash;
+                ecoponto.PasswordSalt = salt;
+
+                await _context.SaveChangesAsync();
+
+                return StatusCode(200, ecoponto);
+
+            }
+
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+
+            }
+        }
+
+        [HttpPut("AlterarEmail")]
+        public async Task<ActionResult> AlterarEmail([FromBody] EcopontoModel ecoponto)
+        {
+            try
+            {
+                EcopontoModel ecoponto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+
+                if (ecoponto == null)
+                    return StatusCode(404);
+
+                ecoponto.Email = ecoponto.Email;
+
+                await _context.SaveChangesAsync();
+
+                return StatusCode(200, ecoponto);
+
+            }
+
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+
+            }
+        }
+
     }
 }
