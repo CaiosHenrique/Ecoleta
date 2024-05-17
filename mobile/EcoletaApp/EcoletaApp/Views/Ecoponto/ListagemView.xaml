@@ -11,10 +11,15 @@
     <ScrollView>
           <VerticalStackLayout Padding="10, 0, 0, 0" VerticalOptions="FillAndExpand">
             
-            <ListView x:Name="listView" HasUnevenRows="True" ItemsSource="{Binding Ecopontos}" >
+            <ListView x:Name="listView" HasUnevenRows="True" ItemsSource="{Binding Ecopontos}" SelectedItem="{Binding EcopontoSelecionado}" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Remover" IsDestructive="True" 
+                                              Command="{Binding Path=BindingContext.RemoverEcopontoCommand, Source={x:Reference listView}}"
+                                              CommandParameter="{Binding .}"></MenuItem>
+                            </ViewCell.ContextActions>
                             <StackLayout Padding="10">
 
                       

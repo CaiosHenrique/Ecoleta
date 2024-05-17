@@ -10,6 +10,7 @@ using EcoletaApp.Services.Ecopontos;
 
 namespace EcoletaApp.ViewModels.Ecopontos
 {
+    [QueryProperty("EcopontoSelecionadoId", "eId")]
     class CadastroEcopontoViewModel : BaseViewModel
     {
         private EcopontoService eService;
@@ -59,6 +60,10 @@ namespace EcoletaApp.ViewModels.Ecopontos
         public int Latitude { get => latitude; set { latitude = value; OnPropertyChanged(nameof(Latitude)); } }
         public int Longitude { get => longitude; set { longitude = value; OnPropertyChanged(nameof(Longitude)); } }
 
+        public string EcopontoSelecionadoId { get => ecopontoSelecionadoId; set { if (value != null) { ecopontoSelecionadoId = Uri.UnescapeDataString(value); CarregarEcoponto(); } } }
+
+        private string ecopontoSelecionadoId;
+
 
         public async Task salvarEcoponto()
         {
@@ -84,6 +89,8 @@ namespace EcoletaApp.ViewModels.Ecopontos
 
                 if (model.IdEcoponto == 0)
                     await eService.PostRegsistrarEcopontoAsync(model);
+                else
+                    await eService.PutEcopontoAsync(model);
 
                 await Application.Current.MainPage
                     .DisplayAlert("Mensagem", "Dados salvos com sucesso!", "OK");
@@ -96,6 +103,33 @@ namespace EcoletaApp.ViewModels.Ecopontos
                 await Application.Current.MainPage
                     .DisplayAlert("OPS", ex.Message + "Detalhes" + ex.InnerException, "Ok");                
                 
+            }
+        }
+
+        public async void CarregarEcoponto()
+        { 
+            try
+            {
+                Ecoponto e = await eService.GetEcopontoAsync(int.Parse(ecopontoSelecionadoId));
+
+                this.Nome = e.Nome;
+                this.CNPJ = e.CNPJ;
+                this.RazaoSocial = e.RazaoSocial;
+                this.Logradouro = e.Logradouro;
+                this.Endereco = e.Endereco;
+                this.Complemento = e.Complemento;
+                this.Bairro = e.Bairro;
+                this.Cidade = e.Cidade;
+                this.UF = e.UF;
+                this.CEP = e.CEP;
+                this.Latitude = e.Latitude;
+                this.Longitude = e.Longitude;
+                this.IdEcoponto = e.IdEcoponto;
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage
+                    .DisplayAlert("OPS", ex.Message + "Detalhes" + ex.InnerException, "Ok");
             }
         }
 

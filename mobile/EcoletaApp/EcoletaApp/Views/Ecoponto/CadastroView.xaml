@@ -6,6 +6,10 @@
              Title="CadastroView">
     <ScrollView>
         <VerticalStackLayout Spacing="3" Padding="15">
+
+            <Label Text="Nome" FontSize="Medium" />
+            <Entry Text="{Binding IdEcoponto}" IsEnabled="False" FontSize="Medium" />
+            
             <Label Text="Nome" FontSize="Medium" />
             <Entry Text="{Binding Nome}" FontSize="Medium" />
 
