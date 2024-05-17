@@ -6,7 +6,6 @@ public partial class CadastroView : ContentPage
 {
 	private CadastroEcopontoViewModel cadViewModel;
 
-
     public CadastroView()
 	{
 		InitializeComponent();

@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoletaApp.Views.Ecoponto.CadastroView"
+             Shell.PresentationMode="Animated"
              Title="CadastroView">
     <ScrollView>
-        <VerticalStackLayout Spacing="3" Padding="14">
+        <VerticalStackLayout Spacing="3" Padding="15">
             <Label Text="Nome" FontSize="Medium" />
             <Entry Text="{Binding Nome}" FontSize="Medium" />
 
@@ -13,39 +14,40 @@
 
 
             <Label Text="Qual é a Razão Social" FontSize="Medium"/>
-            <Entry Text="{Binding RazaoSocial}" FontSize="Medium" />
+            <Entry Text="{Binding RazaoSocial}" FontSize="Medium" Keyboard="Chat" />
 
 
             <Label Text="Logradouro" FontSize="Medium"/>
-            <Entry Text="{Binding Logradouro}" FontSize="Medium" />
+            <Entry Text="{Binding Logradouro}" FontSize="Medium" Keyboard="Chat"  />
 
 
             <Label Text="Endereço" FontSize="Medium"/>
-            <Entry Text="{Binding Endereco}" FontSize="Medium" />
+            <Entry Text="{Binding Endereco}" FontSize="Medium" Keyboard="Chat"  />
 
 
             <Label Text="Complemento" FontSize="Medium"/>
-            <Entry Text="{Binding Complemento}" FontSize="Medium" />
+            <Entry Text="{Binding Complemento}" FontSize="Medium" Keyboard="Chat" />
 
             <Label Text="Bairro" FontSize="Medium"/>
-            <Entry Text="{Binding Bairro}" FontSize="Medium" />
+            <Entry Text="{Binding Bairro}" FontSize="Medium" Keyboard="Chat"  />
 
             <Label Text="Cidade" FontSize="Medium"/>
-            <Entry Text="{Binding Cidade}" FontSize="Medium" />
+            <Entry Text="{Binding Cidade}" FontSize="Medium" Keyboard="Chat" />
 
             <Label Text="UF" FontSize="Medium"/>
-            <Entry Text="{Binding UF}" FontSize="Medium" />
+            <Entry Text="{Binding UF}" FontSize="Medium" Keyboard="Chat"  />
 
             <Label Text="Cep" FontSize="Medium"/>
-            <Entry Text="{Binding CEP}" FontSize="Medium" />
+            <Entry Text="{Binding CEP}" FontSize="Medium" Keyboard="Numeric"/>
 
             <Label Text="Latitude" FontSize="Medium"/>
-            <Entry Text="{Binding Latitude}" FontSize="Medium" />
+            <Entry Text="{Binding Latitude}" FontSize="Medium" Keyboard="Numeric"  />
 
             <Label Text="Longitude" FontSize="Medium"/>
-            <Entry Text="{Binding Longitude}" FontSize="Medium" />
+            <Entry Text="{Binding Longitude}" FontSize="Medium" Keyboard="Numeric"   />
 
             <HorizontalStackLayout Spacing="20">
+                <Button Text="Cancel" Command="{Binding CancelarCommand}"></Button>
                 <Button Text="Salvar" Command="{Binding SalvarCommand}"></Button>
             </HorizontalStackLayout>
         </VerticalStackLayout>

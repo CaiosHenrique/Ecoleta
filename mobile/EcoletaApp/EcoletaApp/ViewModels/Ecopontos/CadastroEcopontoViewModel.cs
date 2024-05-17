@@ -14,14 +14,16 @@ namespace EcoletaApp.ViewModels.Ecopontos
     {
         private EcopontoService eService;
         public ICommand SalvarCommand { get; }
+        public ICommand CancelarCommand { get; }
 
         public CadastroEcopontoViewModel()
         {
             eService = new EcopontoService();
             
             SalvarCommand = new Command(async () => { await salvarEcoponto(); });
+            CancelarCommand = new Command(async => CancelarCadstro()); 
         }
-
+    
 
         private int idEcoponto;
         private string nome;
@@ -37,7 +39,13 @@ namespace EcoletaApp.ViewModels.Ecopontos
         private int latitude;
         private int longitude;
 
-        public int IdEcoponto { get => idEcoponto; set {idEcoponto = value;OnPropertyChanged(nameof(IdEcoponto)); } }
+        public int IdEcoponto 
+        { get => idEcoponto; 
+            set 
+            {
+                idEcoponto = value;OnPropertyChanged(nameof(IdEcoponto));
+            }
+        }
         public string Nome { get => nome; set { nome = value; OnPropertyChanged(nameof(Nome)); } }
         public int CNPJ { get => cnpj; set { cnpj = value; OnPropertyChanged(nameof(CNPJ)); } }   
         public string RazaoSocial { get => razaoSocial; set { razaoSocial = value; OnPropertyChanged(nameof(RazaoSocial)); } }
@@ -56,24 +64,25 @@ namespace EcoletaApp.ViewModels.Ecopontos
         {
             try 
             {
-                Ecoponto model = new Ecoponto();
+                Ecoponto model = new Ecoponto
                 {
-                    Nome = this.nome;
-                    CNPJ = this.cnpj;
-                    RazaoSocial = this.razaoSocial;
-                    Logradouro = this.logradouro;
-                    Endereco = this.endereco;
-                    Complemento = this.complemento;
-                    Bairro = this.bairro;
-                    Cidade = this.cidade;
-                    UF = this.uf;
-                    CEP = this.cep;
-                    Latitude = this.latitude;
-                    Longitude = this.longitude;
-                    IdEcoponto = this.idEcoponto;
+                    Nome = this.Nome,
+                    CNPJ = this.CNPJ,
+                    RazaoSocial = this.RazaoSocial,
+                    Logradouro = this.Logradouro,
+                    Endereco = this.Endereco,
+                    Complemento = this.Complemento,
+                    Bairro = this.Bairro,
+                    Cidade = this.Cidade,
+                    UF = this.UF,
+                    CEP = this.CEP,
+                    Latitude = this.Latitude,
+                    Longitude = this.Longitude,
+                    IdEcoponto = this.IdEcoponto
                 };
 
-                if(model.IdEcoponto == 0)
+
+                if (model.IdEcoponto == 0)
                     await eService.PostRegsistrarEcopontoAsync(model);
 
                 await Application.Current.MainPage
@@ -83,9 +92,16 @@ namespace EcoletaApp.ViewModels.Ecopontos
             }
             catch (Exception ex) 
             {
+                await Shell.Current.GoToAsync("..");
                 await Application.Current.MainPage
-                    .DisplayAlert("OPS", ex.Message + "Detalhes" + ex.InnerException, "Ok");
+                    .DisplayAlert("OPS", ex.Message + "Detalhes" + ex.InnerException, "Ok");                
+                
             }
+        }
+
+        private async void CancelarCadstro()
+        {
+            await Shell.Current.GoToAsync("..");
         }
 
     }
