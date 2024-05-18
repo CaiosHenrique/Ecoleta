@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\artur\\Desktop\\Etec\\Ecoleta\\api\\api.csproj": {}
+    "C:\\Users\\PC do M & R\\OneDrive\\Área de Trabalho\\Tcc\\Ecoleta\\api\\api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\artur\\Desktop\\Etec\\Ecoleta\\api\\api.csproj": {
+    "C:\\Users\\PC do M & R\\OneDrive\\Área de Trabalho\\Tcc\\Ecoleta\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\artur\\Desktop\\Etec\\Ecoleta\\api\\api.csproj",
+        "projectUniqueName": "C:\\Users\\PC do M & R\\OneDrive\\Área de Trabalho\\Tcc\\Ecoleta\\api\\api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\Users\\artur\\Desktop\\Etec\\Ecoleta\\api\\api.csproj",
-        "packagesPath": "C:\\Users\\artur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\artur\\Desktop\\Etec\\Ecoleta\\api\\obj\\",
+        "projectPath": "C:\\Users\\PC do M & R\\OneDrive\\Área de Trabalho\\Tcc\\Ecoleta\\api\\api.csproj",
+        "packagesPath": "C:\\Users\\PC do M & R\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC do M & R\\OneDrive\\Área de Trabalho\\Tcc\\Ecoleta\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\artur\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC do M & R\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
