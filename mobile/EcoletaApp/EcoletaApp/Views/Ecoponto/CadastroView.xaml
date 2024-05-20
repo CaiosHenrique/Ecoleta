@@ -50,6 +50,17 @@
             <Label Text="Longitude" FontSize="Medium"/>
             <Entry Text="{Binding Longitude}" FontSize="Medium" Keyboard="Numeric"   />
 
+            <Label Text="Nome do Usuário" FontSize="Medium"/>
+            <Entry Text="{Binding Username}" FontSize="Medium" Keyboard="Chat" />
+
+            <Label Text="Email" FontSize="Medium"/>
+            <Entry Text="{Binding Email}" FontSize="Medium" Keyboard="Chat" />
+
+            <Label Text="Senha" FontSize="Medium"/>
+            <Entry Text="{Binding PasswordString}" FontSize="Medium" Keyboard="Chat" />
+
+
+
             <HorizontalStackLayout Spacing="20">
                 <Button Text="Cancel" Command="{Binding CancelarCommand}"></Button>
                 <Button Text="Salvar" Command="{Binding SalvarCommand}"></Button>

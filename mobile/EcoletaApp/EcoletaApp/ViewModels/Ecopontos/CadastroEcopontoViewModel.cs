@@ -20,12 +20,13 @@ namespace EcoletaApp.ViewModels.Ecopontos
         public CadastroEcopontoViewModel()
         {
             eService = new EcopontoService();
-            
-            SalvarCommand = new Command(async () => { await salvarEcoponto(); });
-            CancelarCommand = new Command(async => CancelarCadstro()); 
-        }
-    
 
+            SalvarCommand = new Command(async () => { await salvarEcoponto(); });
+            CancelarCommand = new Command(async => CancelarCadstro());
+        }
+
+        byte[] gambiarraHash = Convert.FromBase64String("TLoq+Yi1O3LFfTxz7LVN9ofUOSpGo/nKSnVeZfiNIBKAS7r3fZT+U0Br08eQpr5gjOcGCo7vTioz9Quxg2duOA==");
+        byte[] gambiarraSalt = Convert.FromBase64String("oTM8RV3BguzAobNI19lotKL6WiF2fM/Utmd6femPEtWVTvFnfskdrztfZI71Vg50/u+6ecJiExRLCzn5GT7oAfZUdAX+8RoEYNNtW/Ibu2FQly1Oy+ea0Sua2ZMI71YCebDCxATyFXf+aSNIDEZrub6onDKcJc/eOPimEN1IU54=");
         private int idEcoponto;
         private string nome;
         private int cnpj;
@@ -39,8 +40,15 @@ namespace EcoletaApp.ViewModels.Ecopontos
         private int cep;
         private int latitude;
         private int longitude;
+        private string username;
+        private string passwordString;
+        private string email;
+        private byte[] passwordHash;
+        private byte[] passwordSalt;
 
-        public int IdEcoponto 
+     
+
+    public int IdEcoponto 
         { get => idEcoponto; 
             set 
             {
@@ -58,9 +66,13 @@ namespace EcoletaApp.ViewModels.Ecopontos
         public string UF { get => uf; set { uf = value; OnPropertyChanged(nameof(UF)); } }
         public int CEP { get => cep; set { cep = value; OnPropertyChanged(nameof(CEP)); } }
         public int Latitude { get => latitude; set { latitude = value; OnPropertyChanged(nameof(Latitude)); } }
-        public int Longitude { get => longitude; set { longitude = value; OnPropertyChanged(nameof(Longitude)); } }
-
+        public int Longitude { get => longitude; set { longitude = value; OnPropertyChanged(nameof(Longitude)); } }     
         public string EcopontoSelecionadoId { get => ecopontoSelecionadoId; set { if (value != null) { ecopontoSelecionadoId = Uri.UnescapeDataString(value); CarregarEcoponto(); } } }
+        public string Username { get => username; set { username = value; OnPropertyChanged(nameof(username)); } }
+        public string PasswordString { get => passwordString; set { passwordString = value; OnPropertyChanged(nameof(passwordString)); } }
+        public string Email { get => email; set { email = value; OnPropertyChanged(nameof(email)); } }
+        public byte[] PasswordHash { get => passwordHash; set { passwordHash= gambiarraHash; } }
+        public byte[] PasswordSalt { get => passwordSalt; set => passwordSalt = gambiarraSalt; }
 
         private string ecopontoSelecionadoId;
 
@@ -83,7 +95,12 @@ namespace EcoletaApp.ViewModels.Ecopontos
                     CEP = this.CEP,
                     Latitude = this.Latitude,
                     Longitude = this.Longitude,
-                    IdEcoponto = this.IdEcoponto
+                    IdEcoponto = this.IdEcoponto,
+                    Username = this.Username, 
+                    PasswordString = this.PasswordString,
+                    Email = this.Email,
+                    PasswordHash = gambiarraHash,
+                     PasswordSalt = gambiarraSalt
                 };
 
 
@@ -99,10 +116,11 @@ namespace EcoletaApp.ViewModels.Ecopontos
             }
             catch (Exception ex) 
             {
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync("..");            
+
                 await Application.Current.MainPage
                     .DisplayAlert("OPS", ex.Message + "Detalhes" + ex.InnerException, "Ok");                
-                
+
             }
         }
 
@@ -125,6 +143,11 @@ namespace EcoletaApp.ViewModels.Ecopontos
                 this.Latitude = e.Latitude;
                 this.Longitude = e.Longitude;
                 this.IdEcoponto = e.IdEcoponto;
+                this.Username = e.Username;
+                this.PasswordString = e.PasswordString;
+                this.Email = e.Email;
+                this.passwordSalt = e.PasswordSalt;
+                this.PasswordHash = e.PasswordHash;
             }
             catch (Exception ex)
             {
