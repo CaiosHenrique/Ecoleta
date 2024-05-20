@@ -10,19 +10,23 @@ using EcoletaApp.Services.Ecopontos;
 
 namespace EcoletaApp.ViewModels.Ecopontos
 {
+    [QueryProperty("EcopontoSelecionadoId", "eId")]
     class CadastroEcopontoViewModel : BaseViewModel
     {
         private EcopontoService eService;
         public ICommand SalvarCommand { get; }
+        public ICommand CancelarCommand { get; }
 
         public CadastroEcopontoViewModel()
         {
             eService = new EcopontoService();
-            
+
             SalvarCommand = new Command(async () => { await salvarEcoponto(); });
+            CancelarCommand = new Command(async => CancelarCadstro());
         }
 
-
+        byte[] gambiarraHash = Convert.FromBase64String("TLoq+Yi1O3LFfTxz7LVN9ofUOSpGo/nKSnVeZfiNIBKAS7r3fZT+U0Br08eQpr5gjOcGCo7vTioz9Quxg2duOA==");
+        byte[] gambiarraSalt = Convert.FromBase64String("oTM8RV3BguzAobNI19lotKL6WiF2fM/Utmd6femPEtWVTvFnfskdrztfZI71Vg50/u+6ecJiExRLCzn5GT7oAfZUdAX+8RoEYNNtW/Ibu2FQly1Oy+ea0Sua2ZMI71YCebDCxATyFXf+aSNIDEZrub6onDKcJc/eOPimEN1IU54=");
         private int idEcoponto;
         private string nome;
         private int cnpj;
@@ -36,8 +40,21 @@ namespace EcoletaApp.ViewModels.Ecopontos
         private int cep;
         private int latitude;
         private int longitude;
+        private string username;
+        private string passwordString;
+        private string email;
+        private byte[] passwordHash;
+        private byte[] passwordSalt;
 
-        public int IdEcoponto { get => idEcoponto; set {idEcoponto = value;OnPropertyChanged(nameof(IdEcoponto)); } }
+     
+
+    public int IdEcoponto 
+        { get => idEcoponto; 
+            set 
+            {
+                idEcoponto = value;OnPropertyChanged(nameof(IdEcoponto));
+            }
+        }
         public string Nome { get => nome; set { nome = value; OnPropertyChanged(nameof(Nome)); } }
         public int CNPJ { get => cnpj; set { cnpj = value; OnPropertyChanged(nameof(CNPJ)); } }   
         public string RazaoSocial { get => razaoSocial; set { razaoSocial = value; OnPropertyChanged(nameof(RazaoSocial)); } }
@@ -49,32 +66,48 @@ namespace EcoletaApp.ViewModels.Ecopontos
         public string UF { get => uf; set { uf = value; OnPropertyChanged(nameof(UF)); } }
         public int CEP { get => cep; set { cep = value; OnPropertyChanged(nameof(CEP)); } }
         public int Latitude { get => latitude; set { latitude = value; OnPropertyChanged(nameof(Latitude)); } }
-        public int Longitude { get => longitude; set { longitude = value; OnPropertyChanged(nameof(Longitude)); } }
+        public int Longitude { get => longitude; set { longitude = value; OnPropertyChanged(nameof(Longitude)); } }     
+        public string EcopontoSelecionadoId { get => ecopontoSelecionadoId; set { if (value != null) { ecopontoSelecionadoId = Uri.UnescapeDataString(value); CarregarEcoponto(); } } }
+        public string Username { get => username; set { username = value; OnPropertyChanged(nameof(username)); } }
+        public string PasswordString { get => passwordString; set { passwordString = value; OnPropertyChanged(nameof(passwordString)); } }
+        public string Email { get => email; set { email = value; OnPropertyChanged(nameof(email)); } }
+        public byte[] PasswordHash { get => passwordHash; set { passwordHash= gambiarraHash; } }
+        public byte[] PasswordSalt { get => passwordSalt; set => passwordSalt = gambiarraSalt; }
+
+        private string ecopontoSelecionadoId;
 
 
         public async Task salvarEcoponto()
         {
             try 
             {
-                Ecoponto model = new Ecoponto();
+                Ecoponto model = new Ecoponto
                 {
-                    Nome = this.nome;
-                    CNPJ = this.cnpj;
-                    RazaoSocial = this.razaoSocial;
-                    Logradouro = this.logradouro;
-                    Endereco = this.endereco;
-                    Complemento = this.complemento;
-                    Bairro = this.bairro;
-                    Cidade = this.cidade;
-                    UF = this.uf;
-                    CEP = this.cep;
-                    Latitude = this.latitude;
-                    Longitude = this.longitude;
-                    IdEcoponto = this.idEcoponto;
+                    Nome = this.Nome,
+                    CNPJ = this.CNPJ,
+                    RazaoSocial = this.RazaoSocial,
+                    Logradouro = this.Logradouro,
+                    Endereco = this.Endereco,
+                    Complemento = this.Complemento,
+                    Bairro = this.Bairro,
+                    Cidade = this.Cidade,
+                    UF = this.UF,
+                    CEP = this.CEP,
+                    Latitude = this.Latitude,
+                    Longitude = this.Longitude,
+                    IdEcoponto = this.IdEcoponto,
+                    Username = this.Username, 
+                    PasswordString = this.PasswordString,
+                    Email = this.Email,
+                    PasswordHash = gambiarraHash,
+                     PasswordSalt = gambiarraSalt
                 };
 
-                if(model.IdEcoponto == 0)
+
+                if (model.IdEcoponto == 0)
                     await eService.PostRegsistrarEcopontoAsync(model);
+                else
+                    await eService.PutEcopontoAsync(model);
 
                 await Application.Current.MainPage
                     .DisplayAlert("Mensagem", "Dados salvos com sucesso!", "OK");
@@ -83,9 +116,49 @@ namespace EcoletaApp.ViewModels.Ecopontos
             }
             catch (Exception ex) 
             {
+                await Shell.Current.GoToAsync("..");            
+
+                await Application.Current.MainPage
+                    .DisplayAlert("OPS", ex.Message + "Detalhes" + ex.InnerException, "Ok");                
+
+            }
+        }
+
+        public async void CarregarEcoponto()
+        { 
+            try
+            {
+                Ecoponto e = await eService.GetEcopontoAsync(int.Parse(ecopontoSelecionadoId));
+
+                this.Nome = e.Nome;
+                this.CNPJ = e.CNPJ;
+                this.RazaoSocial = e.RazaoSocial;
+                this.Logradouro = e.Logradouro;
+                this.Endereco = e.Endereco;
+                this.Complemento = e.Complemento;
+                this.Bairro = e.Bairro;
+                this.Cidade = e.Cidade;
+                this.UF = e.UF;
+                this.CEP = e.CEP;
+                this.Latitude = e.Latitude;
+                this.Longitude = e.Longitude;
+                this.IdEcoponto = e.IdEcoponto;
+                this.Username = e.Username;
+                this.PasswordString = e.PasswordString;
+                this.Email = e.Email;
+                this.passwordSalt = e.PasswordSalt;
+                this.PasswordHash = e.PasswordHash;
+            }
+            catch (Exception ex)
+            {
                 await Application.Current.MainPage
                     .DisplayAlert("OPS", ex.Message + "Detalhes" + ex.InnerException, "Ok");
             }
+        }
+
+        private async void CancelarCadstro()
+        {
+            await Shell.Current.GoToAsync("..");
         }
 
     }

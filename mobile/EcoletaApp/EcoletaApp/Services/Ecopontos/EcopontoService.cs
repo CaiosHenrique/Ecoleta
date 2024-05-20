@@ -50,7 +50,7 @@ namespace EcoletaApp.Services.Ecopontos
         public async Task<int> PutEcopontoAsync(Ecoponto e)
         {
             string urlComplementar = string.Format("/{0}", e.IdEcoponto);
-            var result = await _request.PutSemTokenAsync(apiURLBase, e);
+            var result = await _request.PutSemTokenAsync(apiURLBase +  urlComplementar, e);
             return result;
         }
 

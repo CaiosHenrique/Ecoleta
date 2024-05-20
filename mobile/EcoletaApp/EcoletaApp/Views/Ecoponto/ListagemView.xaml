@@ -3,74 +3,95 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoletaApp.Views.Ecoponto.ListagemView"
              Title="ListagemView">
-    
+
     <Shell.TitleView>
         <Button Command="{Binding NovoEcoponto}" Text="Novo Ecoponto" HorizontalOptions="End"></Button>
         </Shell.TitleView>
         
     <ScrollView>
           <VerticalStackLayout Padding="10, 0, 0, 0" VerticalOptions="FillAndExpand">
-            
-            <ListView x:Name="listView" HasUnevenRows="True" ItemsSource="{Binding Ecopontos}" >
+            <Label Text="Ecopontos dinponíveis" FontSize="Large"/>
+            <ListView x:Name="listView" HasUnevenRows="True" ItemsSource="{Binding Ecopontos}" SelectedItem="{Binding EcopontoSelecionado}" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Remover" IsDestructive="True" 
+                                              Command="{Binding Path=BindingContext.RemoverEcopontoCommand, Source={x:Reference listView}}"
+                                              CommandParameter="{Binding .}"></MenuItem>
+                            </ViewCell.ContextActions>
                             <StackLayout Padding="10">
 
                       
 
                              
                                     <HorizontalStackLayout>
-                                <Label Text="{Binding Nome}"
+                                    <Label Text="Nome:  " FontAttributes="Bold"/>
+                                    <Label Text="{Binding Nome}"
                                      VerticalOptions="Start"
                                      HorizontalOptions="FillAndExpand"/>
                                 </HorizontalStackLayout>
                             
                                         
                                 <HorizontalStackLayout>
-                                <Label  Text="{Binding CNPJ}" 
+                                    <Label Text="CNPJ:  " FontAttributes="Bold"/>
+                                    <Label  Text="{Binding CNPJ}" 
                                      VerticalOptions="FillAndExpand"
                                      HorizontalOptions="FillAndExpand" WidthRequest="65"/>
                                  </HorizontalStackLayout>
 
                                 <HorizontalStackLayout>
-                                <Label   Text="{Binding Logradouro}"
+                                    <Label Text="Logradouro:  "  FontAttributes="Bold"/>
+                                    <Label   Text="{Binding Logradouro}"
                                       VerticalOptions="End"
                                      HorizontalOptions="End" WidthRequest="30"/>
                                  </HorizontalStackLayout>
 
                                     <HorizontalStackLayout>
-                                <Label  Text="{Binding Endereco}"
+                                    <Label Text="Endereco:  "  FontAttributes="Bold"/>
+                                    <Label  Text="{Binding Endereco}"
                                      VerticalOptions="FillAndExpand"
                                      HorizontalOptions="FillAndExpand"/>
-
-                                <Label  Text="{Binding Complemento}"
-                                      VerticalOptions="FillAndExpand"
-                                      HorizontalOptions="FillAndExpand"/>
-                                    </HorizontalStackLayout>    
+                                </HorizontalStackLayout>
                                 
-                                    <HorizontalStackLayout>
-                                <Label  Text="{Binding Bairro}"
+                                <HorizontalStackLayout>
+                                    <Label Text="Complemento:  "  FontAttributes="Bold"/>
+                                    <Label  Text="{Binding Complemento}"
                                       VerticalOptions="FillAndExpand"
                                       HorizontalOptions="FillAndExpand"/>
+                                </HorizontalStackLayout>
 
-                                <Label Text="{Binding Cidade}"
+                                <HorizontalStackLayout>
+                                    <Label Text="Bairro:  "  FontAttributes="Bold"/>
+                                    <Label  Text="{Binding Bairro}"
+                                      VerticalOptions="FillAndExpand"
+                                      HorizontalOptions="FillAndExpand"/>
+                                </HorizontalStackLayout>
+
+                                <HorizontalStackLayout>
+                                    <Label Text="Cidade:  "  FontAttributes="Bold"/>
+                                    <Label Text="{Binding Cidade}"
                                       VerticalOptions="FillAndExpand"
                                        HorizontalOptions="FillAndExpand"/>
                                     </HorizontalStackLayout>
 
                                     <HorizontalStackLayout>
-                                <Label  Text="{Binding UF}"
+                                    <Label Text="UF:  "  FontAttributes="Bold"/>
+                                    <Label  Text="{Binding UF}"
                                        VerticalOptions="FillAndExpand"
                                            HorizontalOptions="FillAndExpand"/>
-
-                                <Label Text="{Binding CEP}"
+                                </HorizontalStackLayout>
+                                
+                                <HorizontalStackLayout>
+                                    <Label Text="CEP:  "  FontAttributes="Bold"/>
+                                    <Label Text="{Binding CEP}"
                                        VerticalOptions="FillAndExpand"
                                        HorizontalOptions="FillAndExpand"/>
                                     </HorizontalStackLayout>
 
                                     <HorizontalStackLayout>
-                                <Label  Text="{Binding RazaoSocial}"
+                                    <Label Text="Razão Social:  " FontAttributes="Bold"/>
+                                    <Label  Text="{Binding RazaoSocial}"
                                      VerticalOptions="FillAndExpand"
                                     HorizontalOptions="FillAndExpand"/>
                                     </HorizontalStackLayout>

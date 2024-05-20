@@ -8,6 +8,8 @@ using api.Models.Enuns;
 using System.Collections.Generic;
 using api.Data;
 using api.Utils;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace api.Controllers
 {
@@ -151,7 +153,7 @@ namespace api.Controllers
         {
             try
             {
-                Criptografia.CriarPasswordHash(utilizador.PasswordString, out byte[] hash, out byte[] salt);
+                Criptografia.CriarPasswordHash(ecoponto.PasswordString, out byte[] hash, out byte[] salt);
 
                 ecoponto.PasswordString = string.Empty;
                 ecoponto.PasswordHash = hash;
@@ -180,12 +182,12 @@ namespace api.Controllers
         {
             try
             {
-                EcopontoModel ecoponto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+                EcopontoModel TB_ECOPONTO = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
 
                 if (ecoponto == null)
                     return StatusCode(404);
 
-                if (!Criptografia.VerificarPasswordHash(ecoponto.PasswordHash, ecoponto.PasswordSalt, ecoponto.PasswordString))
+                if (!Criptografia.VerificarPasswordHash(ecoponto.PasswordString, ecoponto.PasswordHash, ecoponto.PasswordSalt))
                     return StatusCode(401);
 
                 return StatusCode(200, ecoponto);
@@ -208,7 +210,7 @@ namespace api.Controllers
         {
             try
             {
-                EcopontoModel ecoponto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+                EcopontoModel TB_ECOPONTO = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
 
                 if (ecoponto == null)
                     return StatusCode(404);
@@ -237,7 +239,7 @@ namespace api.Controllers
         {
             try
             {
-                EcopontoModel ecoponto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+                EcopontoModel TB_ECOPONTO = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
 
                 if (ecoponto == null)
                     return StatusCode(404);
