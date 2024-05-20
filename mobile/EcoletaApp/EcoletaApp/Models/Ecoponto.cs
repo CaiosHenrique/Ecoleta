@@ -39,8 +39,8 @@ namespace EcoletaApp.Models
 
 
         public string Username { get; set; } = string.Empty;
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
+        public required byte[] PasswordHash { get; set; }
+        public required byte[] PasswordSalt { get; set; }
 
         [NotMapped] // using System.ComponentModel.DataAnnotations.Schema
         public string PasswordString { get; set; } = string.Empty;
