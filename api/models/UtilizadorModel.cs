@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace api.Models
 {
@@ -12,6 +13,8 @@ namespace api.Models
         public string Email { get; set; }
         public bool SituacaoEmail{ get; set; }
 
+        public int TotalEcoPoints { get; set; } = 0;
+        public virtual ICollection<EcopointsModel> Ecopoints { get; set; }
 
         public string Username { get; set; } = string.Empty;
         public byte[]? PasswordHash { get; set; } 
