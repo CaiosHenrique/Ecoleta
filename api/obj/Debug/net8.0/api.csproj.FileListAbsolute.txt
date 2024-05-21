@@ -1123,3 +1123,8 @@ C:\Users\artur\Desktop\Etec\Ecoleta\api\obj\Debug\net8.0\refint\api.dll
 C:\Users\artur\Desktop\Etec\Ecoleta\api\obj\Debug\net8.0\api.pdb
 C:\Users\artur\Desktop\Etec\Ecoleta\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 C:\Users\artur\Desktop\Etec\Ecoleta\api\obj\Debug\net8.0\ref\api.dll
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\bin\Debug\net8.0\publish\web.config
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\bin\Debug\net8.0\publish\api.deps.json
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\bin\Debug\net8.0\publish\api.runtimeconfig.json
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\bin\Debug\net8.0\publish\appsettings.Development.json
+C:\Users\caiok\Desktop\PastaEtec\Ecoleta\api\bin\Debug\net8.0\publish\appsettings.json

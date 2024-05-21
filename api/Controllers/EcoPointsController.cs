@@ -14,30 +14,61 @@ namespace api.Controllers
     {
         private readonly List<EcopointsModel> ecopoints;
         private readonly DataContext _context;
+         private readonly List<UtilizadorModel> utilizador;
 
         public EcoPointsController(DataContext context)
         {
             _context = context;
             ecopoints = new List<EcopointsModel>();
+            utilizador = new List<UtilizadorModel>();
         }
 
 
         // GET: api/EcoPoints/5
-        [HttpGet("{id}")]
+        [HttpGet("{IdMaterial}")]
 
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        public ActionResult<EcopointsModel> Get(int id)
+        public ActionResult<EcopointsModel> Get(int IdMaterial)
         {
             try
             {
-                var ecopoint = ecopoints.Find(e => e.IdMaterial == id);
+                var ecopoint = ecopoints.Find(e => e.IdMaterial == IdMaterial);
 
                 if (ecopoint == null)
                 {
                 return StatusCode(404);
+
+                }
+
+                return StatusCode(200, ecopoint);
+
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+
+            }
+
+        }
+
+        [HttpGet("{IdUtilizador}")]
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        
+        public ActionResult<EcopointsModel> GetEcopointsUtilizador(int IdUtilizador)
+        {
+            try
+            {
+                var ecopoint = utilizador.Find(e => e.IdUtilizador == IdUtilizador);
+
+                if (ecopoint == null)
+                {
+                    return StatusCode(404);
 
                 }
 
