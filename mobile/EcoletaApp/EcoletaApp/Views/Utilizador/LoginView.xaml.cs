@@ -14,4 +14,5 @@ public partial class LoginView : ContentPage
         BindingContext = utilizadorViewModel;
 
 	}
+
 }

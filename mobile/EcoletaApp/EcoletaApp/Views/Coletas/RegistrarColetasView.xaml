@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoletaApp.Views.Coletas.RegistrarColetasView"
+             Shell.PresentationMode="Animated"
+             Title="RegistrarColetasView">
+    <VerticalStackLayout>
+        <ScrollView>
+            <VerticalStackLayout Padding="10, 0, 0, 0" VerticalOptions="FillAndExpand">
+             
+                  
+                     
+                                <StackLayout Padding="10">
+                                    <Label Text="IdEcoponto" FontSize="14"/>
+                                    <Entry Text="{Binding IdEcoponto}" FontSize="14" />
+
+                                    <Label Text="DataColeta" FontSize="14"/>
+                                    <Entry Text="{Binding DataColeta}" FontSize="14"/>
+
+                                    <Label Text="Peso" FontSize="14"/>
+                                    <Entry Text="{Binding Peso}" FontSize="14"/>
+
+                                    <Label Text="TotalEcopoints" FontSize="14"/>
+                                    <Entry Text="{Binding TotalEcopoints}" FontSize="14"/>
+
+                                    <Label Text="SituacaoColeta" FontSize="14"/>
+                                    <Entry Text="{Binding SituacaoColeta}" FontSize="14"/>
+
+                                    <Label Text="CodigoUtilizador" FontSize="14"/>
+                                    <Entry Text="{Binding CodigoUtilizador}" FontSize="14"/>
+
+
+                                    <Button Text="Registrar" Command="{Binding RegistrarCommand}"></Button>
+                                </StackLayout>
+                    
+                    
+           
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </VerticalStackLayout>
+</ContentPage>

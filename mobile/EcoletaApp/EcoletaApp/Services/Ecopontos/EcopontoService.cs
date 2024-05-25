@@ -29,9 +29,12 @@ namespace EcoletaApp.Services.Ecopontos
             return result.IdEcoponto;
         }
 
+
+        // isso tem que Revisar Depois pois o banco Ainda não está corrigido
         public async Task<Ecoponto> PostEcopontoAsync(Ecoponto e)
         {
-                return await _request.PostSemTokenAsync(apiURLBase, e);            
+            string urlComplementar = "/Registrar";
+                return await _request.PostSemTokenAsync(apiURLBase + urlComplementar, e);            
         }
 
         public async Task<ObservableCollection<Ecoponto>> GetEcopontosAsync()

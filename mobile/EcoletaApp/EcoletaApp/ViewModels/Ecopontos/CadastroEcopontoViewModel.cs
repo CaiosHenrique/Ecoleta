@@ -25,8 +25,6 @@ namespace EcoletaApp.ViewModels.Ecopontos
             CancelarCommand = new Command(async => CancelarCadstro());
         }
 
-        byte[] gambiarraHash = Convert.FromBase64String("TLoq+Yi1O3LFfTxz7LVN9ofUOSpGo/nKSnVeZfiNIBKAS7r3fZT+U0Br08eQpr5gjOcGCo7vTioz9Quxg2duOA==");
-        byte[] gambiarraSalt = Convert.FromBase64String("oTM8RV3BguzAobNI19lotKL6WiF2fM/Utmd6femPEtWVTvFnfskdrztfZI71Vg50/u+6ecJiExRLCzn5GT7oAfZUdAX+8RoEYNNtW/Ibu2FQly1Oy+ea0Sua2ZMI71YCebDCxATyFXf+aSNIDEZrub6onDKcJc/eOPimEN1IU54=");
         private int idEcoponto;
         private string nome;
         private int cnpj;
@@ -71,8 +69,8 @@ namespace EcoletaApp.ViewModels.Ecopontos
         public string Username { get => username; set { username = value; OnPropertyChanged(nameof(username)); } }
         public string PasswordString { get => passwordString; set { passwordString = value; OnPropertyChanged(nameof(passwordString)); } }
         public string Email { get => email; set { email = value; OnPropertyChanged(nameof(email)); } }
-        public byte[] PasswordHash { get => passwordHash; set { passwordHash= gambiarraHash; } }
-        public byte[] PasswordSalt { get => passwordSalt; set => passwordSalt = gambiarraSalt; }
+        public byte[] PasswordHash { get => passwordHash; set { passwordHash = value; OnPropertyChanged(nameof(passwordHash)); } }
+        public byte[] PasswordSalt { get => passwordSalt; set { passwordSalt = value; OnPropertyChanged(nameof(passwordSalt)); } }
 
         private string ecopontoSelecionadoId;
 
@@ -81,6 +79,7 @@ namespace EcoletaApp.ViewModels.Ecopontos
         {
             try 
             {
+
                 Ecoponto model = new Ecoponto
                 {
                     Nome = this.Nome,
@@ -96,11 +95,12 @@ namespace EcoletaApp.ViewModels.Ecopontos
                     Latitude = this.Latitude,
                     Longitude = this.Longitude,
                     IdEcoponto = this.IdEcoponto,
-                    Username = this.Username, 
+                    Username = this.Username,
                     PasswordString = this.PasswordString,
                     Email = this.Email,
-                    PasswordHash = gambiarraHash,
-                     PasswordSalt = gambiarraSalt
+                    PasswordHash = this.PasswordHash,
+                     PasswordSalt = this.PasswordSalt
+                     // isso aqui tem que revisar depois no método put
                 };
 
 

@@ -1,4 +1,5 @@
 ﻿using EcoletaApp.Views.Ecoponto;
+using EcoletaApp.Views.Utilizador;
 
 namespace EcoletaApp
 {
@@ -8,8 +9,9 @@ namespace EcoletaApp
         {
             InitializeComponent();
 
-            Routing.RegisterRoute("cadEcopontoView", typeof(CadastroView));
-
+            Routing.RegisterRoute("cadEcopontoView", typeof(Views.Ecoponto.CadastroView));
+            Routing.RegisterRoute("cadColetaView", typeof(Views.Coletas.RegistrarColetasView));
+      
         }
     }
 }

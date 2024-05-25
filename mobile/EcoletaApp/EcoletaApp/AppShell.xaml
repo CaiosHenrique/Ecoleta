@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewEcopontos ="clr-namespace:EcoletaApp.Views.Ecoponto"
     xmlns:viewUtilizador="clr-namespace:EcoletaApp.Views.Utilizador"
+    xmlns:viewColeta="clr-namespace:EcoletaApp.Views.Coletas"
     xmlns:local="clr-namespace:EcoletaApp"
     Title="EcoletaApp">
 
@@ -37,6 +38,7 @@
         <ShellContent Title="Sobre" Route="sobre" ContentTemplate="{DataTemplate local:AboutView}"/>
         <ShellContent Title="Descrição" Route="desc" ContentTemplate="{DataTemplate local:DescriptionView}" />
         <ShellContent Title="Ecopontos"  ContentTemplate="{DataTemplate viewEcopontos:ListagemView}" />
+    <ShellContent Title="Coleta"  ContentTemplate="{DataTemplate viewColeta:ExibirColetasView}" />
         <ShellContent Title="utilizador" ContentTemplate="{DataTemplate viewUtilizador:LoginView}" />
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
