@@ -16,6 +16,8 @@ namespace EcoletaApp.Models
         public string Email { get; set; } = string.Empty;
         public bool SituacaoEmail { get; set; }
 
+        public int TotalEcoPoints { get; set; } = 0;
+        public virtual ICollection<Ecopoints> Ecopoints { get; set; }
 
         public string Username { get; set; } = string.Empty;
         public byte[]? PasswordHash { get; set; }

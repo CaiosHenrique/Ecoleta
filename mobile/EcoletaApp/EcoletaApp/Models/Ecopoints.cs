@@ -13,6 +13,9 @@ namespace EcoletaApp.Models
         public int IdMaterial { get; set; }
         public char OrdemGrandeza { get; set; }
         public int Quantidade { get; set; }
-        public int EcoPointsTotais { get; set; }
+        public int TotalEcoPoints { get; set; } = 0;
+
+        public int UtilizadorId { get; set; }
+        public virtual Utilizador Utilizador { get; set; }
     }
 }

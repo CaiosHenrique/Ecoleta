@@ -9,8 +9,8 @@ namespace api.Models
     {   
         [Key]
         public int IdUtilizador { get; set; }
-        public string Nome { get; set; }
-        public string Email { get; set; }
+        public string Nome { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public bool SituacaoEmail{ get; set; }
 
         public int TotalEcoPoints { get; set; } = 0;

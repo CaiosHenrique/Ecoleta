@@ -6,7 +6,7 @@ namespace api.Models
     {   
         [Key]
         public int IdMaterial { get; set; }
-        public string DescricaoMaterial { get; set; }
+        public string DescricaoMaterial { get; set; } = string.Empty;
         public int Classe { get; set; }
         
     }

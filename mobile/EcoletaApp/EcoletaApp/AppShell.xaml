@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewEcopontos ="clr-namespace:EcoletaApp.Views.Ecoponto"
+    xmlns:viewUtilizador="clr-namespace:EcoletaApp.Views.Utilizador"
     xmlns:local="clr-namespace:EcoletaApp"
     Title="EcoletaApp">
 
@@ -36,6 +37,7 @@
         <ShellContent Title="Sobre" Route="sobre" ContentTemplate="{DataTemplate local:AboutView}"/>
         <ShellContent Title="Descrição" Route="desc" ContentTemplate="{DataTemplate local:DescriptionView}" />
         <ShellContent Title="Ecopontos"  ContentTemplate="{DataTemplate viewEcopontos:ListagemView}" />
+        <ShellContent Title="utilizador" ContentTemplate="{DataTemplate viewUtilizador:LoginView}" />
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
        

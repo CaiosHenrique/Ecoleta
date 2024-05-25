@@ -76,6 +76,19 @@
 	  <MauiXaml Update="Views\Ecoponto\ListagemView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Utilizador\CadastroView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Utilizador\LoginView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ViewModels\Ecopoints\" />
+	  <Folder Include="ViewModels\Brindes\" />
+	  <Folder Include="Views\Brinde\" />
+	  <Folder Include="Views\Ecopoints\" />
 	</ItemGroup>
 
 </Project>

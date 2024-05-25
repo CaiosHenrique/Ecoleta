@@ -105,7 +105,7 @@ namespace EcoletaApp.ViewModels.Ecopontos
 
 
                 if (model.IdEcoponto == 0)
-                    await eService.PostRegsistrarEcopontoAsync(model);
+                    await eService.PostEcopontoAsync(model);
                 else
                     await eService.PutEcopontoAsync(model);
 

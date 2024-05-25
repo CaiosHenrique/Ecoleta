@@ -14,6 +14,6 @@ namespace api.Models
         public DateTime DataColeta { get; set; }
         public float TotalEcopoints { get; set; }
         public Double Peso { get; set; }
-          public string SituacaoColeta { get; set; }
+          public string SituacaoColeta { get; set; } = string.Empty;
     }
 }
