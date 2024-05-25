@@ -28,7 +28,7 @@ namespace api.Controllers
         }
 
 
-        [HttpGet("{IdEcoponto}")]
+        [HttpGet("{IdEcoponto}")]//Funcionando 200 Ok
 
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -50,7 +50,7 @@ namespace api.Controllers
             
         }
 
-        [HttpGet]
+        [HttpGet]//Funcionando 200 Ok
 
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -72,7 +72,7 @@ namespace api.Controllers
 
         }
 
-         [HttpPost]
+         [HttpPost]//Funcionando 200 Ok
 
          [ProducesResponseType(StatusCodes.Status201Created)]
          [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -96,7 +96,7 @@ namespace api.Controllers
          }
 
         
-        [HttpPut("{IdEcoponto}")]
+        [HttpPut("{IdEcoponto}")]//Funcionando 200 Ok
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -122,7 +122,7 @@ namespace api.Controllers
 
 
         
-        [HttpDelete("{IdEcoponto}")]
+        [HttpDelete("{IdEcoponto}")] //Funcionando 200 Ok
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -145,7 +145,7 @@ namespace api.Controllers
             }
         }
 
-        [HttpPost("CadastrarEcoponto")]
+        [HttpPost("CadastrarEcoponto")] //Não está funcionando 400 Bad Request
 
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -173,7 +173,7 @@ namespace api.Controllers
             }
         }
 
-        [HttpPost("AutenticarEcoponto")]
+        [HttpPost("AutenticarEcoponto")] //Não está funcionando 400 Bad Request
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -201,7 +201,7 @@ namespace api.Controllers
             }
         }
 
-        [HttpPut("AlterarSenha")]
+        [HttpPut("AlterarSenha")] //Não está funcionando 400 Bad Request
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -234,7 +234,7 @@ namespace api.Controllers
             }
         }
 
-        [HttpPut("AlterarEmail")]
+        [HttpPut("AlterarEmail")] //Não está funcionando 400 Bad Request
         public async Task<ActionResult> AlterarEmail([FromBody] EcopontoModel ecoponto)
         {
             try
