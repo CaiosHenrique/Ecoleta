@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,20 @@ namespace EcoletaApp.Services.UtilizadorService
             return u;
         }
 
-
+        public async Task<int> PutAtualizarLocalizacaoAsync(Utilizador u)
+        {
+            string urlComplementar = "/AtualizarLocalizacao";
+            var result = await _request.PutSemTokenAsync(ApiUrlBase + urlComplementar, u);
+            return result;
+        }
+        //using System.Collections.ObjectModel
+        public async Task<ObservableCollection<Utilizador>> GetUsuariosAsync()
+        {
+            string urlComplementar = string.Format("{0}", "/GetAll");
+            ObservableCollection<Models.Utilizador> listaUsuarios = await
+            _request.GetSemTokenAsync<ObservableCollection<Models.Utilizador>>(ApiUrlBase + urlComplementar);
+            return listaUsuarios;
+        }
 
     }
 }

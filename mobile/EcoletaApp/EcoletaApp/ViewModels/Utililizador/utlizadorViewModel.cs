@@ -7,17 +7,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using EcoletaApp.Views.Utilizador;
+using EcoletaApp.Services.EcopointsService;
+using EcoletaApp.Services.Ecopontos;
 
 namespace EcoletaApp.ViewModels.Utililizador
 {
     public class utlizadorViewModel : BaseViewModel
     {
         private utilizadorService uService;
+        private EcopontoService eService;
         
         public ICommand AutenticarCommand { get; set; }
         public ICommand RegistrarCommand { get; set; }
         public ICommand DirecionarCadastroCommand { get; set; }
 
+        private CancellationToken _cancellationToken;
+        private bool _isCheckingLocation;
 
         public utlizadorViewModel()
         {
@@ -98,6 +103,20 @@ namespace EcoletaApp.ViewModels.Utililizador
                 u.PasswordString = Passwordstring;
 
                 Utilizador uAutenticado = await uService.PostAutenticarUtilizadorAsync(u);
+
+                _isCheckingLocation = true;
+                _cancellationToken = new CancellationToken();
+                GeolocationRequest request = new GeolocationRequest( GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+
+                Location location = await Geolocation.Default.GetLocationAsync(request);
+
+                Utilizador uLoc = new Utilizador();
+                uLoc.Username= uAutenticado.Username;
+                uLoc.Longitude = location.Longitude;
+                uLoc.Latitude = location.Latitude;
+
+                utilizadorService utilizadorService = new utilizadorService();
+                await uService.PutAtualizarLocalizacaoAsync(uLoc);
 
 
                 // Uma verificação melhor seria a utilização de token,mas não estamos utilizando nessa Aplicação

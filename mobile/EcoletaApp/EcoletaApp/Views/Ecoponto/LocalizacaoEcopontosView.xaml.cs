@@ -11,8 +11,9 @@ public partial class LocalizacaoEcopontosView : ContentPage
 
 
         viewModels = new LocalizacaoViewModels();
-        viewModels.InicializarMapa();
+      //  viewModels.InicializarMapa();
 
         BindingContext = viewModels;
+        viewModels.ExibirUsuariosnoMapa();
     }
 }

@@ -65,5 +65,9 @@ namespace EcoletaApp.Services.Ecopontos
             var result = await _request.DeleteSemTokenAsync( apiURLBase + urlComplementar);
             return result;
         }
+
+        
+
+      
     }
 }

@@ -18,6 +18,8 @@ namespace EcoletaApp.Models
 
         public int TotalEcoPoints { get; set; } = 0;
         public virtual ICollection<Ecopoints> Ecopoints { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
         public string Username { get; set; } = string.Empty;
         public byte[]? PasswordHash { get; set; }
@@ -26,5 +28,6 @@ namespace EcoletaApp.Models
 
         [NotMapped] // using System.ComponentModel.DataAnnotations.Schema
         public string PasswordString { get; set; } = string.Empty;
+
     }
 }

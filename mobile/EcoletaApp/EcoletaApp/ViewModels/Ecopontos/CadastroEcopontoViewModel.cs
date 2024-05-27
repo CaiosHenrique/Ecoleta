@@ -25,6 +25,8 @@ namespace EcoletaApp.ViewModels.Ecopontos
             CancelarCommand = new Command(async => CancelarCadstro());
         }
 
+
+        #region
         private int idEcoponto;
         private string nome;
         private int cnpj;
@@ -73,6 +75,8 @@ namespace EcoletaApp.ViewModels.Ecopontos
         public byte[] PasswordSalt { get => passwordSalt; set { passwordSalt = value; OnPropertyChanged(nameof(passwordSalt)); } }
 
         private string ecopontoSelecionadoId;
+
+        #endregion
 
 
         public async Task salvarEcoponto()

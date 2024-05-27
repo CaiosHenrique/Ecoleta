@@ -11,18 +11,34 @@
         <VerticalStackLayout>
         <ScrollView>
             <VerticalStackLayout Padding="10, 0, 0, 0" VerticalOptions="FillAndExpand">
-                <ListView x:Name="listView" HasUnevenRows="True" ItemsSource="{Binding Coleta}" >
+                <ListView x:Name="listView" HasUnevenRows="True" ItemsSource="{Binding Coletas}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout Padding="10">
-                                    <Label Text="{Binding IdColeta}" FontSize="18" FontAttributes="Bold" />
-                                    <Label Text="{Binding IdEcoponto}" FontSize="18" FontAttributes="Bold"/>
-                                    <Label Text="{Binding IdUtilizador}" FontSize="18" FontAttributes="Bold"/>
+
+                                    <Label Text="IdColeta : "  FontAttributes="Bold"/>
+                                    <Label Text="{Binding IdColeta}" FontSize="18" />
+
+                                    <Label Text="IdEcoponto : "  FontAttributes="Bold"/>
+                                    <Label Text="{Binding IdEcoponto}" FontSize="18" />
+
+                                    <Label Text="IdUtilizador : "  FontAttributes="Bold"/>
+                                    <Label Text="{Binding IdUtilizador}" FontSize="18" />
+
+                                    <Label Text="DataColeta :"  FontAttributes="Bold"/>
                                     <Label Text="{Binding DataColeta}" FontSize="14"/>
+
+                                    <Label Text="Peso :"  FontAttributes="Bold"/>
                                     <Label Text="{Binding Peso}" FontSize="14"/>
+
+                                    <Label Text="TotalEcopoints :"  FontAttributes="Bold"/>
                                     <Label Text="{Binding TotalEcopoints}" FontSize="14"/>
+
+                                    <Label Text="SituacaoColeta :"  FontAttributes="Bold"/>
                                     <Label Text="{Binding SituacaoColeta}" FontSize="14"/>
+
+                                    <Label Text="CodigoUtilizador :"  FontAttributes="Bold"/>
                                     <Label Text="{Binding CodigoUtilizador}" FontSize="14"/>
                                 </StackLayout>
                             </ViewCell>
