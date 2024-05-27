@@ -38,8 +38,9 @@
         <ShellContent Title="Sobre" Route="sobre" ContentTemplate="{DataTemplate local:AboutView}"/>
         <ShellContent Title="Descrição" Route="desc" ContentTemplate="{DataTemplate local:DescriptionView}" />
         <ShellContent Title="Ecopontos"  ContentTemplate="{DataTemplate viewEcopontos:ListagemView}" />
-    <ShellContent Title="Coleta"  ContentTemplate="{DataTemplate viewColeta:ExibirColetasView}" />
+        <ShellContent Title="Coleta"  ContentTemplate="{DataTemplate viewColeta:ExibirColetasView}" />
         <ShellContent Title="utilizador" ContentTemplate="{DataTemplate viewUtilizador:LoginView}" />
+        <ShellContent Title="LocEcopontos"  ContentTemplate="{DataTemplate viewEcopontos:LocalizacaoEcopontosView}" />
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
        

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoletaApp.Views.Ecoponto.LocalizacaoEcopontosView"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             Title="LocalizacaoEcopontosView">
+    
+    <maps:Map x:Name="mapa" ItemsSource="{Binding MeuMapa}"
+               MapType="Hybrid" IsShowingUser="True" 
+              IsZoomEnabled="True" IsTrafficEnabled="True"> 
+        <maps:Map.ItemTemplate>
+            <DataTemplate>
+                <maps:Pin Location="{Binding Location}"
+                       Address="{Binding Address}"
+                       Label="{Binding Label}"/>
+            </DataTemplate>
+        </maps:Map.ItemTemplate>
+    </maps:Map>
+</ContentPage>

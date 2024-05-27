@@ -16,7 +16,7 @@
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout Padding="10">
-                                    <Label Text="{Binding IdColeta}" FontSize="18" FontAttributes="Bold"/>
+                                    <Label Text="{Binding IdColeta}" FontSize="18" FontAttributes="Bold" />
                                     <Label Text="{Binding IdEcoponto}" FontSize="18" FontAttributes="Bold"/>
                                     <Label Text="{Binding IdUtilizador}" FontSize="18" FontAttributes="Bold"/>
                                     <Label Text="{Binding DataColeta}" FontSize="14"/>

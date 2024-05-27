@@ -12,7 +12,7 @@
                      
                                 <StackLayout Padding="10">
                                     <Label Text="IdEcoponto" FontSize="14"/>
-                                    <Entry Text="{Binding IdEcoponto}" FontSize="14" />
+                    <Entry Text="{Binding IdEcoponto}"  IsEnabled="False" FontSize="14" />
 
                                     <Label Text="DataColeta" FontSize="14"/>
                                     <Entry Text="{Binding DataColeta}" FontSize="14"/>
