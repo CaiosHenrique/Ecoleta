@@ -16,7 +16,7 @@ namespace api.Controllers
         private readonly DataContext _context;
         private readonly List<UtilizadorModel> utilizador;
         private readonly UtilizadorService _utilizadorService;
-        
+
 
         public EcoPointsController(DataContext context)
         {
@@ -42,7 +42,7 @@ namespace api.Controllers
 
                 if (ecopoint == null)
                 {
-                return StatusCode(404);
+                    return StatusCode(404);
 
                 }
 
@@ -62,21 +62,21 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        
+
         public ActionResult<int> GetEcopointsUtilizador(int IdUtilizador)
         {
             try
             {
-            var utilizador = _context.TB_UTILIZADOR.Find(IdUtilizador);
+                var utilizador = _context.TB_UTILIZADOR.Find(IdUtilizador);
 
-            // Verifique se o usuário existe
-            if (utilizador == null)
-            {
-                return NotFound();
-            }
+                // Verifique se o usuário existe
+                if (utilizador == null)
+                {
+                    return NotFound();
+                }
 
-            // Retorne o total de EcoPoints do usuário
-            return utilizador.TotalEcoPoints;
+                // Retorne o total de EcoPoints do usuário
+                return utilizador.TotalEcoPoints;
 
             }
             catch (System.Exception)
@@ -109,7 +109,7 @@ namespace api.Controllers
             }
 
         }
-        
+
         // POST: api/EcoPoints
         [HttpPost]
 
@@ -122,7 +122,7 @@ namespace api.Controllers
             {
                 ecopoints.Add(ecopoint);
 
-                _utilizadorService.AddEcoPoints(IdUtilizador, quantidade); 
+                _utilizadorService.AddEcoPoints(IdUtilizador, quantidade);
 
                 return StatusCode(201, ecopoint);
 
@@ -138,68 +138,68 @@ namespace api.Controllers
 
         // PUT: api/EcoPoints/5
         // PUT: api/EcoPoints/{IdUtilizador}
-[HttpPut("{IdUtilizador}")]
-[ProducesResponseType(StatusCodes.Status200OK)]
-[ProducesResponseType(StatusCodes.Status404NotFound)]
-[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-public ActionResult<EcopointsModel> Put(int IdUtilizador, [FromBody] EcopointsModel ecopoint)
-{
-    try
-    {
-        // Busque o usuário pelo ID
-        var utilizador = _context.TB_UTILIZADOR.Find(IdUtilizador);
-
-        // Verifique se o usuário existe
-        if (utilizador == null)
+        [HttpPut("{IdUtilizador}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<EcopointsModel> Put(int IdUtilizador, [FromBody] EcopointsModel ecopoint)
         {
-            return StatusCode(404);
+            try
+            {
+                // Busque o usuário pelo ID
+                var utilizador = _context.TB_UTILIZADOR.Find(IdUtilizador);
+
+                // Verifique se o usuário existe
+                if (utilizador == null)
+                {
+                    return StatusCode(404);
+                }
+
+                // Atualize os EcoPoints do usuário
+                utilizador.TotalEcoPoints = ecopoint.TotalEcoPoints;
+
+                // Salve as alterações no banco de dados
+                _context.SaveChanges();
+
+                return StatusCode(200, ecopoint);
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
-
-        // Atualize os EcoPoints do usuário
-        utilizador.TotalEcoPoints = ecopoint.TotalEcoPoints;
-
-        // Salve as alterações no banco de dados
-        _context.SaveChanges();
-
-        return StatusCode(200, ecopoint);
-    }
-    catch (System.Exception)
-    {
-        return StatusCode(500);
-    }
-}
 
         // DELETE: api/EcoPoints/5
         // DELETE: api/EcoPoints/{IdUtilizador}
-[HttpDelete("{IdUtilizador}")]
-[ProducesResponseType(StatusCodes.Status200OK)]
-[ProducesResponseType(StatusCodes.Status404NotFound)]
-[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-public ActionResult Delete(int IdUtilizador)
-{
-    try
-    {
-        // Busque o usuário pelo ID
-        var utilizador = _context.TB_UTILIZADOR.Find(IdUtilizador);
-
-        // Verifique se o usuário existe
-        if (utilizador == null)
+        [HttpDelete("{IdUtilizador}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult Delete(int IdUtilizador)
         {
-            return StatusCode(404);
+            try
+            {
+                // Busque o usuário pelo ID
+                var utilizador = _context.TB_UTILIZADOR.Find(IdUtilizador);
+
+                // Verifique se o usuário existe
+                if (utilizador == null)
+                {
+                    return StatusCode(404);
+                }
+
+                // Defina os EcoPoints do usuário como 0
+                utilizador.TotalEcoPoints = 0;
+
+                // Salve as alterações no banco de dados
+                _context.SaveChanges();
+
+                return StatusCode(200);
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(500);
+            }
         }
-
-        // Defina os EcoPoints do usuário como 0
-        utilizador.TotalEcoPoints = 0;
-
-        // Salve as alterações no banco de dados
-        _context.SaveChanges();
-
-        return StatusCode(200);
-    }
-    catch (System.Exception)
-    {
-        return StatusCode(500);
-    }
-    }
     }
 }

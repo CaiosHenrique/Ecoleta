@@ -11,15 +11,15 @@ namespace Ecoleta.Controllers
     [Route("api/[controller]")]
     public class BrindeController : ControllerBase
     {
-          private readonly DataContext _context;
+        
         private readonly ILogger<BrindeController> _logger;
         private readonly List<BrindeModel> _brindes;
 
-        public BrindeController(ILogger<BrindeController> logger, DataContext context)
+        public BrindeController(ILogger<BrindeController> logger)
         {
             _logger = logger;
             _brindes = new List<BrindeModel>();
-            _context = context;
+           
         }
 
         // GET: api/Brinde
@@ -47,7 +47,7 @@ namespace Ecoleta.Controllers
         {
             brinde.IdBrinde = _brindes.Count + 1;
             _brindes.Add(brinde);
-            _context.SaveChanges();
+           
            
             return CreatedAtAction(nameof(Get), new { id = brinde.IdBrinde }, brinde);
         }
@@ -68,7 +68,7 @@ namespace Ecoleta.Controllers
             brinde.Quantidade = updatedBrinde.Quantidade;
             brinde.Saldo = updatedBrinde.Saldo;
             brinde.ValorEcopoints = updatedBrinde.ValorEcopoints;
-             _context.SaveChanges();
+            
             return NoContent();
         }
 
@@ -82,7 +82,6 @@ namespace Ecoleta.Controllers
                 return NotFound();
             }
             _brindes.Remove(brinde);
-             _context.SaveChanges();
             return NoContent();
         }
     }
