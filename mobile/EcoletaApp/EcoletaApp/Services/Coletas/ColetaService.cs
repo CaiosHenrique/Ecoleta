@@ -18,13 +18,20 @@ namespace EcoletaApp.Services.Coletas
             _request = new Request();
         }
       
-
-
-        public async Task<int> PostColetaAsync(Coleta c)
+        public async Task<Coleta> PostColetaAsync(Coleta c)
         {
             string urlComplementar = "/";
-            return await _request.PostReturnIntAsync(apiURLBase + urlComplementar, c);
+            return await _request.PostSemTokenAsync(apiURLBase + urlComplementar, c);
+         
         }
+
+        public async Task<int> PostColetaIndIdAsync(Coleta c)
+        {
+            string urlComplementar = "/";
+            Coleta result = await _request.PostSemTokenAsync(apiURLBase + urlComplementar, c);
+            return result.IdColeta;
+        }
+
 
         public async Task<ObservableCollection<Coleta>> GetColetaAllAsync()
         {

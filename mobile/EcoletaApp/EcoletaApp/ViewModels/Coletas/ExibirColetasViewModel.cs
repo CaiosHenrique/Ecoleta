@@ -1,5 +1,6 @@
 ﻿using EcoletaApp.Models;
 using EcoletaApp.Services.Coletas;
+using EcoletaApp.ViewModels.Ecopontos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,9 @@ namespace EcoletaApp.ViewModels.Coletas
 
         public ObservableCollection<Coleta> Coletas { get; set; }
         public ICommand RegistrarCommand { get; }
+        public ICommand RemoverColetaCommand { get; }
+
+
 
         public ExibirColetasViewModel()
         {
@@ -24,7 +28,24 @@ namespace EcoletaApp.ViewModels.Coletas
 
             _ = ObterColetas();
 
-            RegistrarCommand = new Command(async () => { await ExibirTelaRegistro(); }); 
+            RegistrarCommand = new Command(async () => { await ExibirTelaRegistro(); });
+            RemoverColetaCommand = new Command<Coleta>(async (Coleta c) => { await RemoverColeta(c); });
+        }
+
+        private Coleta coletaSelecionada;
+        public Coleta ColetaSelecionada
+        {
+            get { return coletaSelecionada; }
+            set
+            {
+                if (value != null)
+                {
+                    coletaSelecionada = value;
+                    int id = coletaSelecionada.IdColeta;
+
+                    Shell.Current.GoToAsync($"cadColetaView?cId={id}");
+                }
+            }
         }
 
         public async Task ObterColetas()
@@ -52,6 +73,26 @@ namespace EcoletaApp.ViewModels.Coletas
             }
         }
 
+        public async Task RemoverColeta(Coleta c)
+        {
+            try
+            {
+                if (await Application.Current.MainPage.DisplayAlert("Confirmação", $"Confirmação a remoção da coleta com Id: {c.IdColeta}?", "Sim", "Não"));
+                {
+                    await cService.DeleteColetaAsync(c.IdColeta);
+
+                    await Application.Current.MainPage.DisplayAlert("Mensagem", "Coleta Removida Com sucesso!", "OK");
+
+                    _ = ObterColetas();
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Ops", ex.Message + "Detalhes :" + ex.InnerException, "Ok");
+            }
+        }
+
+  
 
     }
 }

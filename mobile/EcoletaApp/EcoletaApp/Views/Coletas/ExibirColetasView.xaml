@@ -3,19 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EcoletaApp.Views.Coletas.ExibirColetasView"
              Title="ExibirColetasView">
+            
 
     <Shell.TitleView>
         <Button Command="{Binding RegistrarCommand}" Text="Registrar Coleta" HorizontalOptions="End"></Button>
     </Shell.TitleView>
+    <ScrollView>
 
-        <VerticalStackLayout>
-        <ScrollView>
+      
             <VerticalStackLayout Padding="10, 0, 0, 0" VerticalOptions="FillAndExpand">
-                <ListView x:Name="listView" HasUnevenRows="True" ItemsSource="{Binding Coletas}" >
+            <ListView x:Name="listView" HasUnevenRows="True" ItemsSource="{Binding Coletas}"  SelectedItem="{Binding ColetaSelecionada}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout Padding="10">
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Remover" IsDestructive="True"
+                                              Command="{Binding Path=BindingContext.RemoverColetaCommand, Source={x:Reference listView}}"
+                                              CommandParameter="{Binding .}"></MenuItem>
+                                 </ViewCell.ContextActions>
+                                    <StackLayout Padding="10">
 
                                     <Label Text="IdColeta : "  FontAttributes="Bold"/>
                                     <Label Text="{Binding IdColeta}" FontSize="18" />
@@ -25,9 +31,6 @@
 
                                     <Label Text="IdUtilizador : "  FontAttributes="Bold"/>
                                     <Label Text="{Binding IdUtilizador}" FontSize="18" />
-
-                                    <Label Text="DataColeta :"  FontAttributes="Bold"/>
-                                    <Label Text="{Binding DataColeta}" FontSize="14"/>
 
                                     <Label Text="Peso :"  FontAttributes="Bold"/>
                                     <Label Text="{Binding Peso}" FontSize="14"/>
@@ -46,7 +49,8 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </VerticalStackLayout>
-        </ScrollView>
 
-    </VerticalStackLayout>
+
+   
+    </ScrollView>
 </ContentPage>

@@ -8,33 +8,32 @@
         <ScrollView>
             <VerticalStackLayout Padding="10, 0, 0, 0" VerticalOptions="FillAndExpand">
              
-                  
-                     
-                                <StackLayout Padding="10">
-                                    <Label Text="IdEcoponto" FontSize="14"/>
-                    <Entry Text="{Binding IdEcoponto}"  IsEnabled="False" FontSize="14" />
+                                       
+                    <StackLayout Padding="10">
 
-                                    <Label Text="DataColeta" FontSize="14"/>
-                                    <Entry Text="{Binding DataColeta}" FontSize="14"/>
-
-                                    <Label Text="Peso" FontSize="14"/>
-                                    <Entry Text="{Binding Peso}" FontSize="14"/>
-
-                                    <Label Text="TotalEcopoints" FontSize="14"/>
-                                    <Entry Text="{Binding TotalEcopoints}" FontSize="14"/>
-
-                                    <Label Text="SituacaoColeta" FontSize="14"/>
-                                    <Entry Text="{Binding SituacaoColeta}" FontSize="14"/>
-
-                                    <Label Text="CodigoUtilizador" FontSize="14"/>
-                                    <Entry Text="{Binding CodigoUtilizador}" FontSize="14"/>
+                        <Label Text="IdColeta" FontSize="14"/>
+                        <Entry Text="{Binding IdColeta}" IsEnabled="False"  FontSize="14" />
 
 
-                                    <Button Text="Registrar" Command="{Binding RegistrarCommand}"></Button>
-                                </StackLayout>
+                        <Label Text="IdEcoponto" FontSize="14"/>
+                        <Entry Text="{Binding IdEcoponto}"   FontSize="14" />
+
+                          <Label Text="IdUtilizador" FontSize="14"/>
+                         <Entry Text="{Binding IdUtilizador}"   FontSize="14" />
+
+                        <Label Text="Peso" FontSize="14"/>
+                        <Entry Text="{Binding Peso}" FontSize="14"/>
+
+                        <Label Text="TotalEcopoints" FontSize="14"/>
+                        <Entry Text="{Binding TotalEcopoints}" FontSize="14"/> 
+
+        
+
+                        <Button Text="Registrar" Command="{Binding RegistrarCommand}"></Button>
+                    <Button Text="Cancelar" Command="{Binding cancelarCommand}"></Button>
+                </StackLayout>
                     
-                    
-           
+                               
             </VerticalStackLayout>
         </ScrollView>
 

@@ -71,6 +71,12 @@
 	  <MauiXaml Update="DescriptionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Brinde\ExibirBrindeView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Brinde\RegistrarBrindeView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Coletas\ExibirColetasView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -96,8 +102,6 @@
 
 	<ItemGroup>
 	  <Folder Include="ViewModels\Ecopoints\" />
-	  <Folder Include="ViewModels\Brindes\" />
-	  <Folder Include="Views\Brinde\" />
 	  <Folder Include="Views\Ecopoints\" />
 	</ItemGroup>
 

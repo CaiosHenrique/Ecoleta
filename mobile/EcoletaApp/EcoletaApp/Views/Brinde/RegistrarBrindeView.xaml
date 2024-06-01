@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoletaApp.Views.Brinde.RegistrarBrindeView"
+             Title="RegistrarBrindeView">
+    <VerticalStackLayout>
+        <ScrollView>
+            <VerticalStackLayout Padding="10, 0, 0, 0" VerticalOptions="FillAndExpand">
+
+
+
+                <StackLayout Padding="10">
+                    <Label Text="IdEcoponto" FontSize="14" />
+                    <Entry Text="{Binding IdBrinde}"  IsEnabled="False" FontSize="14" />
+
+                    <Label Text="DataColeta" FontSize="14"/>
+                    <Entry Text="{Binding NomeBrinde}" FontSize="14"/>
+
+                    <Label Text="Peso" FontSize="14"/>
+                    <Entry Text="{Binding DescricaoBrinde}" FontSize="14"/>
+
+                    <Label Text="TotalEcopoints" FontSize="14"/>
+                    <Entry Text="{Binding Cadastro}" FontSize="14"/>
+
+                    <Label Text="SituacaoColeta" FontSize="14"/>
+                    <Entry Text="{Binding Validade}" FontSize="14"/>
+
+                    <Label Text="CodigoUtilizador" FontSize="14"/>
+                    <Entry Text="{Binding Quantidade}" FontSize="14"/>
+
+                    <Label Text="CodigoUtilizador" FontSize="14"/>
+                    <Entry Text="{Binding Saldo}" FontSize="14"/>
+
+                    <Label Text="CodigoUtilizador" FontSize="14"/>
+                    <Entry Text="{Binding ValorEcopoints}" FontSize="14"/>
+
+
+                    <Button Text="Registrar" Command="{Binding RegistrarCommand}"></Button>
+                    <Button Text="Cancelar" Command="{Binding CancelarCommand}"></Button>
+                </StackLayout>
+
+
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </VerticalStackLayout>
+</ContentPage>

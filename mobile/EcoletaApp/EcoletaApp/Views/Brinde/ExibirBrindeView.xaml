@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EcoletaApp.Views.Brinde.ExibirBrindeView"
+             Title="ExibirBrindeView">
+
+    <Shell.TitleView>
+        <Button Command="{Binding RegistrarCommand}" Text="Registrar Coleta" HorizontalOptions="End"></Button>
+    </Shell.TitleView>
+
+    <VerticalStackLayout>
+        <ScrollView>
+            <VerticalStackLayout Padding="10, 0, 0, 0" VerticalOptions="FillAndExpand">
+                <ListView x:Name="listView" HasUnevenRows="True" ItemsSource="{Binding Brinde}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Remover" IsDestructive="True" 
+                                              Command="{Binding Path=BindingContext.RemoverBrindeCommand, Source={x:Reference listView}}"
+                                              CommandParameter="{Binding .}"></MenuItem>
+                                </ViewCell.ContextActions>
+                                    <StackLayout Padding="10">
+
+                                    <Label Text="IdBrinde : "  FontAttributes="Bold" FontSize="16"/>
+                                    <Label Text="{Binding IdBrinde}" FontSize="14"  IsEnabled="False"/>
+
+                                    <Label Text="NomeBrinde : "  FontAttributes="Bold" FontSize="16"/>
+                                    <Label Text="{Binding NomeBrinde}" FontSize="14" />
+
+                                    <Label Text="DescricaoBrinde : "  FontAttributes="Bold" FontSize="16"/>
+                                    <Label Text="{Binding DescricaoBrinde}" FontSize="14" />
+
+                                    <Label Text="Cadastro :"  FontAttributes="Bold" FontSize="16"/>
+                                    <Label Text="{Binding Cadastro}" FontSize="14"/>
+
+                                    <Label Text="Validade :"  FontAttributes="Bold" FontSize="16"/>
+                                    <Label Text="{Binding Validade}" FontSize="14"/>
+
+                                    <Label Text="Quantidade :"  FontAttributes="Bold" FontSize="16"/>
+                                    <Label Text="{Binding Quantidade}" FontSize="14"/>
+
+                                    <Label Text="Saldo :"  FontAttributes="Bold" FontSize="16"/>
+                                    <Label Text="{Binding Saldo}" FontSize="14"/>
+
+                                    <Label Text="ValorEcopoints :"  FontAttributes="Bold"/>
+                                    <Label Text="{Binding ValorEcopoints}" FontSize="14"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </VerticalStackLayout>
+
+</ContentPage>
