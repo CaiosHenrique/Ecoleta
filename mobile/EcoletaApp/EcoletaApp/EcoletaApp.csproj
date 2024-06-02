@@ -14,7 +14,7 @@
 		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 
 		<OutputType>Exe</OutputType>
-		<RootNamespace>EcoletaApp</RootNamespace>
+		<RootNamespace>Ecoleta</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -40,11 +40,9 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
-
+		<MauiIcon Include="Resources\AppIcon\logocolortexto.svg" Color="#007064" BaseSize="286, 363" />
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-
+		<MauiSplashScreen Include="Resources\Splash\logocolorecoleta.svg" Color="#007064" BaseSize="128,128" />
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
@@ -54,6 +52,11 @@
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\AppIcon\logocoloecoletaextenso.png" />
+	  <None Remove="Resources\AppIcon\logocolorecoleta.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -103,6 +106,11 @@
 	<ItemGroup>
 	  <Folder Include="ViewModels\Ecopoints\" />
 	  <Folder Include="Views\Ecopoints\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\AppIcon\logocoloecoletaextenso.png" />
+	  <MauiImage Include="Resources\Splash\logocolorecoleta.png" />
 	</ItemGroup>
 
 </Project>

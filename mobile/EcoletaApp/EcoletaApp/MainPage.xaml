@@ -9,63 +9,70 @@
                 <Setter Property="Margin" Value="10"/>
                 <Setter Property="HasShadow" Value="True"/>
             </Style>
-
         </ResourceDictionary>
     </ContentPage.Resources>
 
 
-        <ContentPage.Content>
-           <VerticalStackLayout Padding="25" Spacing="30">
-               <Frame
-                BackgroundColor="{StaticResource MainColor}"
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical">
+            <VerticalStackLayout Padding="25" Spacing="30">
+     
+                <Frame
+                BackgroundColor="{StaticResource Secondary}"
                 HeightRequest="{OnPlatform Android=190, iOS=220}"
                 Padding="0" HasShadow="false" CornerRadius="10">
                    <Grid>
-                       <Image Source="dotnet_bot.svg"/>
+                    <Image Source="logocoloecoletaextenso.png"/>
                                <FlexLayout Direction="Row" Margin="20" AlignItems="Stretch">
-                                   <Label Text="RPG App" FlexLayout.Grow="1" FontAttributes="Bold"
+                                   <Label Text="" FlexLayout.Grow="1" FontAttributes="Bold"
                      FontSize="20" VerticalTextAlignment="Center"/>
                                    <FlexLayout FlexLayout.Grow="2" Direction="Column"
                       AlignItems="End" JustifyContent="Center">
-                                       <Label Text="Usuários" FontSize="20"/>
+                                     
                                   
                            </FlexLayout>
                        </FlexLayout>
                    </Grid>
             </Frame>
-                    <Label Text="Este App oferece recursos para" FontAttributes="Bold" FontSize="Medium"/>
+                    <Label Text="O App Ecoleta oferece recursos para" FontAttributes="Bold" FontSize="Medium"/>
             <ScrollView Orientation="Horizontal">
                 <HorizontalStackLayout>
                     <Frame Style="{StaticResource FrameOptions}" Padding="0"
                                  HeightRequest="{OnPlatform Android=150, iOS=140}" 
                                   WidthRequest="{OnPlatform Android=120, iOS=140}">
-                        <VerticalStackLayout Spacing="0" VerticalOptions="Center">
-                            <Image Source="menupersonagens.svg"/>
-                            <Label Text="Personagens" FontSize="Small"
+                        <VerticalStackLayout Spacing="10" VerticalOptions="Center">
+                                <Image Source="coleta.png" MaximumWidthRequest="64" MaximumHeightRequest="64"/>
+                            <Label Text="Minhas Coletas" FontSize="Small"
                                     HorizontalTextAlignment="Center" Margin="10,0"/>
                         </VerticalStackLayout>
                     </Frame>
                     <Frame Style="{StaticResource FrameOptions}" Padding="0"
                                     HeightRequest="{OnPlatform Android=150, iOS=140}" 
                                    WidthRequest="{OnPlatform Android=120, iOS=140}">
-                        <VerticalStackLayout Spacing="30" VerticalOptions="Center">
-                            <Image Source="menuarmas.png"/>
-                            <Label Text="Armas" FontSize="Small" HorizontalTextAlignment="Center"
+                        <VerticalStackLayout Spacing="10" VerticalOptions="Center">
+                                <Image Source="ecoponto.png" MaximumWidthRequest="96" MaximumHeightRequest="96"/>
+                            <Label Text="Ecopontos" FontSize="Small" HorizontalTextAlignment="Center"
                                                          Margin="10,0"/>
                         </VerticalStackLayout>
                     </Frame>
                     <Frame Style="{StaticResource FrameOptions}" Padding="0"
                                     HeightRequest="{OnPlatform Android=150, iOS=140}"
                                      WidthRequest="{OnPlatform Android=120, iOS=140}">
-                        <VerticalStackLayout Spacing="0" VerticalOptions="Center">
-                            <Image Source="menudisputas.png"/>
-                            <Label Text="Disputas" FontSize="Small"
+                        <VerticalStackLayout Spacing="10" VerticalOptions="Center">
+                                <Image Source="brinde.png" MaximumWidthRequest="96" MaximumHeightRequest="96"/>
+                            <Label Text="Brindes" FontSize="Small"
                                     HorizontalTextAlignment="Center" Margin="10,0"/>
                         </VerticalStackLayout>
                     </Frame>
-                </HorizontalStackLayout>
+                    
+                </HorizontalStackLayout>           
+    
             </ScrollView>
+
+            <Image Source="recyclehome.png" />
+
         </VerticalStackLayout>
+        </ScrollView>
     </ContentPage.Content>
 
 
