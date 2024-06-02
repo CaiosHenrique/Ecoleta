@@ -26,7 +26,8 @@ namespace EcoletaApp.ViewModels.Ecopontos
         }
 
 
-        #region
+        #region Atributos
+
         private int idEcoponto;
         private string nome;
         private int cnpj;
@@ -48,12 +49,7 @@ namespace EcoletaApp.ViewModels.Ecopontos
 
      
 
-    public int IdEcoponto 
-        { get => idEcoponto; 
-            set 
-            {
-                idEcoponto = value;OnPropertyChanged(nameof(IdEcoponto));
-            }
+    public int IdEcoponto { get => idEcoponto; set { idEcoponto = value;OnPropertyChanged(nameof(IdEcoponto));}
         }
         public string Nome { get => nome; set { nome = value; OnPropertyChanged(nameof(Nome)); } }
         public int CNPJ { get => cnpj; set { cnpj = value; OnPropertyChanged(nameof(CNPJ)); } }   
@@ -67,7 +63,6 @@ namespace EcoletaApp.ViewModels.Ecopontos
         public int CEP { get => cep; set { cep = value; OnPropertyChanged(nameof(CEP)); } }
         public int Latitude { get => latitude; set { latitude = value; OnPropertyChanged(nameof(Latitude)); } }
         public int Longitude { get => longitude; set { longitude = value; OnPropertyChanged(nameof(Longitude)); } }     
-        public string EcopontoSelecionadoId { get => ecopontoSelecionadoId; set { if (value != null) { ecopontoSelecionadoId = Uri.UnescapeDataString(value); CarregarEcoponto(); } } }
         public string Username { get => username; set { username = value; OnPropertyChanged(nameof(username)); } }
         public string PasswordString { get => passwordString; set { passwordString = value; OnPropertyChanged(nameof(passwordString)); } }
         public string Email { get => email; set { email = value; OnPropertyChanged(nameof(email)); } }
@@ -75,6 +70,7 @@ namespace EcoletaApp.ViewModels.Ecopontos
         public byte[] PasswordSalt { get => passwordSalt; set { passwordSalt = value; OnPropertyChanged(nameof(passwordSalt)); } }
 
         private string ecopontoSelecionadoId;
+        public string EcopontoSelecionadoId { get => ecopontoSelecionadoId; set { if (value != null) { ecopontoSelecionadoId = Uri.UnescapeDataString(value); CarregarEcoponto(); } } }
 
         #endregion
 

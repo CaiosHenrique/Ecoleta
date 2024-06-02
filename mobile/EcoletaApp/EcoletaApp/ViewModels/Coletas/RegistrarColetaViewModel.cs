@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace EcoletaApp.ViewModels.Coletas
 {
-    [QueryProperty("ColetaSelecionadadoID", "cId")]
+    [QueryProperty("ColetaSelencionadaId", "cId")]
     public class RegistrarColetaViewModel : BaseViewModel
     {
         private ColetaService cService;
@@ -39,7 +39,7 @@ namespace EcoletaApp.ViewModels.Coletas
         private Double peso;
         private string situacaoColeta;
 
-        public int IdColeta { get => idColeta; set { idColeta = value; OnPropertyChanged(nameof(idColeta)); } }
+        public int IdColeta { get => idColeta; set { idColeta = value; OnPropertyChanged(nameof(IdColeta)); } }
         public int IdEcoponto { get => idEcoponto; set { idEcoponto = value; OnPropertyChanged(nameof(IdEcoponto)); } }
         public int IdUtilizador { get => idUtilizador; set { idUtilizador = value; OnPropertyChanged(nameof(IdUtilizador)); } }
         public int CodigoUtilizador { get => codigoUtilizador; set { codigoUtilizador = value; OnPropertyChanged(nameof(CodigoUtilizador)); } }
@@ -53,6 +53,7 @@ namespace EcoletaApp.ViewModels.Coletas
         private string coletaSelecionadaId;
 
         public string ColetaSelencionadaId { set { if (value != null) { coletaSelecionadaId = Uri.UnescapeDataString(value); CarregarColetaAsync(); } } }
+
         #endregion
 
         public async Task RegistrarColetaAsync()
@@ -88,20 +89,20 @@ namespace EcoletaApp.ViewModels.Coletas
             }
         }
 
-        public async Task CarregarColetaAsync()
+        public async void CarregarColetaAsync()
         {
             try
             {
                 Coleta c = await cService.GetColetaAsync(int.Parse(coletaSelecionadaId));
 
-                this.idColeta = c.IdColeta;
-                this.idEcoponto = c.IdEcoponto;
-                this.idUtilizador = c.IdUtilizador;
-                this.codigoEcoponto = c.CodigoEcoponto;
-                this.codigoUtilizador = c.CodigoUtilizador;
-                this.dataColeta = c.DataColeta;
-                this.totalEcopoints = c.TotalEcopoints;
-                this.peso = c.Peso;
+                this.IdColeta = c.IdColeta;
+                this.IdEcoponto = c.IdEcoponto;
+                this.IdUtilizador = c.IdUtilizador;
+                this.CodigoEcoponto = c.CodigoEcoponto;
+                this.CodigoUtilizador = c.CodigoUtilizador;
+                this.DataColeta = c.DataColeta;
+                this.TotalEcopoints = c.TotalEcopoints;
+                this.Peso = c.Peso;
                 this.SituacaoColeta = c.SituacaoColeta;
 
 

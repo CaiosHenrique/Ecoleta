@@ -40,10 +40,9 @@ namespace EcoletaApp.ViewModels.Coletas
             {
                 if (value != null)
                 {
-                    coletaSelecionada = value;
-                    int id = coletaSelecionada.IdColeta;
+                    coletaSelecionada = value;   
 
-                    Shell.Current.GoToAsync($"cadColetaView?cId={id}");
+                    Shell.Current.GoToAsync($"cadColetaView?cId={coletaSelecionada.IdColeta}");
                 }
             }
         }
