@@ -173,91 +173,96 @@ namespace api.Controllers
             }
         }
 
-        [HttpPost("AutenticarEcoponto")] //Não está funcionando 400 Bad Request ):
+        [HttpPost("AutenticarEcoponto")]
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+
         public async Task<ActionResult> AutenticarEcoponto([FromBody] EcopontoModel ecoponto)
+    {
+        try
         {
-            try
-            {
-                EcopontoModel TB_ECOPONTO = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+        if (ecoponto == null)
+            return StatusCode(404);
 
-                if (ecoponto == null)
-                    return StatusCode(404);
+        EcopontoModel TB_ECOPONTO = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
 
-                if (!Criptografia.VerificarPasswordHash(ecoponto.PasswordString, ecoponto.PasswordHash, ecoponto.PasswordSalt))
-                    return StatusCode(401);
+        if (TB_ECOPONTO == null)
+            return StatusCode(404);
 
-                return StatusCode(200, ecoponto);
+        if (!Criptografia.VerificarPasswordHash(ecoponto.PasswordString, TB_ECOPONTO.PasswordHash, TB_ECOPONTO.PasswordSalt))
+            return StatusCode(401);
 
-            }
-
-            catch (System.Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-
-            }
+        return StatusCode(200, TB_ECOPONTO);
         }
+        catch (System.Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
 
-        [HttpPut("AlterarSenha")] //Não está funcionando 400 Bad Request ):
+
+        [HttpPut("AlterarSenha")]
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
         public async Task<ActionResult> AlterarSenha([FromBody] EcopontoModel ecoponto)
+    {
+        try
         {
-            try
-            {
-                EcopontoModel TB_ECOPONTO = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+        if (ecoponto == null)
+            return StatusCode(404);
 
-                if (ecoponto == null)
-                    return StatusCode(404);
+        EcopontoModel TB_ECOPONTO = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
 
-                Criptografia.CriarPasswordHash(ecoponto.PasswordString, out byte[] hash, out byte[] salt);
+        if (TB_ECOPONTO == null)
+            return StatusCode(404);
 
-                ecoponto.PasswordString = string.Empty;
-                ecoponto.PasswordHash = hash;
-                ecoponto.PasswordSalt = salt;
+        Criptografia.CriarPasswordHash(ecoponto.PasswordString, out byte[] hash, out byte[] salt);
 
-                await _context.SaveChangesAsync();
+        TB_ECOPONTO.PasswordString = string.Empty;
+        TB_ECOPONTO.PasswordHash = hash;
+        TB_ECOPONTO.PasswordSalt = salt;
 
-                return StatusCode(200, ecoponto);
+        _context.TB_ECOPONTO.Update(TB_ECOPONTO);
+        await _context.SaveChangesAsync();
 
-            }
-
-            catch (System.Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-
-            }
+        return StatusCode(200, TB_ECOPONTO);
         }
-
-        [HttpPut("AlterarEmail")] //Não está funcionando 400 Bad Request ):
-        public async Task<ActionResult> AlterarEmail([FromBody] EcopontoModel ecoponto)
+        catch (System.Exception ex)
         {
-            try
-            {
-                EcopontoModel TB_ECOPONTO = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
-
-                if (ecoponto == null)
-                    return StatusCode(404);
-
-                ecoponto.Email = ecoponto.Email;
-
-                await _context.SaveChangesAsync();
-
-                return StatusCode(200, ecoponto);
-
-            }
-
-            catch (System.Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-
-            }
+        return StatusCode(500, ex.Message);
         }
+    }   
 
+    [HttpPut("AlterarEmail")]
+    public async Task<ActionResult> AlterarEmail([FromBody] EcopontoModel ecoponto)
+    {
+        try
+        {
+        if (ecoponto == null)
+            return StatusCode(404);
+
+        EcopontoModel TB_ECOPONTO = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+
+        if (TB_ECOPONTO == null)
+            return StatusCode(404);
+
+        TB_ECOPONTO.Email = ecoponto.Email;
+
+        _context.TB_ECOPONTO.Update(TB_ECOPONTO);
+        await _context.SaveChangesAsync();
+
+        return StatusCode(200, TB_ECOPONTO);
+        }
+        catch (System.Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
     }
+
+}
 }
