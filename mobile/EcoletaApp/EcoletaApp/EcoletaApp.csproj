@@ -40,12 +40,11 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\logoecoletatexto.svg" Color="#007064" BaseSize="680,680" />
+		<MauiIcon Include="Resources\AppIcon\logoecoletatexto.svg" Color="#007064" BaseSize="64,64" />
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\logoecoleta.svg" Color="#007064" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\logoecoleta.svg" Color="#007064" BaseSize="680,680" />
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -55,7 +54,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\AppIcon\logocoloecoletaextenso.png" />
 	  <None Remove="Resources\AppIcon\logocolorecoleta.png" />
 	</ItemGroup>
 
@@ -106,11 +104,6 @@
 	<ItemGroup>
 	  <Folder Include="ViewModels\Ecopoints\" />
 	  <Folder Include="Views\Ecopoints\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiImage Include="Resources\AppIcon\logocoloecoletaextenso.png" />
-	  <MauiImage Include="Resources\Splash\logocolorecoleta.png" />
 	</ItemGroup>
 
 </Project>
