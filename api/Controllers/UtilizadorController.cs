@@ -38,9 +38,9 @@ namespace api.Controllers
 
             }
 
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                return StatusCode(500);
+                return BadRequest(ex.Message);
             }
 
         }
@@ -51,17 +51,19 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public ActionResult<UtilizadorModel> Get(int id)
+        public async Task<ActionResult<UtilizadorModel>> Get(int id)
         {
             try
             {
-                var utilizador = utilizadores.Find(u => u.IdUtilizador == id);
+                var utilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(u => u.IdUtilizador == id);
 
                 if (utilizador == null)
                 {
-                return StatusCode(404);
+                return NotFound(new {Message = "Não foi encontrado o utilizador"});
 
                 }
+
+                return Ok(utilizador);
 
             }
 
@@ -70,8 +72,6 @@ namespace api.Controllers
                 return StatusCode(500);
 
             }
-                return StatusCode(200, utilizadores);
-
         }
 
         

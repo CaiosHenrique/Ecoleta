@@ -11,7 +11,10 @@ namespace api.Models
        public int Quantidade { get; set; }
        public int TotalEcoPoints { get; set; } = 0;
 
-       public int UtilizadorId { get; set; }
-       public virtual UtilizadorModel Utilizador { get; set; }
+        public int UtilizadorId { get; set; }
+
+    [ForeignKey("UtilizadorId")]
+    public UtilizadorModel Utilizador { get; set; }
+      
     }
 }

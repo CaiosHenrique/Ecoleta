@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
-   options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoSomee")); //ConexaoLocal ou ConexaoSomee
+   options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoLocal")); //ConexaoLocal ou ConexaoSomee
 });
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
