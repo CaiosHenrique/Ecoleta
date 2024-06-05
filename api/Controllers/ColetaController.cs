@@ -3,6 +3,7 @@ using api.Models;
 using api.Models.Enuns;
 using System.Collections.Generic;
 using api.Data;
+using api.Services.Coleta;
 
 namespace api.Controllers
 {
@@ -14,11 +15,13 @@ namespace api.Controllers
         
     private readonly DataContext _context;
     private readonly List<ColetaModel> coletas;
+    private readonly ColetaService _coletaService;
 
-        public ColetaController(DataContext context)
+        public ColetaController(DataContext context, ColetaService coletaService)
         {
             coletas = new List<ColetaModel>();
             _context = context;
+            _coletaService = new ColetaService(context);
         }
 
         [HttpGet]
@@ -55,12 +58,10 @@ namespace api.Controllers
             {
                 var coleta = _context.TB_COLETA.Find(IdColeta);
 
-                if (coleta == null)
-                {
-                    return StatusCode(404);
+                _coletaService.GetAsync(IdColeta);
 
-                }
-                    return StatusCode(200, coleta);
+               
+                return StatusCode(200, coleta);
 
             }
 
@@ -106,10 +107,7 @@ namespace api.Controllers
             {
                 var coletaAtual = _context.TB_COLETA.Find(IdColeta);
 
-                if (coletaAtual == null)
-                {
-                    return StatusCode(400);
-                }
+                _coletaService.PutAsync(IdColeta);
 
                 coletaAtual.IdColeta = coleta.IdColeta;
                 coletaAtual.IdEcoponto = coleta.IdEcoponto;
@@ -146,11 +144,7 @@ namespace api.Controllers
             {
                 var coleta = _context.TB_COLETA.Find(IdColeta);
 
-                if (coleta == null)
-                {
-                    return StatusCode(404);
-
-                }
+                _coletaService.DeleteAsync(IdColeta);
 
                 _context.TB_COLETA.Remove(coleta);
                 _context.SaveChanges();
