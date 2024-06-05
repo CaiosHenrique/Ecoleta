@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using api.Models;
 using api.Data;
+using api.Services.EcoPoints;
 
 
 namespace api.Controllers
@@ -16,15 +17,25 @@ namespace api.Controllers
         private readonly DataContext _context;
         private readonly List<UtilizadorModel> utilizador;
         private readonly UtilizadorService _utilizadorService;
+        private readonly IEcoPointsService _ecoPointsService;
+       
+        
+        
+        
 
 
-        public EcoPointsController(DataContext context)
+        public EcoPointsController(DataContext context, UtilizadorService utilizadorService, IEcoPointsService ecoPointsService)
         {
             _context = context;
             ecopoints = new List<EcopointsModel>();
             utilizador = new List<UtilizadorModel>();
             _utilizadorService = new UtilizadorService(context);
+            _ecoPointsService = ecoPointsService;
         }
+
+
+
+
 
 
         // GET: api/EcoPoints/5
@@ -38,13 +49,9 @@ namespace api.Controllers
         {
             try
             {
-                var ecopoint = ecopoints.Find(e => e.IdMaterial == IdMaterial);
+                var ecopoint = _context.TB_ECOPOINTS.Find((EcopointsModel e) => e.IdMaterial == IdMaterial);
 
-                if (ecopoint == null)
-                {
-                    return StatusCode(404);
-
-                }
+                _ecoPointsService.GetMaterial(IdMaterial);
 
                 return StatusCode(200, ecopoint);
 
@@ -69,11 +76,7 @@ namespace api.Controllers
             {
                 var utilizador = _context.TB_UTILIZADOR.Find(IdUtilizador);
 
-                // Verifique se o usuário existe
-                if (utilizador == null)
-                {
-                    return NotFound();
-                }
+                _ecoPointsService.GetUtilizador(IdUtilizador);
 
                 // Retorne o total de EcoPoints do usuário
                 return utilizador.TotalEcoPoints;
@@ -120,7 +123,7 @@ namespace api.Controllers
         {
             try
             {
-                ecopoints.Add(ecopoint);
+                _context.TB_ECOPOINTS.Add(ecopoint);
 
                 _utilizadorService.AddEcoPoints(IdUtilizador, quantidade);
 
@@ -150,10 +153,7 @@ namespace api.Controllers
                 var utilizador = _context.TB_UTILIZADOR.Find(IdUtilizador);
 
                 // Verifique se o usuário existe
-                if (utilizador == null)
-                {
-                    return StatusCode(404);
-                }
+                _ecoPointsService.PutAsync(IdUtilizador);
 
                 // Atualize os EcoPoints do usuário
                 utilizador.TotalEcoPoints = ecopoint.TotalEcoPoints;
@@ -182,11 +182,7 @@ namespace api.Controllers
                 // Busque o usuário pelo ID
                 var utilizador = _context.TB_UTILIZADOR.Find(IdUtilizador);
 
-                // Verifique se o usuário existe
-                if (utilizador == null)
-                {
-                    return StatusCode(404);
-                }
+                _ecoPointsService.DeleteAsync(IdUtilizador);
 
                 // Defina os EcoPoints do usuário como 0
                 utilizador.TotalEcoPoints = 0;

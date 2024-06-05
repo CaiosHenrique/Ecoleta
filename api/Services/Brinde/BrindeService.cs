@@ -5,16 +5,14 @@ using api.Data;
 
 namespace api.Services.Brinde
 {
-    public class BrindeService
+    public class BrindeService : IBrindeService
     {
 
-        private readonly List<BrindeModel> _brindes;
         private readonly DataContext _context;
 
         public BrindeService(DataContext context)
         {
             _context = context;
-            _brindes = new List<BrindeModel>();
         }
         
 

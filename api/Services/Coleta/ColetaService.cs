@@ -5,7 +5,7 @@ using api.Services.Exceptions;
 namespace api.Services.Coleta
 {
 
-    public class ColetaService
+    public class ColetaService : IColetaService
     {
 
         

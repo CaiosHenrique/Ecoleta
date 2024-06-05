@@ -8,7 +8,9 @@ using api.Models.Enuns;
 using System.Collections.Generic;
 using api.Data;
 using api.Utils;
+using api.Services.EcoPoints;
 using Microsoft.EntityFrameworkCore;
+using api.Services.EcoPonto;
 
 
 namespace api.Controllers
@@ -19,11 +21,13 @@ namespace api.Controllers
     {
         private readonly List<EcopontoModel> ecoponto;
         private readonly DataContext _context;
+        private readonly IEcoPointsService _ecoPointsService;
 
-        public EcoPontoController(DataContext context)
+        public EcoPontoController(DataContext context, IEcoPointsService ecoPointsService)
         {
             ecoponto = new List<EcopontoModel>();
             _context = context;
+            _ecoPointsService = ecoPointsService;
 
         }
 
@@ -38,6 +42,9 @@ namespace api.Controllers
             try
             {
                 EcopontoModel e = await _context.TB_ECOPONTO.FindAsync(IdEcoponto);
+
+                _ecoPointsService.GetAsync(IdEcoponto);
+
                 return StatusCode(200, e);
 
             }
@@ -183,18 +190,18 @@ namespace api.Controllers
     {
         try
         {
-        if (ecoponto == null)
-            return StatusCode(404);
+        
+        
+        _ecoPointsService.AutenticarEcoPontoAsync(ecoponto);
 
-        EcopontoModel TB_ECOPONTO = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+        EcopontoModel EcoPonto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
 
-        if (TB_ECOPONTO == null)
-            return StatusCode(404);
+        _ecoPointsService.AutenticarTBEcoPontoAsync(ecoponto);
 
-        if (!Criptografia.VerificarPasswordHash(ecoponto.PasswordString, TB_ECOPONTO.PasswordHash, TB_ECOPONTO.PasswordSalt))
-            return StatusCode(401);
+        _ecoPointsService.AutenticarSenhaEcoPonto(ecoponto);
+        
 
-        return StatusCode(200, TB_ECOPONTO);
+        return StatusCode(200, EcoPonto);
         }
         catch (System.Exception ex)
         {

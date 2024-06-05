@@ -14,13 +14,13 @@ namespace Ecoleta.Controllers
     {
         
         private readonly ILogger<BrindeController> _logger;
-        private readonly BrindeService _brindeService;
         private readonly DataContext _context;
+        private readonly IBrindeService _brindeService;
 
-        public BrindeController(ILogger<BrindeController> logger, BrindeService brindeService, DataContext context)
+        public BrindeController(ILogger<BrindeController> logger, IBrindeService BrindeService, DataContext context)
         {
             _logger = logger;
-            _brindeService = new BrindeService(context);
+            _brindeService = BrindeService;
             _context = context;
            
         }

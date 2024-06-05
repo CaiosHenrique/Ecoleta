@@ -15,13 +15,13 @@ namespace api.Controllers
         
     private readonly DataContext _context;
     private readonly List<ColetaModel> coletas;
-    private readonly ColetaService _coletaService;
+    private readonly IColetaService _coletaService;
 
-        public ColetaController(DataContext context, ColetaService coletaService)
+        public ColetaController(DataContext context, IColetaService ColetaService)
         {
             coletas = new List<ColetaModel>();
             _context = context;
-            _coletaService = new ColetaService(context);
+            _coletaService = ColetaService;
         }
 
         [HttpGet]
