@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using api.Data;
 using Microsoft.EntityFrameworkCore;
 using api.Utils;
+using api.Services.Utilizador;
 
 namespace api.Controllers
 {
@@ -14,13 +15,15 @@ namespace api.Controllers
     {
 
         private readonly List<UtilizadorModel> utilizadores;
+        private readonly IUtilizadorService _utilizadorService;
 
         private readonly DataContext _context;
 
-        public UtilizadorController(DataContext context)
+        public UtilizadorController(DataContext context, IUtilizadorService utilizadorService)
         {
             utilizadores = new List<UtilizadorModel>();
             _context = context;
+            _utilizadorService = utilizadorService;
         }
 
         
@@ -57,11 +60,7 @@ namespace api.Controllers
             {
                 var utilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(u => u.IdUtilizador == id);
 
-                if (utilizador == null)
-                {
-                return NotFound(new {Message = "Não foi encontrado o utilizador"});
-
-                }
+                _utilizadorService.GetAsync(id);
 
                 return Ok(utilizador);
 
@@ -84,7 +83,8 @@ namespace api.Controllers
         {
             try
             {
-                utilizadores.Add(utilizador);
+                _context.TB_UTILIZADOR.Add(utilizador);
+                _context.SaveChanges();
                 return StatusCode(201, utilizador);
 
             }
@@ -104,30 +104,24 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<UtilizadorModel> Put(int id, [FromBody] UtilizadorModel utilizador)
-        {
-            try
-            {
-                var index = utilizadores.FindIndex(u => u.IdUtilizador == id);
-
-                if (index == -1)
+               public async Task<ActionResult<UtilizadorModel>> Put(int id, [FromBody] UtilizadorModel utilizador)
+                {       
+                try
                 {
-                return StatusCode(404);
+                    var existingUtilizador = await _context.TB_UTILIZADOR.FindAsync(id);
 
+                    _utilizadorService.PutAsync(id);
+
+                    _context.Entry(existingUtilizador).CurrentValues.SetValues(utilizador);
+                    await _context.SaveChangesAsync();
+
+                    return AcceptedAtAction(nameof(Get), new { id = utilizador.IdUtilizador }, utilizador);
                 }
-
-                utilizadores[index] = utilizador;
-                return StatusCode(202, utilizador);
-
-            }
-
-            catch (System.Exception)
-            {
-                return StatusCode(500);
-
-            }
-
-        }
+                catch (System.Exception)
+                {
+                    return StatusCode(500);
+                }
+                }       
 
         
         [HttpDelete("{id}")]
@@ -140,15 +134,12 @@ namespace api.Controllers
         {
             try
             {
-                var utilizador = utilizadores.Find(u => u.IdUtilizador == id);
+                var utilizador = _context.TB_UTILIZADOR.Find((UtilizadorModel u) => u.IdUtilizador == id);
 
-                if (utilizador == null)
-                {
-                return StatusCode(404);
-                
-                }
+                _utilizadorService.DeleteAsync(id);
 
-            utilizadores.Remove(utilizador);
+            _context.TB_UTILIZADOR.Remove(utilizador);
+            _context.SaveChanges();
             return StatusCode(200);
 
             }
@@ -159,14 +150,7 @@ namespace api.Controllers
         }
 
 
-        private async Task<bool> UsuarioExistente(string username)
-        {
-            if (await _context.TB_UTILIZADOR.AnyAsync(x => x.Username.ToLower() == username.ToLower()))
-            {
-                return true;
-            }
-            return false;
-        }
+        
 
         [HttpPost("Registrar")]
 
@@ -176,8 +160,7 @@ namespace api.Controllers
         {
             try
             {
-                if (await UsuarioExistente(utilizador.Username))
-                    throw new System.Exception("Nome de usuário já existe");
+                _utilizadorService.RegistrarUserExistente(utilizador);
 
                 Criptografia.CriarPasswordHash(utilizador.PasswordString, out byte[] hash, out byte[] salt);
 
@@ -204,25 +187,16 @@ namespace api.Controllers
         {
             try
             {
-                UtilizadorModel? usuario = await _context.TB_UTILIZADOR
-                   .FirstOrDefaultAsync(x => x.Username.ToLower().Equals(credenciais.Username.ToLower()));
+                _utilizadorService.AutenticarUsuarioAsync(credenciais);
 
-                if (usuario == null)
-                {
-                    throw new System.Exception("Usuário não encontrado.");
-                }
-                else if (!Criptografia.VerificarPasswordHash(credenciais.PasswordString, usuario.PasswordHash, usuario.PasswordSalt))
-                {
-                    throw new System.Exception("Senha incorreta.");
-                }
-                else
-                {
-                     usuario.DataAcesso = System.DateTime.Now;
+                UtilizadorModel? usuario = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(credenciais.Username.ToLower()));
+                   
+                    usuario.DataAcesso = System.DateTime.Now;
                     _context.TB_UTILIZADOR.Update(usuario);
                     await _context.SaveChangesAsync(); //Confirma a alteração no banco
 
                     return StatusCode(200);
-                }
+                
             }
             catch (System.Exception ex)
             {
@@ -238,8 +212,7 @@ namespace api.Controllers
                 UtilizadorModel usuario = await _context.TB_UTILIZADOR //Busca o usuário no banco através do login
                 .FirstOrDefaultAsync(x => x.Username.ToLower().Equals(credenciais.Username.ToLower()));
 
-                if (usuario == null) //Se não achar nenhum usuário pelo login, retorna mensagem.
-                    throw new System.Exception("Usuário não encontrado.");
+                _utilizadorService.GetUserAsync(credenciais);
 
                 Criptografia.CriarPasswordHash(credenciais.PasswordString, out byte[] hash, out byte[] salt);
                 usuario.PasswordHash = hash; //Se o usuário existir, executa a criptografia 

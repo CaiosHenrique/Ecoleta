@@ -21,13 +21,13 @@ namespace api.Controllers
     {
         private readonly List<EcopontoModel> ecoponto;
         private readonly DataContext _context;
-        private readonly IEcoPointsService _ecoPointsService;
+        private readonly IEcoPontoService _ecoPontoService;
 
-        public EcoPontoController(DataContext context, IEcoPointsService ecoPointsService)
+        public EcoPontoController(DataContext context, IEcoPontoService ecoPontoService)
         {
             ecoponto = new List<EcopontoModel>();
             _context = context;
-            _ecoPointsService = ecoPointsService;
+            _ecoPontoService = ecoPontoService;
 
         }
 
@@ -43,7 +43,7 @@ namespace api.Controllers
             {
                 EcopontoModel e = await _context.TB_ECOPONTO.FindAsync(IdEcoponto);
 
-                _ecoPointsService.GetAsync(IdEcoponto);
+                _ecoPontoService.GetAsync(IdEcoponto);
 
                 return StatusCode(200, e);
 
@@ -139,6 +139,9 @@ namespace api.Controllers
             try
             {
                 EcopontoModel ecoponto = await _context.TB_ECOPONTO.FindAsync(IdEcoponto);
+
+                _ecoPontoService.DeleteAsync(IdEcoponto);
+
                 _context.TB_ECOPONTO.Remove(ecoponto);
                 int linhasAfetadas = await _context.SaveChangesAsync();
                 return StatusCode(200, linhasAfetadas);
@@ -192,14 +195,11 @@ namespace api.Controllers
         {
         
         
-        _ecoPointsService.AutenticarEcoPontoAsync(ecoponto);
+        _ecoPontoService.AutenticarEcoPontoAsync(ecoponto);
+        _ecoPontoService.AutenticarTBEcoPontoAsync(ecoponto);
+        _ecoPontoService.AutenticarSenhaEcoPonto(ecoponto);
 
         EcopontoModel EcoPonto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
-
-        _ecoPointsService.AutenticarTBEcoPontoAsync(ecoponto);
-
-        _ecoPointsService.AutenticarSenhaEcoPonto(ecoponto);
-        
 
         return StatusCode(200, EcoPonto);
         }
@@ -220,24 +220,23 @@ namespace api.Controllers
     {
         try
         {
-        if (ecoponto == null)
-            return StatusCode(404);
 
-        EcopontoModel TB_ECOPONTO = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+        _ecoPontoService.AutenticarEcoPontoAsync(ecoponto);
 
-        if (TB_ECOPONTO == null)
-            return StatusCode(404);
+        EcopontoModel EcoPonto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+
+        _ecoPontoService.AutenticarTBEcoPontoAsync(ecoponto);
 
         Criptografia.CriarPasswordHash(ecoponto.PasswordString, out byte[] hash, out byte[] salt);
 
-        TB_ECOPONTO.PasswordString = string.Empty;
-        TB_ECOPONTO.PasswordHash = hash;
-        TB_ECOPONTO.PasswordSalt = salt;
+        EcoPonto.PasswordString = string.Empty;
+        EcoPonto.PasswordHash = hash;
+        EcoPonto.PasswordSalt = salt;
 
-        _context.TB_ECOPONTO.Update(TB_ECOPONTO);
+        _context.TB_ECOPONTO.Update(EcoPonto);
         await _context.SaveChangesAsync();
 
-        return StatusCode(200, TB_ECOPONTO);
+        return StatusCode(200, EcoPonto);
         }
         catch (System.Exception ex)
         {
@@ -246,24 +245,28 @@ namespace api.Controllers
     }   
 
     [HttpPut("AlterarEmail")]
+
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
     public async Task<ActionResult> AlterarEmail([FromBody] EcopontoModel ecoponto)
     {
         try
         {
-        if (ecoponto == null)
-            return StatusCode(404);
+            
+        _ecoPontoService.AutenticarEcoPontoAsync(ecoponto);
 
-        EcopontoModel TB_ECOPONTO = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+        EcopontoModel EcoPonto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
 
-        if (TB_ECOPONTO == null)
-            return StatusCode(404);
+        _ecoPontoService.AutenticarTBEcoPontoAsync(ecoponto);
 
-        TB_ECOPONTO.Email = ecoponto.Email;
+        EcoPonto.Email = ecoponto.Email;
 
-        _context.TB_ECOPONTO.Update(TB_ECOPONTO);
+        _context.TB_ECOPONTO.Update(EcoPonto);
         await _context.SaveChangesAsync();
 
-        return StatusCode(200, TB_ECOPONTO);
+        return StatusCode(200, EcoPonto);
         }
         catch (System.Exception ex)
         {

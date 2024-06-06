@@ -4,6 +4,7 @@ using api.Services.EcoPoints;
 using api.Services.Brinde;
 using api.Services.Coleta;
 using api.Services.EcoPonto;
+using api.Services.Utilizador;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 
 
+builder.Services.AddScoped<IUtilizadorService, UtilizadorService>();
 builder.Services.AddScoped<IEcoPointsService, EcoPointsService>();
 builder.Services.AddScoped<IEcoPontoService, EcoPontoService>();
 builder.Services.AddScoped<IColetaService, ColetaService>();

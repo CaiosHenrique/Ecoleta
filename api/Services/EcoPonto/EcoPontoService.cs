@@ -5,7 +5,7 @@ using api.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using api.Utils;
 
-namespace api.Services.Ecoponto
+namespace api.Services.EcoPonto
 {
     public class EcoPontoService : IEcoPontoService
     {
@@ -28,11 +28,23 @@ namespace api.Services.Ecoponto
 
         }
 
+        public async Task DeleteAsync(int IdEcoponto)
+        {
+            EcopontoModel ecoponto = await _context.TB_ECOPONTO.FindAsync(IdEcoponto);
+
+            if (ecoponto == null)
+            {
+                throw new NotFoundException("Ecoponto não encontrado");
+            }
+
+        }
+
+
         public async Task AutenticarEcoPontoAsync(EcopontoModel ecoponto)
         {
             if (ecoponto == null)
             {
-            throw new NotFoundException("Ecoponto não encontrado");
+            throw new ConflictException("Dados inválidos");
             }
         }
 
@@ -52,8 +64,10 @@ namespace api.Services.Ecoponto
 
             if (!Criptografia.VerificarPasswordHash(ecoponto.PasswordString, EcoPonto.PasswordHash, EcoPonto.PasswordSalt))
             {
-                throw new UnauthorizedException("Senha incorreta");
+                throw new ConflictException("Senha incorreta");
             }
         }
+
+
     }
 }
