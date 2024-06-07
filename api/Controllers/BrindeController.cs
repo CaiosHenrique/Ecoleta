@@ -40,8 +40,7 @@ namespace Ecoleta.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<BrindeModel>> GetId(int id)
         {
-           
-           
+    
             await _brindeService.GetAsync(id);
             var brinde = await _brindeRepository.GetIdAsync(id);
             
@@ -62,26 +61,21 @@ namespace Ecoleta.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, BrindeModel updatedBrinde)
         {
-            _brindeService.PutAsync(id);
-            _brindeRepository.PutAsync(id, updatedBrinde);
+            await _brindeService.PutAsync(id);
+            await _brindeRepository.PutAsync(id, updatedBrinde);
             
             
-            return NoContent();
+            return Ok("Brinde Atualizado com sucesso!");
         }
 
         // DELETE: api/Brinde/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var brinde = _context.TB_BRINDE.Find((BrindeModel b) => b.IdBrinde == id);
+            await _brindeService.DeleteAsync(id);
+            await _brindeRepository.DeleteAsync(id);
             
-            _brindeService.DeleteAsync(id);
-
-            _context.TB_BRINDE.Remove(brinde);
-
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return Ok("Brinde Deletado com sucesso!");
         }
     }
 }

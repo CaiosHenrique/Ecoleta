@@ -8,9 +8,9 @@ namespace api.Repository.Brinde
 
         public Task<List<BrindeModel>> GetAllAsync();
         public Task<ActionResult<BrindeModel>> GetIdAsync(int id);
-
-        public Task<IActionResult> PutAsync(int id, BrindeModel updatedBrinde);
+        public Task<ActionResult<BrindeModel>> PutAsync(int id, BrindeModel updatedBrinde);
         public Task<ActionResult<BrindeModel>> PostAsync(BrindeModel brinde);
+        public Task<ActionResult<BrindeModel>> DeleteAsync(int id);
         
     }
 }

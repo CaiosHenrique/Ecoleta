@@ -36,7 +36,7 @@ namespace api.Repository.Brinde
            return brinde;
         }
 
-        public async Task<IActionResult> PutAsync(int id, BrindeModel updatedBrinde)
+        public async Task<ActionResult<BrindeModel>> PutAsync(int id, BrindeModel updatedBrinde)
         {
             var brinde = _context.TB_BRINDE.Find((BrindeModel b) => b.IdBrinde == id);
 
@@ -51,7 +51,16 @@ namespace api.Repository.Brinde
 
             await _context.SaveChangesAsync();
 
-            return NoContent();
+           return brinde;
+        }
+
+        public async Task<ActionResult<BrindeModel>> DeleteAsync(int id)
+        {
+            var brinde = await _context.TB_BRINDE.FindAsync(id);
+            _context.TB_BRINDE.Remove(brinde);
+            await _context.SaveChangesAsync();
+
+            return brinde;
         }
         
     }

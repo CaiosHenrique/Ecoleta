@@ -4,6 +4,7 @@ using api.Models.Enuns;
 using System.Collections.Generic;
 using api.Data;
 using api.Services.Coleta;
+using api.Repository.Coleta;
 
 namespace api.Controllers
 {
@@ -16,12 +17,14 @@ namespace api.Controllers
     private readonly DataContext _context;
     private readonly List<ColetaModel> coletas;
     private readonly IColetaService _coletaService;
+    private readonly IColetaRepository _coletaRepository;
 
-        public ColetaController(DataContext context, IColetaService ColetaService)
+        public ColetaController(DataContext context, IColetaService ColetaService, IColetaRepository ColetaRepository)
         {
             coletas = new List<ColetaModel>();
             _context = context;
             _coletaService = ColetaService;
+            _coletaRepository = ColetaRepository;
         }
 
         [HttpGet]
@@ -29,21 +32,17 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public ActionResult<IEnumerable<ColetaModel>> GetAll()
+        public async Task<ActionResult<IEnumerable<ColetaModel>>> GetAll()
         {
             try
             {
-                var coletas = _context.TB_COLETA.ToList();
-                return StatusCode(200, coletas);
-
+                var coletas = await _coletaRepository.GetAllAsync();
+                return Ok(coletas);
             }
-
             catch (System.Exception)
             {
                 return StatusCode(500);
-
             }
-
         }
        
         [HttpGet("{IdColeta}")]
@@ -56,9 +55,10 @@ namespace api.Controllers
         {
             try
             {
-                var coleta = _context.TB_COLETA.Find(IdColeta);
 
                 _coletaService.GetAsync(IdColeta);
+                var coleta = _coletaRepository.GetIdAsync(IdColeta);
+
 
                
                 return StatusCode(200, coleta);
@@ -82,9 +82,8 @@ namespace api.Controllers
         {
             try
             {
-                _context.TB_COLETA.Add(coleta);
-                _context.SaveChanges();
-                return StatusCode(201, coleta);
+                var Coleta = _coletaRepository.PostAsync(coleta);
+                return StatusCode(201, Coleta);
 
             }
 
@@ -101,25 +100,14 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public ActionResult<ColetaModel> PutColeta(int IdColeta, [FromBody] ColetaModel coleta)
+        public ActionResult<ColetaModel> PutColeta(int IdColeta, ColetaModel coleta)
         {
             try
             {
-                var coletaAtual = _context.TB_COLETA.Find(IdColeta);
 
+                var coletaAtual = _coletaRepository.PutAsync(IdColeta, coleta);
                 _coletaService.PutAsync(IdColeta);
 
-                coletaAtual.IdColeta = coleta.IdColeta;
-                coletaAtual.IdEcoponto = coleta.IdEcoponto;
-                coletaAtual.IdUtilizador = coleta.IdUtilizador;
-                coletaAtual.CodigoEcoponto = coleta.CodigoEcoponto;
-                coletaAtual.CodigoUtilizador = coleta.CodigoUtilizador;
-                coletaAtual.DataColeta = coleta.DataColeta;
-                coletaAtual.TotalEcopoints = coleta.TotalEcopoints;
-                coletaAtual.Peso = coleta.Peso;
-                coletaAtual.SituacaoColeta = coleta.SituacaoColeta;
-
-                _context.SaveChanges();
                 return StatusCode(200, coletaAtual);
 
             }
@@ -142,13 +130,11 @@ namespace api.Controllers
         {
             try
             {
-                var coleta = _context.TB_COLETA.Find(IdColeta);
-
                 _coletaService.DeleteAsync(IdColeta);
+                var coleta = _coletaRepository.DeleteAsync(IdColeta);
 
-                _context.TB_COLETA.Remove(coleta);
-                _context.SaveChanges();
-                return StatusCode(200, coleta);
+
+                return StatusCode(200);
 
             }
             catch (System.Exception)
