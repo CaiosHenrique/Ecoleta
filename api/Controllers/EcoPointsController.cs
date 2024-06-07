@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using api.Models;
 using api.Data;
 using api.Services.EcoPoints;
+using api.Services.Utilizador;
 
 
 namespace api.Controllers

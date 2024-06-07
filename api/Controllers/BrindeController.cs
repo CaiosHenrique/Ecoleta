@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using api.Models;
 using api.Data;
 using api.Services.Brinde;
+using api.Repository.Brinde;
 
 namespace Ecoleta.Controllers
 {
@@ -16,12 +17,14 @@ namespace Ecoleta.Controllers
         private readonly ILogger<BrindeController> _logger;
         private readonly DataContext _context;
         private readonly IBrindeService _brindeService;
+        private readonly IBrindeRepository _brindeRepository;
 
-        public BrindeController(ILogger<BrindeController> logger, IBrindeService BrindeService, DataContext context)
+        public BrindeController(ILogger<BrindeController> logger, IBrindeService BrindeService, DataContext context, IBrindeRepository BrindeRepository)
         {
             _logger = logger;
             _brindeService = BrindeService;
             _context = context;
+            _brindeRepository = BrindeRepository;
            
         }
 
@@ -29,17 +32,18 @@ namespace Ecoleta.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<BrindeModel>> Get()
         {
-            var brinde = _context.TB_BRINDE.ToList();
-            return Ok(brinde);
+            var brindes = _brindeRepository.GetAllAsync();
+            return Ok(brindes);
         }
 
         // GET: api/Brinde/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<BrindeModel>> Get(int id)
+        public async Task<ActionResult<BrindeModel>> GetId(int id)
         {
-            var brinde = _context.TB_BRINDE.Find((BrindeModel b) => b.IdBrinde == id);
-
+           
+           
             await _brindeService.GetAsync(id);
+            var brinde = await _brindeRepository.GetIdAsync(id);
             
             return Ok(brinde);
         }
@@ -48,33 +52,19 @@ namespace Ecoleta.Controllers
         [HttpPost]
         public async Task<ActionResult<BrindeModel>> Post(BrindeModel brinde)
         {
-            brinde.IdBrinde = _context.TB_BRINDE.Count() + 1;
-
-            _context.TB_BRINDE.Add(brinde);
-           
-           await _context.SaveChangesAsync();
-           
-            return CreatedAtAction(nameof(Get), new { id = brinde.IdBrinde }, brinde);
+            
+            var newBrinde = _brindeRepository.PostAsync(brinde);
+            return Ok(newBrinde);
+            
         }
 
         // PUT: api/Brinde/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, BrindeModel updatedBrinde)
         {
-            var brinde = _context.TB_BRINDE.Find((BrindeModel b) => b.IdBrinde == id);
-            
-
             _brindeService.PutAsync(id);
-
-            brinde.DescricaoBrinde = updatedBrinde.DescricaoBrinde;
-            brinde.NomeBrinde = updatedBrinde.NomeBrinde;
-            brinde.Cadastro = updatedBrinde.Cadastro;
-            brinde.Validade = updatedBrinde.Validade;
-            brinde.Quantidade = updatedBrinde.Quantidade;
-            brinde.Saldo = updatedBrinde.Saldo;
-            brinde.ValorEcopoints = updatedBrinde.ValorEcopoints;
-
-            await _context.SaveChangesAsync();
+            _brindeRepository.PutAsync(id, updatedBrinde);
+            
             
             return NoContent();
         }
