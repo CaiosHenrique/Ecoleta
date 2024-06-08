@@ -16,6 +16,9 @@ namespace api.Models
         public int TotalEcoPoints { get; set; } = 0;
         public virtual ICollection<EcopointsModel> Ecopoints { get; set; }
 
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
+
         public string Username { get; set; } = string.Empty;
         public byte[]? PasswordHash { get; set; } 
         public byte[]? PasswordSalt { get; set; }
