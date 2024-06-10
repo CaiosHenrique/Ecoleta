@@ -18,9 +18,9 @@ namespace api.Controllers
         private readonly List<EcopointsModel> ecopoints;
         private readonly DataContext _context;
         private readonly List<UtilizadorModel> utilizador;
-        private readonly UtilizadorService _utilizadorService;
+        private readonly IUtilizadorService _utilizadorService;
         private readonly IEcoPointsService _ecoPointsService;
-        private readonly EcoPointsRepository _ecoPointsRepository;
+        private readonly IEcoPointsRepository _ecoPointsRepository;
        
         
         

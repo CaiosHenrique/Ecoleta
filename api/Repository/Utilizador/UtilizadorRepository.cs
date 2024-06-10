@@ -27,7 +27,7 @@ namespace api.Repository.Utilizador
         public async Task PostAsync(UtilizadorModel utilizador)
         {
             _context.TB_UTILIZADOR.Add(utilizador);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public async Task PutAsync(int id, UtilizadorModel utilizador)
@@ -40,7 +40,7 @@ namespace api.Repository.Utilizador
 
         public async Task DeleteAsync(int id)
         {
-            var utilizador = _context.TB_UTILIZADOR.Find((UtilizadorModel u) => u.IdUtilizador == id);
+            var utilizador = await _context.TB_UTILIZADOR.FindAsync((UtilizadorModel u) => u.IdUtilizador == id);
 
             _context.TB_UTILIZADOR.Remove(utilizador);
             await _context.SaveChangesAsync();
