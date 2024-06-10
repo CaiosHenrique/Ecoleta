@@ -40,12 +40,11 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\logoecoletatexto.svg" Color="#007064" BaseSize="680,680" />
+		<MauiIcon Include="Resources\AppIcon\logoecoletatexto.svg" Color="#007064" BaseSize="64,64" />
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\logoecoleta.svg" Color="#007064" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\logoecoleta.svg" Color="#007064" BaseSize="680,680" />
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -55,12 +54,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
+<<<<<<< HEAD
+=======
+	  <AndroidResource Remove="Views\Ecopoints\**" />
+	  <Compile Remove="Views\Ecopoints\**" />
+	  <EmbeddedResource Remove="Views\Ecopoints\**" />
+	  <MauiCss Remove="Views\Ecopoints\**" />
+	  <MauiXaml Remove="Views\Ecopoints\**" />
+	  <None Remove="Views\Ecopoints\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+>>>>>>> 33a0c978ec9651bd5d2033aafe9deade7817a848
 	  <None Remove="Resources\AppIcon\logocolorecoleta.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="8.0.40" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -85,6 +96,12 @@
 	  <MauiXaml Update="Views\Coletas\RegistrarColetasView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Ecopoint\CadastrarEcopointsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Ecopoint\listagemEcopointsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Ecoponto\CadastroView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -102,9 +119,12 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+<<<<<<< HEAD
 	<ItemGroup>
 	  <Folder Include="ViewModels\Ecopoints\" />
 	  <Folder Include="Views\Ecopoints\" />
 	</ItemGroup>
 
+=======
+>>>>>>> 33a0c978ec9651bd5d2033aafe9deade7817a848
 </Project>

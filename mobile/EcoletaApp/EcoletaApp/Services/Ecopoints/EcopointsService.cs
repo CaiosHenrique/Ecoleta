@@ -47,7 +47,7 @@ namespace EcoletaApp.Services.EcopointsService
             return result;
         }
 
-        public async Task<int> DeleteEcopontoAsync(int e)
+        public async Task<int> DeleteEcopointAsync(int e)
         {
             string urlComplementar = string.Format("/{0}", e);
             return await _request.DeleteSemTokenAsync(apiURLBase+urlComplementar);

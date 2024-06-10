@@ -17,7 +17,9 @@ namespace EcoletaApp.Models
         public bool SituacaoEmail { get; set; }
 
         public int TotalEcoPoints { get; set; } = 0;
-        public virtual ICollection<Ecopoints> Ecopoints { get; set; }
+
+        [ForeignKey("TotalEcoPoints")]
+        public Ecopoints EcoPoints { get; set; } = new Ecopoints();
         public double Latitude { get; set; }
         public double Longitude { get; set; }
 

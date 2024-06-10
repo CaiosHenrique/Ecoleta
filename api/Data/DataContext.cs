@@ -23,8 +23,8 @@ namespace api.Data
             Criptografia.CriarPasswordHash("123456", out passwordHash, out passwordSalt);
 
             modelBuilder.Entity<UtilizadorModel>().HasData(
-                new UtilizadorModel() { IdUtilizador = 1, Nome = "João", Email = "joao123@gmail.com", SituacaoEmail = true, Username = "UsuarioJoao", PasswordHash = passwordHash, PasswordSalt = passwordSalt },
-                new UtilizadorModel() { IdUtilizador = 2, Nome = "Maria", Email = "maria123@gmail.com", SituacaoEmail = true, Username = "UsuarioMaria", PasswordHash = passwordHash, PasswordSalt = passwordSalt }
+                new UtilizadorModel() { IdUtilizador = 1, Nome = "João", Email = "joao123@gmail.com", SituacaoEmail = true, Username = "UsuarioJoao", PasswordHash = passwordHash, PasswordSalt = passwordSalt,TotalEcoPoints = 100 },
+                new UtilizadorModel() { IdUtilizador = 2, Nome = "Maria", Email = "maria123@gmail.com", SituacaoEmail = true, Username = "UsuarioMaria", PasswordHash = passwordHash, PasswordSalt = passwordSalt,TotalEcoPoints = 100}
             );
 
             modelBuilder.Entity<EcopontoModel>().HasData(
@@ -33,8 +33,8 @@ namespace api.Data
             );
 
             modelBuilder.Entity<EcopointsModel>().HasData(
-                new EcopointsModel() { IdMaterial = 1, OrdemGrandeza = 'A', Quantidade = 10},
-                new EcopointsModel() { IdMaterial = 2, OrdemGrandeza = 'B', Quantidade = 20}
+                new EcopointsModel() { UtilizadorId = 1, IdMaterial = 1, OrdemGrandeza = 'A', Quantidade = 10},
+                new EcopointsModel() { UtilizadorId = 2, IdMaterial = 2, OrdemGrandeza = 'B', Quantidade = 20}
             );
 
             modelBuilder.Entity<ColetaModel>().HasData(

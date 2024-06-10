@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using api.Models;
 using api.Data;
+using api.Services.Brinde;
+using api.Repository.Brinde;
 
 namespace Ecoleta.Controllers
 {
@@ -13,76 +15,67 @@ namespace Ecoleta.Controllers
     {
         
         private readonly ILogger<BrindeController> _logger;
-        private readonly List<BrindeModel> _brindes;
+        private readonly DataContext _context;
+        private readonly IBrindeService _brindeService;
+        private readonly IBrindeRepository _brindeRepository;
 
-        public BrindeController(ILogger<BrindeController> logger)
+        public BrindeController(ILogger<BrindeController> logger, IBrindeService BrindeService, DataContext context, IBrindeRepository BrindeRepository)
         {
             _logger = logger;
-            _brindes = new List<BrindeModel>();
+            _brindeService = BrindeService;
+            _context = context;
+            _brindeRepository = BrindeRepository;
            
         }
 
-        // GET: api/Brinde
-        [HttpGet]
+        // GET: api/Brinde/GetAll
+        [HttpGet("GetAll")]
         public ActionResult<IEnumerable<BrindeModel>> Get()
         {
-            return Ok(_brindes);
+            var brindes = _brindeRepository.GetAllAsync();
+            return Ok(brindes);
         }
 
-        // GET: api/Brinde/{id}
-        [HttpGet("{id}")]
-        public ActionResult<BrindeModel> Get(int id)
+        // GET: api/Brinde/GetId/{id}
+        [HttpGet("GetId/{id}")]
+        public async Task<ActionResult<BrindeModel>> GetId(int id)
         {
-            var brinde = _brindes.Find(b => b.IdBrinde == id);
-            if (brinde == null)
-            {
-                return NotFound();
-            }
+    
+            await _brindeService.GetAsync(id);
+            var brinde = await _brindeRepository.GetIdAsync(id);
+            
             return Ok(brinde);
         }
 
-        // POST: api/Brinde
-        [HttpPost]
-        public ActionResult<BrindeModel> Post(BrindeModel brinde)
+        // POST: api/Brinde/Post
+        [HttpPost("Post")]
+        public async Task<ActionResult<BrindeModel>> Post(BrindeModel brinde)
         {
-            brinde.IdBrinde = _brindes.Count + 1;
-            _brindes.Add(brinde);
-           
-           
-            return CreatedAtAction(nameof(Get), new { id = brinde.IdBrinde }, brinde);
-        }
-
-        // PUT: api/Brinde/{id}
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, BrindeModel updatedBrinde)
-        {
-            var brinde = _brindes.Find(b => b.IdBrinde == id);
-            if (brinde == null)
-            {
-                return NotFound();
-            }
-            brinde.DescricaoBrinde = updatedBrinde.DescricaoBrinde;
-            brinde.NomeBrinde = updatedBrinde.NomeBrinde;
-            brinde.Cadastro = updatedBrinde.Cadastro;
-            brinde.Validade = updatedBrinde.Validade;
-            brinde.Quantidade = updatedBrinde.Quantidade;
-            brinde.Saldo = updatedBrinde.Saldo;
-            brinde.ValorEcopoints = updatedBrinde.ValorEcopoints;
             
-            return NoContent();
+            var newBrinde = _brindeRepository.PostAsync(brinde);
+            return Ok(newBrinde);
+            
         }
 
-        // DELETE: api/Brinde/{id}
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        // PUT: api/Brinde/Put/{id}
+        [HttpPut("Put/{id}")]
+        public async Task<IActionResult> Put(int id, BrindeModel updatedBrinde)
         {
-            var brinde = _brindes.Find(b => b.IdBrinde == id);
-            if (brinde == null)
-            {
-                return NotFound();
-            }
-            _brindes.Remove(brinde);
-            return NoContent();
+            await _brindeService.PutAsync(id);
+            await _brindeRepository.PutAsync(id, updatedBrinde);
+            
+            
+            return Ok("Brinde Atualizado com sucesso!");
+        }
+
+        // DELETE: api/Brinde/Delete/{id}
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _brindeService.DeleteAsync(id);
+            await _brindeRepository.DeleteAsync(id);
+            
+            return Ok("Brinde Deletado com sucesso!");
         }
     }
 }

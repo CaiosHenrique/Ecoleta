@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using api.Data;
 using Microsoft.EntityFrameworkCore;
 using api.Utils;
+using api.Services.Utilizador;
+using api.Repository.Utilizador;
 
 namespace api.Controllers
 {
@@ -14,17 +16,21 @@ namespace api.Controllers
     {
 
         private readonly List<UtilizadorModel> utilizadores;
+        private readonly IUtilizadorService _utilizadorService;
+        private readonly IUtilizadorRepository _utilizadorRepository;
 
         private readonly DataContext _context;
 
-        public UtilizadorController(DataContext context)
+        public UtilizadorController(DataContext context, IUtilizadorService utilizadorService, IUtilizadorRepository utilizadorRepository)
         {
             utilizadores = new List<UtilizadorModel>();
             _context = context;
+            _utilizadorService = utilizadorService;
+            _utilizadorRepository = utilizadorRepository;
         }
 
         
-        [HttpGet]
+        [HttpGet("GetAll")]
 
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -33,35 +39,33 @@ namespace api.Controllers
         {
             try
             {
-                var utilizadores = _context.TB_UTILIZADOR.ToList();
+                var utilizadores = _utilizadorRepository.GetAllAsync();
                 return StatusCode(200, utilizadores);
 
             }
 
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                return StatusCode(500);
+                return BadRequest(ex.Message);
             }
 
         }
 
         
-        [HttpGet("{id}")]
+        [HttpGet("GetbyId/{id}")]
 
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public ActionResult<UtilizadorModel> Get(int id)
+        public async Task<ActionResult<UtilizadorModel>> Get(int id)
         {
             try
             {
-                var utilizador = utilizadores.Find(u => u.IdUtilizador == id);
+                var utilizador = _utilizadorRepository.GetByIdAsync(id);
 
-                if (utilizador == null)
-                {
-                return StatusCode(404);
+                _utilizadorService.GetAsync(id);
 
-                }
+                return Ok(utilizador);
 
             }
 
@@ -70,12 +74,10 @@ namespace api.Controllers
                 return StatusCode(500);
 
             }
-                return StatusCode(200, utilizadores);
-
         }
 
         
-        [HttpPost]
+        [HttpPost("Post")]
 
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -84,7 +86,7 @@ namespace api.Controllers
         {
             try
             {
-                utilizadores.Add(utilizador);
+                var novoUtilizador = _utilizadorRepository.PostAsync(utilizador);
                 return StatusCode(201, utilizador);
 
             }
@@ -98,39 +100,30 @@ namespace api.Controllers
         }
 
         
-        [HttpPut("{id}")]
+        [HttpPut("Put/{id}")]
 
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult<UtilizadorModel> Put(int id, [FromBody] UtilizadorModel utilizador)
-        {
-            try
-            {
-                var index = utilizadores.FindIndex(u => u.IdUtilizador == id);
-
-                if (index == -1)
+                public async Task<ActionResult<UtilizadorModel>> Put(int id, [FromBody] UtilizadorModel utilizador)
+                {       
+                try
                 {
-                return StatusCode(404);
+                    _utilizadorService.PutAsync(id);
 
+                    _utilizadorRepository.PutAsync(id, utilizador);
+
+                    return AcceptedAtAction(nameof(Get), new { id = utilizador.IdUtilizador }, utilizador);
                 }
-
-                utilizadores[index] = utilizador;
-                return StatusCode(202, utilizador);
-
-            }
-
-            catch (System.Exception)
-            {
-                return StatusCode(500);
-
-            }
-
-        }
+                catch (System.Exception)
+                {
+                    return StatusCode(500);
+                }
+                }       
 
         
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete/{id}")]
 
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -140,15 +133,9 @@ namespace api.Controllers
         {
             try
             {
-                var utilizador = utilizadores.Find(u => u.IdUtilizador == id);
+                _utilizadorService.DeleteAsync(id);
+                _utilizadorRepository.DeleteAsync(id);
 
-                if (utilizador == null)
-                {
-                return StatusCode(404);
-                
-                }
-
-            utilizadores.Remove(utilizador);
             return StatusCode(200);
 
             }
@@ -159,14 +146,7 @@ namespace api.Controllers
         }
 
 
-        private async Task<bool> UsuarioExistente(string username)
-        {
-            if (await _context.TB_UTILIZADOR.AnyAsync(x => x.Username.ToLower() == username.ToLower()))
-            {
-                return true;
-            }
-            return false;
-        }
+        
 
         [HttpPost("Registrar")]
 
@@ -176,17 +156,9 @@ namespace api.Controllers
         {
             try
             {
-                if (await UsuarioExistente(utilizador.Username))
-                    throw new System.Exception("Nome de usuário já existe");
+                _utilizadorService.RegistrarUserExistente(utilizador);
 
-                Criptografia.CriarPasswordHash(utilizador.PasswordString, out byte[] hash, out byte[] salt);
-
-                utilizador.PasswordString = string.Empty;
-                utilizador.PasswordHash = hash;
-                utilizador.PasswordSalt = salt;
-
-                await _context.TB_UTILIZADOR.AddAsync(utilizador);
-                await _context.SaveChangesAsync();
+                _utilizadorRepository.RegistrarUsuarioAsync(utilizador);
 
                 return StatusCode(200);
             }
@@ -204,25 +176,11 @@ namespace api.Controllers
         {
             try
             {
-                UtilizadorModel? usuario = await _context.TB_UTILIZADOR
-                   .FirstOrDefaultAsync(x => x.Username.ToLower().Equals(credenciais.Username.ToLower()));
-
-                if (usuario == null)
-                {
-                    throw new System.Exception("Usuário não encontrado.");
-                }
-                else if (!Criptografia.VerificarPasswordHash(credenciais.PasswordString, usuario.PasswordHash, usuario.PasswordSalt))
-                {
-                    throw new System.Exception("Senha incorreta.");
-                }
-                else
-                {
-                     usuario.DataAcesso = System.DateTime.Now;
-                    _context.TB_UTILIZADOR.Update(usuario);
-                    await _context.SaveChangesAsync(); //Confirma a alteração no banco
+                _utilizadorService.AutenticarUsuarioAsync(credenciais);
+                _utilizadorRepository.AutenticarUsuarioAsync(credenciais);
 
                     return StatusCode(200);
-                }
+                
             }
             catch (System.Exception ex)
             {
@@ -235,19 +193,10 @@ namespace api.Controllers
         {
             try
             {
-                UtilizadorModel usuario = await _context.TB_UTILIZADOR //Busca o usuário no banco através do login
-                .FirstOrDefaultAsync(x => x.Username.ToLower().Equals(credenciais.Username.ToLower()));
-
-                if (usuario == null) //Se não achar nenhum usuário pelo login, retorna mensagem.
-                    throw new System.Exception("Usuário não encontrado.");
-
-                Criptografia.CriarPasswordHash(credenciais.PasswordString, out byte[] hash, out byte[] salt);
-                usuario.PasswordHash = hash; //Se o usuário existir, executa a criptografia 
-                usuario.PasswordSalt = salt; //guardando o hash e o salt nas propriedades do usuário 
-
-                _context.TB_UTILIZADOR.Update(usuario);
-                int linhasAfetadas = await _context.SaveChangesAsync(); //Confirma a alteração no banco
-                return Ok(linhasAfetadas); //Retorna as linhas afetadas (Geralmente sempre 1 linha msm)
+                _utilizadorService.GetUserAsync(credenciais);
+                _utilizadorRepository.AlterarSenhaUsuarioAsync(credenciais);
+                 
+                return Ok(200); 
             }
             catch (System.Exception ex)
             {
@@ -260,17 +209,9 @@ namespace api.Controllers
         {
             try
             {
-                UtilizadorModel usuario = await _context.TB_UTILIZADOR //Busca o usuário no banco através do Id
-                   .FirstOrDefaultAsync(x => x.IdUtilizador == u.IdUtilizador);
-
-                usuario.Email = u.Email;                
-
-                var attach = _context.Attach(usuario);
-                attach.Property(x => x.IdUtilizador).IsModified = false;
-                attach.Property(x => x.Email).IsModified = true;                
-
-                int linhasAfetadas = await _context.SaveChangesAsync(); //Confirma a alteração no banco
-                return Ok(linhasAfetadas); //Retorna as linhas afetadas (Geralmente sempre 1 linha msm)
+                _utilizadorRepository.AlterarEmailUsuarioAsync(u);
+                
+                return Ok(200); 
             }
             catch (System.Exception ex)
             {
