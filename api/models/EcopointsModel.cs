@@ -12,7 +12,7 @@ namespace api.Models
        public int TotalEcoPoints { get; set; } = 0;
 
         [ForeignKey("IdUtilizador")]
-        public int UtilizadorId { get; set; }
+        public int IdUtilizador { get; set; }
 
         public UtilizadorModel Utilizador { get; set; }
       
