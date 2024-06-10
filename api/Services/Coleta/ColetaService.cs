@@ -28,7 +28,7 @@ namespace api.Services.Coleta
 
         public async Task PutAsync(int IdColeta)
         {
-            var coletaAtual = _context.TB_COLETA.Find(IdColeta);
+            var coletaAtual = await _context.TB_COLETA.FindAsync(IdColeta);
 
                 if (coletaAtual == null)
                 {
@@ -38,7 +38,7 @@ namespace api.Services.Coleta
 
         public async Task DeleteAsync(int IdColeta)
         {
-            var coleta = _context.TB_COLETA.Find(IdColeta);
+            var coleta = await _context.TB_COLETA.FindAsync(IdColeta);
 
                 if (coleta == null)
                 {
