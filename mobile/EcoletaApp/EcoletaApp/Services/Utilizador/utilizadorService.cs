@@ -44,11 +44,20 @@ namespace EcoletaApp.Services.UtilizadorService
         //using System.Collections.ObjectModel
         public async Task<ObservableCollection<Utilizador>> GetUsuariosAsync()
         {
-            string urlComplementar = string.Format("{0}", "/GetAll");
+            string urlComplementar = "/GetAll";
             ObservableCollection<Models.Utilizador> listaUsuarios = await
             _request.GetSemTokenAsync<ObservableCollection<Models.Utilizador>>(ApiUrlBase + urlComplementar);
             return listaUsuarios;
         }
+
+        public async Task<Utilizador> GetutilizadorAsync(int uId)
+        {
+            string urlComplementar = string.Format("{0}", "uId");
+            Utilizador u = await _request.GetSemTokenAsync<Models.Utilizador>(ApiUrlBase + urlComplementar);
+
+            return u;
+        }
+
 
     }
 }

@@ -19,6 +19,9 @@ namespace api.Models
     [ForeignKey("TotalEcoPoints")]
     public EcopointsModel EcoPoints { get; set; }
 
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+
         public string Username { get; set; } = string.Empty;
         public byte[]? PasswordHash { get; set; } 
         public byte[]? PasswordSalt { get; set; }

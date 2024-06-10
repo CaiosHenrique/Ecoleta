@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ecoleta.Views.Ecopoint.CadastrarEcopointsView"
+             Shell.PresentationMode="Animated"
+             Title="CadastrarEcopointsView">
+    <VerticalStackLayout>
+        <ScrollView>
+            <VerticalStackLayout Spacing="3" Padding="15">
+                <Label Text="Nome" FontSize="Medium" />
+                <Entry Text="{Binding IdMaterial}" FontSize="Medium" IsEnabled="false"  />
+                <Label Text="Classe" FontSize="Medium" />
+                <Picker Title="---Selecione---" ItemsSource="{Binding TipoMaterial}"
+                    ItemDisplayBinding="{Binding ordemGrandeza}" SelectedItem="{Binding SelecionarMaterial}" />
+                <Label Text="Pontos de Vida" FontSize="Medium" />
+                <Entry Text="{Binding quantidade}" FontSize="Medium" Keyboard="Numeric" />
+                <Label Text="Força" FontSize="Medium" />
+                <Entry Text="{Binding totalEcopoints}" FontSize="Medium" Keyboard="Numeric" />
+                <Label Text="Defesa" FontSize="Medium" />
+                <Entry Text="{Binding utilizadorId}" FontSize="Medium" Keyboard="Numeric" />
+                <Label Text="Inteligência" FontSize="Medium" />
+                <Entry Text="{Binding Inteligencia}" FontSize="Medium" Keyboard="Numeric" />
+                    <HorizontalStackLayout Spacing="20">
+                    <Button Text="Salvar" Command="{Binding SalvarCommand}"></Button>
+                    <HorizontalStackLayout Spacing="20">
+                        <Button Text="Salvar" Command="{Binding CancelarCommand}"></Button>
+                    </HorizontalStackLayout>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </VerticalStackLayout>
+</ContentPage>

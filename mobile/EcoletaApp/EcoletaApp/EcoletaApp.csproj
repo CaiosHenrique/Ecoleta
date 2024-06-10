@@ -54,6 +54,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Views\Ecopoints\**" />
+	  <Compile Remove="Views\Ecopoints\**" />
+	  <EmbeddedResource Remove="Views\Ecopoints\**" />
+	  <MauiCss Remove="Views\Ecopoints\**" />
+	  <MauiXaml Remove="Views\Ecopoints\**" />
+	  <None Remove="Views\Ecopoints\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\AppIcon\logocolorecoleta.png" />
 	</ItemGroup>
 
@@ -84,6 +93,12 @@
 	  <MauiXaml Update="Views\Coletas\RegistrarColetasView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Ecopoint\CadastrarEcopointsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Ecopoint\listagemEcopointsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Ecoponto\CadastroView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -99,11 +114,6 @@
 	  <MauiXaml Update="Views\Utilizador\LoginView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="ViewModels\Ecopoints\" />
-	  <Folder Include="Views\Ecopoints\" />
 	</ItemGroup>
 
 </Project>

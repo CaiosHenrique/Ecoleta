@@ -3,6 +3,7 @@
     x:Class="EcoletaApp.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewEcopoints="clr-namespace:Ecoleta.Views.Ecopoint"
     xmlns:viewEcopontos ="clr-namespace:EcoletaApp.Views.Ecoponto"
     xmlns:viewUtilizador="clr-namespace:EcoletaApp.Views.Utilizador"
     xmlns:viewColeta="clr-namespace:EcoletaApp.Views.Coletas"
@@ -41,6 +42,7 @@
     <ShellContent Title="Descrição" Icon="folha3.png" Route="desc" ContentTemplate="{DataTemplate local:DescriptionView}" />
     <ShellContent Title="Ecopontos"  Icon="ecoponto.png" ContentTemplate="{DataTemplate viewEcopontos:ListagemView}" />
     <ShellContent Title="Coleta" Icon="coleta.png"  ContentTemplate="{DataTemplate viewColeta:ExibirColetasView}" />
+    <ShellContent Title="Ecopoints" Icon="coleta.png" ContentTemplate="{DataTemplate viewEcopoints:listagemEcopointsView}" />
     <ShellContent Title="utilizador" Icon="utilizador.png" ContentTemplate="{DataTemplate viewUtilizador:LoginView}" />
     <ShellContent Title="LocEcopontos"  Icon="localizacao.png" ContentTemplate="{DataTemplate viewEcopontos:LocalizacaoEcopontosView}" />
 

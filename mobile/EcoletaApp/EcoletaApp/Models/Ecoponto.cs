@@ -33,9 +33,8 @@ namespace EcoletaApp.Models
 
         public int CEP { get; set; }
 
-        public int Latitude { get; set; }
-
-        public int Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
 
         public string Username { get; set; } = string.Empty;

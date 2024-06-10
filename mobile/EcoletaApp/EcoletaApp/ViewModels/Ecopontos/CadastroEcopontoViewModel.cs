@@ -10,7 +10,7 @@ using EcoletaApp.Services.Ecopontos;
 
 namespace EcoletaApp.ViewModels.Ecopontos
 {
-    [QueryProperty("EcopontoSelecionadoId", "eId")]
+    [QueryProperty("EcopointSelecionadoId", "eId")]
     class CadastroEcopontoViewModel : BaseViewModel
     {
         private EcopontoService eService;
@@ -39,8 +39,8 @@ namespace EcoletaApp.ViewModels.Ecopontos
         private string cidade;
         private string uf;
         private int cep;
-        private int latitude;
-        private int longitude;
+        private double latitude;
+        private double longitude;
         private string username;
         private string passwordString;
         private string email;
@@ -61,8 +61,8 @@ namespace EcoletaApp.ViewModels.Ecopontos
         public string Cidade { get => cidade; set { cidade = value; OnPropertyChanged(nameof(Cidade)); } }
         public string UF { get => uf; set { uf = value; OnPropertyChanged(nameof(UF)); } }
         public int CEP { get => cep; set { cep = value; OnPropertyChanged(nameof(CEP)); } }
-        public int Latitude { get => latitude; set { latitude = value; OnPropertyChanged(nameof(Latitude)); } }
-        public int Longitude { get => longitude; set { longitude = value; OnPropertyChanged(nameof(Longitude)); } }     
+        public double Latitude { get => latitude; set { latitude = value; OnPropertyChanged(nameof(Latitude)); } }
+        public double Longitude { get => longitude; set { longitude = value; OnPropertyChanged(nameof(Longitude)); } }     
         public string Username { get => username; set { username = value; OnPropertyChanged(nameof(username)); } }
         public string PasswordString { get => passwordString; set { passwordString = value; OnPropertyChanged(nameof(passwordString)); } }
         public string Email { get => email; set { email = value; OnPropertyChanged(nameof(email)); } }

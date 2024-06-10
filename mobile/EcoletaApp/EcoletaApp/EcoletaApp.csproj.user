@@ -26,6 +26,12 @@
     <MauiXaml Update="Views\Coletas\RegistrarColetasView.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Views\Ecopoint\CadastrarEcopointsView.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Views\Ecopoint\listagemEcopointsView.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Views\Ecoponto\CadastroView.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
