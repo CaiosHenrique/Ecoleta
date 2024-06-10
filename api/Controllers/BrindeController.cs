@@ -28,16 +28,16 @@ namespace Ecoleta.Controllers
            
         }
 
-        // GET: api/Brinde
-        [HttpGet]
+        // GET: api/Brinde/GetAll
+        [HttpGet("GetAll")]
         public ActionResult<IEnumerable<BrindeModel>> Get()
         {
             var brindes = _brindeRepository.GetAllAsync();
             return Ok(brindes);
         }
 
-        // GET: api/Brinde/{id}
-        [HttpGet("{id}")]
+        // GET: api/Brinde/GetId/{id}
+        [HttpGet("GetId/{id}")]
         public async Task<ActionResult<BrindeModel>> GetId(int id)
         {
     
@@ -47,8 +47,8 @@ namespace Ecoleta.Controllers
             return Ok(brinde);
         }
 
-        // POST: api/Brinde
-        [HttpPost]
+        // POST: api/Brinde/Post
+        [HttpPost("Post")]
         public async Task<ActionResult<BrindeModel>> Post(BrindeModel brinde)
         {
             
@@ -57,8 +57,8 @@ namespace Ecoleta.Controllers
             
         }
 
-        // PUT: api/Brinde/{id}
-        [HttpPut("{id}")]
+        // PUT: api/Brinde/Put/{id}
+        [HttpPut("Put/{id}")]
         public async Task<IActionResult> Put(int id, BrindeModel updatedBrinde)
         {
             await _brindeService.PutAsync(id);
@@ -68,8 +68,8 @@ namespace Ecoleta.Controllers
             return Ok("Brinde Atualizado com sucesso!");
         }
 
-        // DELETE: api/Brinde/{id}
-        [HttpDelete("{id}")]
+        // DELETE: api/Brinde/Delete/{id}
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _brindeService.DeleteAsync(id);
