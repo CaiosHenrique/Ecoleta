@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 using api.Models;
 
@@ -14,10 +13,10 @@ namespace api.Models
         public string Email { get; set; } = string.Empty;
         public bool SituacaoEmail{ get; set; }
 
-         public int TotalEcoPoints { get; set; }
+        public int TotalEcoPoints { get; set; }
 
-    [ForeignKey("TotalEcoPoints")]
-    public EcopointsModel EcoPoints { get; set; }
+        [ForeignKey("TotalEcoPoints")]
+        public EcopointsModel EcoPoints { get; set; }
 
         public double Latitude { get; set; }
         public double Longitude { get; set; }

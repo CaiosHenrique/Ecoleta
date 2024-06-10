@@ -11,6 +11,7 @@ using api.Utils;
 using api.Services.EcoPoints;
 using Microsoft.EntityFrameworkCore;
 using api.Services.EcoPonto;
+using api.Repository.EcoPonto;
 
 
 namespace api.Controllers
@@ -22,12 +23,14 @@ namespace api.Controllers
         private readonly List<EcopontoModel> ecoponto;
         private readonly DataContext _context;
         private readonly IEcoPontoService _ecoPontoService;
+        private readonly IEcoPontoRepository _ecoPontoRepository;
 
-        public EcoPontoController(DataContext context, IEcoPontoService ecoPontoService)
+        public EcoPontoController(DataContext context, IEcoPontoService ecoPontoService, IEcoPontoRepository ecoPontoRepository)
         {
             ecoponto = new List<EcopontoModel>();
             _context = context;
             _ecoPontoService = ecoPontoService;
+            _ecoPontoRepository = ecoPontoRepository;
 
         }
 
@@ -41,8 +44,8 @@ namespace api.Controllers
         {
             try
             {
-                EcopontoModel e = await _context.TB_ECOPONTO.FindAsync(IdEcoponto);
-
+               
+                var e = _ecoPontoRepository.GetIdAsync(IdEcoponto);
                 _ecoPontoService.GetAsync(IdEcoponto);
 
                 return StatusCode(200, e);
@@ -66,7 +69,7 @@ namespace api.Controllers
         {
             try
             {
-                var ecopontos = _context.TB_ECOPONTO.ToList();
+                var ecopontos = _ecoPontoRepository.GetAllAsync();
                 return StatusCode(200, ecopontos);
 
             }
@@ -88,8 +91,7 @@ namespace api.Controllers
          {
             try
             {
-                await _context.TB_ECOPONTO.AddAsync(ecoponto);
-                await _context.SaveChangesAsync();
+                _ecoPontoRepository.PostAsync(ecoponto);
                 return StatusCode(201, ecoponto);
 
             }
@@ -108,12 +110,11 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public async Task<ActionResult> Update(EcopontoModel novoEcoPonto)
+        public async Task<ActionResult> Put(EcopontoModel novoEcoPonto)
         {
             try
             {
-                await _context.TB_ECOPONTO.AddAsync(novoEcoPonto);
-                await _context.SaveChangesAsync();
+                _ecoPontoRepository.PutAsync(novoEcoPonto);
                 return StatusCode(200, novoEcoPonto);
 
             }
@@ -138,13 +139,10 @@ namespace api.Controllers
         {
             try
             {
-                EcopontoModel ecoponto = await _context.TB_ECOPONTO.FindAsync(IdEcoponto);
-
+                _ecoPontoRepository.DeleteAsync(IdEcoponto);
                 _ecoPontoService.DeleteAsync(IdEcoponto);
-
-                _context.TB_ECOPONTO.Remove(ecoponto);
-                int linhasAfetadas = await _context.SaveChangesAsync();
-                return StatusCode(200, linhasAfetadas);
+                
+                return StatusCode(200);
 
             }
 
@@ -163,14 +161,7 @@ namespace api.Controllers
         {
             try
             {
-                Criptografia.CriarPasswordHash(ecoponto.PasswordString, out byte[] hash, out byte[] salt);
-
-                ecoponto.PasswordString = string.Empty;
-                ecoponto.PasswordHash = hash;
-                ecoponto.PasswordSalt = salt;
-
-                await _context.TB_ECOPONTO.AddAsync(ecoponto);
-                await _context.SaveChangesAsync();
+                _ecoPontoRepository.LoginEcopontoAsync(ecoponto);
 
                 return StatusCode(201, ecoponto);
 
@@ -223,20 +214,11 @@ namespace api.Controllers
 
         _ecoPontoService.AutenticarEcoPontoAsync(ecoponto);
 
-        EcopontoModel EcoPonto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
-
         _ecoPontoService.AutenticarTBEcoPontoAsync(ecoponto);
 
-        Criptografia.CriarPasswordHash(ecoponto.PasswordString, out byte[] hash, out byte[] salt);
+        _ecoPontoRepository.AlterarSenhaAsync(ecoponto);
 
-        EcoPonto.PasswordString = string.Empty;
-        EcoPonto.PasswordHash = hash;
-        EcoPonto.PasswordSalt = salt;
-
-        _context.TB_ECOPONTO.Update(EcoPonto);
-        await _context.SaveChangesAsync();
-
-        return StatusCode(200, EcoPonto);
+        return StatusCode(200);
         }
         catch (System.Exception ex)
         {

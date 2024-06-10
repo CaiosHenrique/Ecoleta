@@ -54,10 +54,10 @@ namespace api.Repository.Coleta
 
         public async Task<ColetaModel> DeleteAsync(int IdColeta)
         {
-            var coleta = _context.TB_COLETA.Find(IdColeta);
+            var coleta = await _context.TB_COLETA.FindAsync(IdColeta);
 
             _context.TB_COLETA.Remove(coleta);
-            _context.SaveChanges();
+            _context.SaveChangesAsync();
             return coleta;
         }
 

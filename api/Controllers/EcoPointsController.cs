@@ -6,6 +6,7 @@ using api.Models;
 using api.Data;
 using api.Services.EcoPoints;
 using api.Services.Utilizador;
+using api.Repository.EcoPoints;
 
 
 namespace api.Controllers
@@ -19,19 +20,21 @@ namespace api.Controllers
         private readonly List<UtilizadorModel> utilizador;
         private readonly UtilizadorService _utilizadorService;
         private readonly IEcoPointsService _ecoPointsService;
+        private readonly EcoPointsRepository _ecoPointsRepository;
        
         
         
         
 
 
-        public EcoPointsController(DataContext context, UtilizadorService utilizadorService, IEcoPointsService ecoPointsService)
+        public EcoPointsController(DataContext context, UtilizadorService utilizadorService, IEcoPointsService ecoPointsService, EcoPointsRepository ecoPointsRepository)
         {
             _context = context;
             ecopoints = new List<EcopointsModel>();
             utilizador = new List<UtilizadorModel>();
             _utilizadorService = new UtilizadorService(context);
             _ecoPointsService = ecoPointsService;
+            _ecoPointsRepository = ecoPointsRepository;
         }
 
 
@@ -50,11 +53,11 @@ namespace api.Controllers
         {
             try
             {
-                var ecopoint = _context.TB_ECOPOINTS.Find((EcopointsModel e) => e.IdMaterial == IdMaterial);
+                var ecopoints = _ecoPointsRepository.GetIdMaterialAsync(IdMaterial);
 
                 _ecoPointsService.GetMaterial(IdMaterial);
 
-                return StatusCode(200, ecopoint);
+                return StatusCode(200, ecopoints);
 
             }
             catch (System.Exception)
@@ -71,16 +74,16 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        public ActionResult<int> GetEcopointsUtilizador(int IdUtilizador)
+        public async Task<ActionResult<int>> GetEcopointsUtilizador(int IdUtilizador)
         {
             try
             {
-                var utilizador = _context.TB_UTILIZADOR.Find(IdUtilizador);
+                var utilizador = await _ecoPointsRepository.GetIdUtilizadorAsync(IdUtilizador);
 
                 _ecoPointsService.GetUtilizador(IdUtilizador);
 
                 // Retorne o total de EcoPoints do usuário
-                return utilizador.TotalEcoPoints;
+                return utilizador;
 
             }
             catch (System.Exception)
@@ -97,11 +100,11 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public ActionResult<IEnumerable<UtilizadorModel>> GetAll()
+        public ActionResult<IEnumerable<EcopointsModel>> GetAll()
         {
             try
             {
-                var ecopoints = _context.TB_ECOPOINTS.ToList();
+                var ecopoints = _ecoPointsRepository.GetAllAsync();
                 return StatusCode(200, ecopoints);
 
             }
@@ -124,9 +127,11 @@ namespace api.Controllers
         {
             try
             {
-                _context.TB_ECOPOINTS.Add(ecopoint);
+                _ecoPointsRepository.PostAsync(ecopoint);
 
                 _utilizadorService.AddEcoPoints(IdUtilizador, quantidade);
+
+                _context.SaveChanges();
 
                 return StatusCode(201, ecopoint);
 
@@ -151,15 +156,11 @@ namespace api.Controllers
             try
             {
                 // Busque o usuário pelo ID
-                var utilizador = _context.TB_UTILIZADOR.Find(IdUtilizador);
-
-                // Verifique se o usuário existe
+                
                 _ecoPointsService.PutAsync(IdUtilizador);
-
-                // Atualize os EcoPoints do usuário
-                utilizador.TotalEcoPoints = ecopoint.TotalEcoPoints;
-
-                // Salve as alterações no banco de dados
+                _ecoPointsRepository.PutAsync(ecopoint, IdUtilizador);
+                
+               
                 _context.SaveChanges();
 
                 return StatusCode(200, ecopoint);
@@ -181,14 +182,14 @@ namespace api.Controllers
             try
             {
                 // Busque o usuário pelo ID
-                var utilizador = _context.TB_UTILIZADOR.Find(IdUtilizador);
+                
 
                 _ecoPointsService.DeleteAsync(IdUtilizador);
 
-                // Defina os EcoPoints do usuário como 0
-                utilizador.TotalEcoPoints = 0;
+                _ecoPointsRepository.DeleteAsync(IdUtilizador);
+                
 
-                // Salve as alterações no banco de dados
+                
                 _context.SaveChanges();
 
                 return StatusCode(200);

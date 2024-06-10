@@ -6,6 +6,7 @@ using api.Data;
 using Microsoft.EntityFrameworkCore;
 using api.Utils;
 using api.Services.Utilizador;
+using api.Repository.Utilizador;
 
 namespace api.Controllers
 {
@@ -16,14 +17,16 @@ namespace api.Controllers
 
         private readonly List<UtilizadorModel> utilizadores;
         private readonly IUtilizadorService _utilizadorService;
+        private readonly IUtilizadorRepository _utilizadorRepository;
 
         private readonly DataContext _context;
 
-        public UtilizadorController(DataContext context, IUtilizadorService utilizadorService)
+        public UtilizadorController(DataContext context, IUtilizadorService utilizadorService, IUtilizadorRepository utilizadorRepository)
         {
             utilizadores = new List<UtilizadorModel>();
             _context = context;
             _utilizadorService = utilizadorService;
+            _utilizadorRepository = utilizadorRepository;
         }
 
         
@@ -36,7 +39,7 @@ namespace api.Controllers
         {
             try
             {
-                var utilizadores = _context.TB_UTILIZADOR.ToList();
+                var utilizadores = _utilizadorRepository.GetAllAsync();
                 return StatusCode(200, utilizadores);
 
             }
@@ -58,7 +61,7 @@ namespace api.Controllers
         {
             try
             {
-                var utilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(u => u.IdUtilizador == id);
+                var utilizador = _utilizadorRepository.GetByIdAsync(id);
 
                 _utilizadorService.GetAsync(id);
 
@@ -83,8 +86,7 @@ namespace api.Controllers
         {
             try
             {
-                _context.TB_UTILIZADOR.Add(utilizador);
-                _context.SaveChanges();
+                var novoUtilizador = _utilizadorRepository.PostAsync(utilizador);
                 return StatusCode(201, utilizador);
 
             }
@@ -104,16 +106,12 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-               public async Task<ActionResult<UtilizadorModel>> Put(int id, [FromBody] UtilizadorModel utilizador)
+                public async Task<ActionResult<UtilizadorModel>> Put(int id, [FromBody] UtilizadorModel utilizador)
                 {       
                 try
                 {
-                    var existingUtilizador = await _context.TB_UTILIZADOR.FindAsync(id);
-
                     _utilizadorService.PutAsync(id);
-
-                    _context.Entry(existingUtilizador).CurrentValues.SetValues(utilizador);
-                    await _context.SaveChangesAsync();
+                    _utilizadorRepository.PutAsync(id, utilizador);
 
                     return AcceptedAtAction(nameof(Get), new { id = utilizador.IdUtilizador }, utilizador);
                 }
@@ -134,12 +132,9 @@ namespace api.Controllers
         {
             try
             {
-                var utilizador = _context.TB_UTILIZADOR.Find((UtilizadorModel u) => u.IdUtilizador == id);
-
                 _utilizadorService.DeleteAsync(id);
+                _utilizadorRepository.DeleteAsync(id);
 
-            _context.TB_UTILIZADOR.Remove(utilizador);
-            _context.SaveChanges();
             return StatusCode(200);
 
             }
@@ -162,14 +157,7 @@ namespace api.Controllers
             {
                 _utilizadorService.RegistrarUserExistente(utilizador);
 
-                Criptografia.CriarPasswordHash(utilizador.PasswordString, out byte[] hash, out byte[] salt);
-
-                utilizador.PasswordString = string.Empty;
-                utilizador.PasswordHash = hash;
-                utilizador.PasswordSalt = salt;
-
-                await _context.TB_UTILIZADOR.AddAsync(utilizador);
-                await _context.SaveChangesAsync();
+                _utilizadorRepository.RegistrarUsuarioAsync(utilizador);
 
                 return StatusCode(200);
             }
@@ -188,12 +176,7 @@ namespace api.Controllers
             try
             {
                 _utilizadorService.AutenticarUsuarioAsync(credenciais);
-
-                UtilizadorModel? usuario = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(credenciais.Username.ToLower()));
-                   
-                    usuario.DataAcesso = System.DateTime.Now;
-                    _context.TB_UTILIZADOR.Update(usuario);
-                    await _context.SaveChangesAsync(); //Confirma a alteração no banco
+                _utilizadorRepository.AutenticarUsuarioAsync(credenciais);
 
                     return StatusCode(200);
                 
@@ -209,18 +192,10 @@ namespace api.Controllers
         {
             try
             {
-                UtilizadorModel usuario = await _context.TB_UTILIZADOR //Busca o usuário no banco através do login
-                .FirstOrDefaultAsync(x => x.Username.ToLower().Equals(credenciais.Username.ToLower()));
-
                 _utilizadorService.GetUserAsync(credenciais);
-
-                Criptografia.CriarPasswordHash(credenciais.PasswordString, out byte[] hash, out byte[] salt);
-                usuario.PasswordHash = hash; //Se o usuário existir, executa a criptografia 
-                usuario.PasswordSalt = salt; //guardando o hash e o salt nas propriedades do usuário 
-
-                _context.TB_UTILIZADOR.Update(usuario);
-                int linhasAfetadas = await _context.SaveChangesAsync(); //Confirma a alteração no banco
-                return Ok(linhasAfetadas); //Retorna as linhas afetadas (Geralmente sempre 1 linha msm)
+                _utilizadorRepository.AlterarSenhaUsuarioAsync(credenciais);
+                 
+                return Ok(200); 
             }
             catch (System.Exception ex)
             {
@@ -233,17 +208,9 @@ namespace api.Controllers
         {
             try
             {
-                UtilizadorModel usuario = await _context.TB_UTILIZADOR //Busca o usuário no banco através do Id
-                   .FirstOrDefaultAsync(x => x.IdUtilizador == u.IdUtilizador);
-
-                usuario.Email = u.Email;                
-
-                var attach = _context.Attach(usuario);
-                attach.Property(x => x.IdUtilizador).IsModified = false;
-                attach.Property(x => x.Email).IsModified = true;                
-
-                int linhasAfetadas = await _context.SaveChangesAsync(); //Confirma a alteração no banco
-                return Ok(linhasAfetadas); //Retorna as linhas afetadas (Geralmente sempre 1 linha msm)
+                _utilizadorRepository.AlterarEmailUsuarioAsync(u);
+                
+                return Ok(200); 
             }
             catch (System.Exception ex)
             {
