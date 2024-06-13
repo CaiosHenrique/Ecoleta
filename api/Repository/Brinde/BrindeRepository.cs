@@ -1,6 +1,7 @@
 using api.Models;
 using api.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository.Brinde
 {
@@ -15,13 +16,13 @@ namespace api.Repository.Brinde
 
         public async Task<List<BrindeModel>> GetAllAsync()
         {
-            var brinde = _context.TB_BRINDE.ToList();
+            var brinde = await _context.TB_BRINDE.ToListAsync();
             return brinde;
         }
 
         public async Task<ActionResult<BrindeModel>> GetIdAsync(int id)
         {
-            var brinde = _context.TB_BRINDE.Find((BrindeModel b) => b.IdBrinde == id);
+            var brinde = await _context.TB_BRINDE.FindAsync((BrindeModel b) => b.IdBrinde == id);
             return brinde;
         }
         
