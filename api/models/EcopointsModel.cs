@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.ObjectModel;
 
 namespace api.Models
 {
@@ -14,7 +15,22 @@ namespace api.Models
         [ForeignKey("IdUtilizador")]
         public int IdUtilizador { get; set; }
 
-        public UtilizadorModel Utilizador { get; set; }
+       public ObservableCollection<UtilizadorModel> Utilizador { get; set; }
+
+    //      [Key]
+    //    public int IdMaterial { get; set; }
+    //     // mudar
+
+    //     [Key]
+    //    public int TotalEcoPoints { get; set; } = 0;
+    //            // mudar
+    //     [ForeignKey("IdUtilizador")]
+    //     public int IdUtilizador { get; set; }
+    //    public string Metrica { get; set; }
+    //    public int Quantidade { get; set; }
+
+    //     // mudar
+    //     public ObservableCollection<UtilizadorModel> Utilizador { get; set; }
       
     }
 }

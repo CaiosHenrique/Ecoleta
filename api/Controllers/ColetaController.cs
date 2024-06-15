@@ -13,11 +13,11 @@ namespace api.Controllers
     [Route("api/[controller]")]
     public class ColetaController : ControllerBase
     {
-        
-    private readonly DataContext _context;
-    private readonly List<ColetaModel> coletas;
-    private readonly IColetaService _coletaService;
-    private readonly IColetaRepository _coletaRepository;
+
+        private readonly DataContext _context;
+        private readonly List<ColetaModel> coletas;
+        private readonly IColetaService _coletaService;
+        private readonly IColetaRepository _coletaRepository;
 
         public ColetaController(DataContext context, IColetaService ColetaService, IColetaRepository ColetaRepository)
         {
@@ -44,30 +44,26 @@ namespace api.Controllers
                 return StatusCode(500);
             }
         }
-       
+
         [HttpGet("GetId/{IdColeta}")]
 
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        public ActionResult<ColetaModel> GetId(int IdColeta)
+        public async Task<ActionResult<ColetaModel>> GetId(int IdColeta)
         {
             try
             {
+                var coleta = await _coletaService.GetAsync(IdColeta); 
 
-                _coletaService.GetAsync(IdColeta);
-                var coleta = _coletaRepository.GetIdAsync(IdColeta);
-
-
-               
                 return StatusCode(200, coleta);
 
             }
 
             catch (System.Exception)
             {
-                    return StatusCode(500);
+                return StatusCode(500);
 
             }
 
@@ -100,12 +96,12 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public ActionResult<ColetaModel> PutColeta(int IdColeta, ColetaModel coleta)
+        public async Task<ActionResult<ColetaModel>> PutColeta(int IdColeta, ColetaModel coleta)
         {
             try
             {
 
-                var coletaAtual = _coletaRepository.PutAsync(IdColeta, coleta);
+                var coletaAtual = await  _coletaRepository.PutAsync(IdColeta, coleta);
                 _coletaService.PutAsync(IdColeta);
 
                 return StatusCode(200, coletaAtual);

@@ -1,6 +1,7 @@
 using api.Models;
 using api.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace api.Repository.Coleta
 {
@@ -18,20 +19,20 @@ namespace api.Repository.Coleta
             return coletas;
         }
 
-        public async Task<ColetaModel> GetIdAsync(int IdColeta)
+        public async Task<ActionResult<ColetaModel>> GetIdAsync(int Id)
         {
-            var coleta = await _context.TB_COLETA.FindAsync(IdColeta);
+            var coleta = await _context.TB_COLETA.FirstOrDefaultAsync( c => c.IdColeta == Id);
             return coleta;
         }
 
-        public async Task<ColetaModel> PostAsync(ColetaModel coleta)
+        public async Task<ActionResult<ColetaModel>> PostAsync(ColetaModel coleta)
         {
             var Coleta = _context.TB_COLETA.Add(coleta);
             await _context.SaveChangesAsync();
             return Coleta.Entity;
         }
 
-        public async Task<ColetaModel> PutAsync(int IdColeta, ColetaModel coleta)
+        public async Task<ActionResult<ColetaModel>> PutAsync(int IdColeta, ColetaModel coleta)
         {
             var coletaAtual = await _context.TB_COLETA.FindAsync(IdColeta);
 
@@ -52,7 +53,7 @@ namespace api.Repository.Coleta
         }
         
 
-        public async Task<ColetaModel> DeleteAsync(int IdColeta)
+        public async Task<ActionResult<ColetaModel>> DeleteAsync(int IdColeta)
         {
             var coleta = await _context.TB_COLETA.FindAsync(IdColeta);
 
