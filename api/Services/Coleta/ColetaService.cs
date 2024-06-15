@@ -1,7 +1,6 @@
 using api.Models;
 using api.Data;
 using api.Services.Exceptions;
-using Microsoft.EntityFrameworkCore;
 
 namespace api.Services.Coleta
 {
@@ -17,19 +16,17 @@ namespace api.Services.Coleta
             _context = context;
         }
         
-        public async Task<ColetaModel> GetAsync(int Id)
+        public async Task GetAsync(int IdColeta)
         {
-                var coleta = await _context.TB_COLETA.FirstOrDefaultAsync(c => c.IdColeta == Id);
+                var coleta = _context.TB_COLETA.Find(IdColeta);
 
                 if (coleta == null)
                 {
                 throw new NotFoundException("Coleta não encontrada");
                 }
-
-                return coleta;
         }
 
-        public async Task<ColetaModel> PutAsync(int IdColeta)
+        public async Task PutAsync(int IdColeta)
         {
             var coletaAtual = await _context.TB_COLETA.FindAsync(IdColeta);
 
@@ -37,7 +34,6 @@ namespace api.Services.Coleta
                 {
                     throw new ConflictException("Dados inválidos");
                 }
-                return coletaAtual;
         }
 
         public async Task DeleteAsync(int IdColeta)

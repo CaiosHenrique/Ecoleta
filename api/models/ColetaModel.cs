@@ -7,9 +7,7 @@ namespace api.Models
     {         
         [Key]
         public int IdColeta { get; set; }
-       // [ForeignKey ("IdEcoponto")]
         public int IdEcoponto { get; set; }
-       // [ForeignKey ("IdUtilizador")]
         public int IdUtilizador { get; set; }
          public int  CodigoEcoponto {get;set;}
          public int  CodigoUtilizador { get; set; }

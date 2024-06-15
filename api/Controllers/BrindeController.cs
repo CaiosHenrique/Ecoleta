@@ -41,8 +41,8 @@ namespace Ecoleta.Controllers
         public async Task<ActionResult<BrindeModel>> GetId(int id)
         {
     
+            await _brindeService.GetAsync(id);
             var brinde = await _brindeRepository.GetIdAsync(id);
-            await _brindeService.GetAsync(id);          
             
             return Ok(brinde);
         }
@@ -52,7 +52,7 @@ namespace Ecoleta.Controllers
         public async Task<ActionResult<BrindeModel>> Post(BrindeModel brinde)
         {
             
-            var newBrinde = await _brindeRepository.PostAsync(brinde);
+            var newBrinde = _brindeRepository.PostAsync(brinde);
             return Ok(newBrinde);
             
         }
