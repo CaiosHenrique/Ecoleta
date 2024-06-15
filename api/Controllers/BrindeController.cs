@@ -30,9 +30,9 @@ namespace Ecoleta.Controllers
 
         // GET: api/Brinde/GetAll
         [HttpGet("GetAll")]
-        public ActionResult<IEnumerable<BrindeModel>> Get()
+        public async Task<ActionResult<BrindeModel>> Get()
         {
-            var brindes = _brindeRepository.GetAllAsync();
+            var brindes = await _brindeRepository.GetAllAsync();
             return Ok(brindes);
         }
 
@@ -41,8 +41,8 @@ namespace Ecoleta.Controllers
         public async Task<ActionResult<BrindeModel>> GetId(int id)
         {
     
-            await _brindeService.GetAsync(id);
             var brinde = await _brindeRepository.GetIdAsync(id);
+            await _brindeService.GetAsync(id);          
             
             return Ok(brinde);
         }
@@ -52,7 +52,7 @@ namespace Ecoleta.Controllers
         public async Task<ActionResult<BrindeModel>> Post(BrindeModel brinde)
         {
             
-            var newBrinde = _brindeRepository.PostAsync(brinde);
+            var newBrinde = await _brindeRepository.PostAsync(brinde);
             return Ok(newBrinde);
             
         }
@@ -61,8 +61,8 @@ namespace Ecoleta.Controllers
         [HttpPut("Put/{id}")]
         public async Task<IActionResult> Put(int id, BrindeModel updatedBrinde)
         {
-            await _brindeService.PutAsync(id);
             await _brindeRepository.PutAsync(id, updatedBrinde);
+            await _brindeService.PutAsync(id);
             
             
             return Ok("Brinde Atualizado com sucesso!");
