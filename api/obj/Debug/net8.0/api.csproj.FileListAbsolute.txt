@@ -1570,12 +1570,7 @@ D:\ArturCaio3DS\Ecoleta 2005\Ecoleta\api\obj\Debug\net8.0\api.csproj.CopyComplet
 D:\ArturCaio3DS\Ecoleta 2005\Ecoleta\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 D:\ArturCaio3DS\Ecoleta 2005\Ecoleta\api\obj\Debug\net8.0\ref\api.dll
 C:\Users\PC do M & R\OneDrive\Documentos\Tcc\Ecoleta\api\bin\Debug\net8.0\appsettings.Development.json
-C:\Users\PC do M & R\OneDrive\Documentos\Tcc\Ecoleta\api\bin\Debug\net8.0\publish\web.config
 C:\Users\PC do M & R\OneDrive\Documentos\Tcc\Ecoleta\api\bin\Debug\net8.0\appsettings.json
-C:\Users\PC do M & R\OneDrive\Documentos\Tcc\Ecoleta\api\bin\Debug\net8.0\publish\api.deps.json
-C:\Users\PC do M & R\OneDrive\Documentos\Tcc\Ecoleta\api\bin\Debug\net8.0\publish\api.runtimeconfig.json
-C:\Users\PC do M & R\OneDrive\Documentos\Tcc\Ecoleta\api\bin\Debug\net8.0\publish\appsettings.Development.json
-C:\Users\PC do M & R\OneDrive\Documentos\Tcc\Ecoleta\api\bin\Debug\net8.0\publish\appsettings.json
 C:\Users\PC do M & R\OneDrive\Documentos\Tcc\Ecoleta\api\bin\Debug\net8.0\api.exe
 C:\Users\PC do M & R\OneDrive\Documentos\Tcc\Ecoleta\api\bin\Debug\net8.0\api.deps.json
 C:\Users\PC do M & R\OneDrive\Documentos\Tcc\Ecoleta\api\bin\Debug\net8.0\api.runtimeconfig.json

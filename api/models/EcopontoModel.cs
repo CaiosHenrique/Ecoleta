@@ -27,7 +27,7 @@ namespace api.Models
 
         public string UF { get; set; } = string.Empty;
                 
-        public int Numero { get; set; } = string.Empty;
+        public int Numero { get; set; } 
 
         public int CEP { get; set; }
 
