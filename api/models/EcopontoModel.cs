@@ -26,6 +26,8 @@ namespace api.Models
         public string Cidade { get; set; } = string.Empty;
 
         public string UF { get; set; } = string.Empty;
+                
+        public int Numero { get; set; } = string.Empty;
 
         public int CEP { get; set; }
 
