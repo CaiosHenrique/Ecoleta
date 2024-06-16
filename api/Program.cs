@@ -1,11 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using api.Data;
-using api.Services.EcoPoints;
 using api.Services.Brinde;
 using api.Services.Coleta;
 using api.Services.EcoPonto;
 using api.Services.Utilizador;
-using api.Repository.EcoPoints;
 using api.Repository.Brinde;
 using api.Repository.Coleta;
 using api.Repository.EcoPonto;
@@ -21,13 +19,11 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 
 builder.Services.AddScoped<IUtilizadorService, UtilizadorService>();
-builder.Services.AddScoped<IEcoPointsService, EcoPointsService>();
 builder.Services.AddScoped<IEcoPontoService, EcoPontoService>();
 builder.Services.AddScoped<IColetaService, ColetaService>();
 builder.Services.AddScoped<IBrindeService, BrindeService>();
 
 builder.Services.AddScoped<IUtilizadorRepository, UtilizadorRepository>();
-builder.Services.AddScoped<IEcoPointsRepository, EcoPointsRepository>();
 builder.Services.AddScoped<IEcoPontoRepository, EcoPontoRepository>();
 builder.Services.AddScoped<IColetaRepository, ColetaRepository>();
 builder.Services.AddScoped<IBrindeRepository, BrindeRepository>();

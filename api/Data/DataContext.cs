@@ -11,7 +11,6 @@ namespace api.Data
 
         public DbSet<UtilizadorModel> TB_UTILIZADOR { get; set; }
         public DbSet<EcopontoModel> TB_ECOPONTO { get; set; }
-        public DbSet<EcopointsModel> TB_ECOPOINTS { get; set; }
         public DbSet<ColetaModel> TB_COLETA { get; set; }
         public DbSet<MateriaisModel> TB_MATERIAIS { get; set; }
         public DbSet<BrindeModel> TB_BRINDE { get; set; }
@@ -30,11 +29,6 @@ namespace api.Data
             modelBuilder.Entity<EcopontoModel>().HasData(
                 new EcopontoModel() { IdEcoponto = 1, Nome = "Ecoponto1", CNPJ = 12345678, RazaoSocial = "Paz Mundial", Logradouro = "sla", Endereco = "sla2", Complemento = "sla3", Bairro = "sla4", Cidade = "sla5", UF = "sl", CEP = 03081010, Latitude = 0192, Longitude = 0193, Email = "ecoponto1@example.com", Username = "Ecoponto1", PasswordHash = passwordHash, PasswordSalt = passwordSalt },
                 new EcopontoModel() { IdEcoponto = 2, Nome = "Ecoponto2", CNPJ = 12345678, RazaoSocial = "Paz Mundial", Logradouro = "sla", Endereco = "sla2", Complemento = "sla3", Bairro = "sla4", Cidade = "sla5", UF = "sl", CEP = 03081010, Latitude = 0192, Longitude = 0193, Email = "ecoponto2@example.com", Username = "Ecoponto2", PasswordHash = passwordHash, PasswordSalt = passwordSalt }
-            );
-
-            modelBuilder.Entity<EcopointsModel>().HasData(
-                new EcopointsModel() { TotalEcoPoints = 100,IdUtilizador = 1, IdMaterial = 1},
-                new EcopointsModel() {TotalEcoPoints = 100, IdUtilizador = 2, IdMaterial = 2}
             );
 
             modelBuilder.Entity<ColetaModel>().HasData(

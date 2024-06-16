@@ -11,10 +11,7 @@ namespace api.Models
         public int IdUtilizador { get; set; }
         public string Nome { get; set; } = string.Empty;
         public bool SituacaoEmail{ get; set; }
-
-
-        [ForeignKey("TotalEcoPoints")]
-        public int TotalEcoPoints { get; set; }
+         public int TotalEcoPoints { get; set; } = 0;
         
 
         public double Latitude { get; set; }
