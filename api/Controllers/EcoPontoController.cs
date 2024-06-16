@@ -37,8 +37,8 @@ namespace api.Controllers
             try
             {
                
-                var e = _ecoPontoRepository.GetIdAsync(IdEcoponto);
-                _ecoPontoService.GetAsync(IdEcoponto);
+                var e = await _ecoPontoRepository.GetIdAsync(IdEcoponto);
+                await _ecoPontoService.GetAsync(IdEcoponto);
 
                 return StatusCode(200, e);
 
@@ -61,7 +61,7 @@ namespace api.Controllers
         {
             try
             {
-                var ecopontos = _ecoPontoRepository.GetAllAsync();
+                var ecopontos =await  _ecoPontoRepository.GetAllAsync();
                 return StatusCode(200, ecopontos);
 
             }
@@ -83,7 +83,7 @@ namespace api.Controllers
          {
             try
             {
-                _ecoPontoRepository.PostAsync(ecoponto);
+                await _ecoPontoRepository.PostAsync(ecoponto);
                 return StatusCode(201, ecoponto);
 
             }
@@ -106,7 +106,7 @@ namespace api.Controllers
         {
             try
             {
-                _ecoPontoRepository.PutAsync(id, ecoponto);
+                await _ecoPontoRepository.PutAsync(id, ecoponto);
                 return StatusCode(202);
 
             }
@@ -131,8 +131,8 @@ namespace api.Controllers
         {
             try
             {
-                _ecoPontoRepository.DeleteAsync(IdEcoponto);
-                _ecoPontoService.DeleteAsync(IdEcoponto);
+                await _ecoPontoRepository.DeleteAsync(IdEcoponto);
+                await _ecoPontoService.DeleteAsync(IdEcoponto);
                 
                 return StatusCode(200);
 
