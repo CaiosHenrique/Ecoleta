@@ -59,7 +59,7 @@ namespace Ecoleta.Controllers
 
         // PUT: api/Brinde/Put/{id}
         [HttpPut("Put/{id}")]
-        public async Task<IActionResult> Put(int id, BrindeModel updatedBrinde)
+        public async Task<ActionResult> Put(int id, BrindeModel updatedBrinde)
         {
             await _brindeRepository.PutAsync(id, updatedBrinde);
             await _brindeService.PutAsync(id);
@@ -70,7 +70,7 @@ namespace Ecoleta.Controllers
 
         // DELETE: api/Brinde/Delete/{id}
         [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             await _brindeService.DeleteAsync(id);
             await _brindeRepository.DeleteAsync(id);

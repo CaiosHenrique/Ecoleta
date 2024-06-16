@@ -10,13 +10,12 @@ namespace api.Models
         [Key]
         public int IdUtilizador { get; set; }
         public string Nome { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
         public bool SituacaoEmail{ get; set; }
 
-        public int TotalEcoPoints { get; set; }
 
         [ForeignKey("TotalEcoPoints")]
-        public EcopointsModel EcoPoints { get; set; }
+        public int TotalEcoPoints { get; set; }
+        
 
         public double Latitude { get; set; }
         public double Longitude { get; set; }
@@ -28,5 +27,6 @@ namespace api.Models
 
         [NotMapped] // using System.ComponentModel.DataAnnotations.Schema
         public string PasswordString { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
     }
 }

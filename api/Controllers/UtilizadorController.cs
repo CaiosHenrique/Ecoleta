@@ -15,7 +15,7 @@ namespace api.Controllers
     public class UtilizadorController : ControllerBase
     {
 
-        private readonly List<UtilizadorModel> utilizadores;
+        
         private readonly IUtilizadorService _utilizadorService;
         private readonly IUtilizadorRepository _utilizadorRepository;
 
@@ -23,7 +23,7 @@ namespace api.Controllers
 
         public UtilizadorController(DataContext context, IUtilizadorService utilizadorService, IUtilizadorRepository utilizadorRepository)
         {
-            utilizadores = new List<UtilizadorModel>();
+            
             _context = context;
             _utilizadorService = utilizadorService;
             _utilizadorRepository = utilizadorRepository;
@@ -35,11 +35,11 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public ActionResult<IEnumerable<UtilizadorModel>> GetAll()
+        public async Task<ActionResult<UtilizadorModel>> GetAll()
         {
             try
             {
-                var utilizadores = _utilizadorRepository.GetAllAsync();
+                var utilizadores = await _utilizadorRepository.GetAllAsync();
                 return StatusCode(200, utilizadores);
 
             }
@@ -61,9 +61,9 @@ namespace api.Controllers
         {
             try
             {
-                var utilizador = _utilizadorRepository.GetByIdAsync(id);
+                var utilizador = await _utilizadorRepository.GetByIdAsync(id);
 
-                _utilizadorService.GetAsync(id);
+                await _utilizadorService.GetAsync(id);
 
                 return Ok(utilizador);
 
@@ -82,12 +82,12 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
 
-        public ActionResult<UtilizadorModel> Post([FromBody] UtilizadorModel utilizador)
+        public async Task<ActionResult<UtilizadorModel>> Post([FromBody] UtilizadorModel utilizador)
         {
             try
             {
-                var novoUtilizador = _utilizadorRepository.PostAsync(utilizador);
-                return StatusCode(201, utilizador);
+                var novoUtilizador = await _utilizadorRepository.PostAsync(utilizador);
+                return StatusCode(201, novoUtilizador);
 
             }
 
@@ -110,11 +110,11 @@ namespace api.Controllers
                 {       
                 try
                 {
-                    _utilizadorService.PutAsync(id);
+                    await _utilizadorService.PutAsync(id);
 
-                    _utilizadorRepository.PutAsync(id, utilizador);
+                    await _utilizadorRepository.PutAsync(id, utilizador);
 
-                    return AcceptedAtAction(nameof(Get), new { id = utilizador.IdUtilizador }, utilizador);
+                    return Ok("Utilizador Atualizado com sucesso!");
                 }
                 catch (System.Exception)
                 {
@@ -129,14 +129,14 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
-                _utilizadorService.DeleteAsync(id);
-                _utilizadorRepository.DeleteAsync(id);
+                await _utilizadorService.DeleteAsync(id);
+                await _utilizadorRepository.DeleteAsync(id);
 
-            return StatusCode(200);
+            return Ok("Utilizador Deletado com sucesso!");
 
             }
             catch (System.Exception)

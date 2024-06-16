@@ -2,6 +2,7 @@ using api.Data;
 using api.Models;
 using api.Utils;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace api.Repository.Utilizador
 {
@@ -16,34 +17,41 @@ namespace api.Repository.Utilizador
 
         public async Task<List<UtilizadorModel>> GetAllAsync()
         {
-            return await _context.TB_UTILIZADOR.ToListAsync();
+            var utilizadores = await _context.TB_UTILIZADOR.ToListAsync();
+            return utilizadores;
         }
 
-        public async Task<UtilizadorModel> GetByIdAsync(int id)
+        public async Task<ActionResult<UtilizadorModel>> GetByIdAsync(int id)
         {
-            return await _context.TB_UTILIZADOR.FirstOrDefaultAsync(u => u.IdUtilizador == id);
+            var utilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync((UtilizadorModel u) => u.IdUtilizador == id);
+            return utilizador;
         }
 
-        public async Task PostAsync(UtilizadorModel utilizador)
+        public async Task<ActionResult<UtilizadorModel>> PostAsync(UtilizadorModel utilizador)
         {
+            utilizador.IdUtilizador = 0;
+
             _context.TB_UTILIZADOR.Add(utilizador);
             await _context.SaveChangesAsync();
+            return utilizador;
         }
 
-        public async Task PutAsync(int id, UtilizadorModel utilizador)
+        public async Task<ActionResult<UtilizadorModel>> PutAsync(int id, UtilizadorModel utilizador)
         {
-            var existingUtilizador = await _context.TB_UTILIZADOR.FindAsync(id);
+            var existingUtilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync((UtilizadorModel u) => u.IdUtilizador == id);
 
             _context.Entry(existingUtilizador).CurrentValues.SetValues(utilizador);
             await _context.SaveChangesAsync();
+            return existingUtilizador;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<ActionResult<UtilizadorModel>> DeleteAsync(int id)
         {
-            var utilizador = await _context.TB_UTILIZADOR.FindAsync((UtilizadorModel u) => u.IdUtilizador == id);
+            var utilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync((UtilizadorModel u) => u.IdUtilizador == id);
 
             _context.TB_UTILIZADOR.Remove(utilizador);
             await _context.SaveChangesAsync();
+            return utilizador;
         }
 
         public async Task RegistrarUsuarioAsync(UtilizadorModel utilizador)

@@ -9,12 +9,12 @@ namespace api.Models
        public int IdMaterial { get; set; }
        public char OrdemGrandeza { get; set; }
        public int Quantidade { get; set; }
+       [Key]
        public int TotalEcoPoints { get; set; } = 0;
 
         [ForeignKey("IdUtilizador")]
         public int IdUtilizador { get; set; }
 
-        public UtilizadorModel Utilizador { get; set; }
       
     }
 }
