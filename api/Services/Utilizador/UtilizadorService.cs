@@ -41,7 +41,7 @@ namespace api.Services.Utilizador
 
     public async Task DeleteAsync(int id)
     {
-        var utilizador = await _context.TB_UTILIZADOR.FindAsync((UtilizadorModel u) => u.IdUtilizador == id);
+        var utilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync( u => u.IdUtilizador == id);
 
             if (utilizador == null)
             {

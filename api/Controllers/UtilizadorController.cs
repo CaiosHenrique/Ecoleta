@@ -133,8 +133,8 @@ namespace api.Controllers
         {
             try
             {
-                await _utilizadorService.DeleteAsync(id);
                 await _utilizadorRepository.DeleteAsync(id);
+                await _utilizadorService.DeleteAsync(id);
 
             return Ok("Utilizador Deletado com sucesso!");
 
