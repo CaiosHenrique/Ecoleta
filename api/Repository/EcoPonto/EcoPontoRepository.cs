@@ -2,6 +2,7 @@ using api.Data;
 using api.Models;
 using api.Utils;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace api.Repository.EcoPonto
 {
@@ -14,37 +15,42 @@ namespace api.Repository.EcoPonto
             _context = context;
         }
 
-        public async Task GetIdAsync(int IdEcoponto)
+        public async Task<ActionResult<EcopontoModel>> GetIdAsync(int IdEcoponto)
         {
-            EcopontoModel e = await _context.TB_ECOPONTO.FindAsync(IdEcoponto);
-            return;
+            var ecoponto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(e => e.IdEcoponto == IdEcoponto);
+            return ecoponto;
         }
 
-        public async Task<IEnumerable<EcopontoModel>> GetAllAsync()
+        public async Task<List<EcopontoModel>> GetAllAsync()
         {
-            return await _context.TB_ECOPONTO.ToListAsync();
+            var ecopontos = await _context.TB_ECOPONTO.ToListAsync();
+            return ecopontos;
         }
 
-        public async Task PostAsync(EcopontoModel ecoponto)
+        public async Task<ActionResult<EcopontoModel>> PostAsync(EcopontoModel ecoponto)
         {
+            ecoponto.IdEcoponto = 0;
+
             _context.TB_ECOPONTO.AddAsync(ecoponto);
             await _context.SaveChangesAsync();
-            return;
+            return ecoponto;
         }
 
-        public async Task PutAsync(EcopontoModel ecoponto)
+        public async Task<ActionResult<EcopontoModel>> PutAsync(int id, EcopontoModel ecoponto)
         {
-            _context.TB_ECOPONTO.Update(ecoponto);
+            var ecopontoexistente = await _context.TB_ECOPONTO.FirstOrDefaultAsync(e => e.IdEcoponto == id);
+
+            _context.Entry(ecopontoexistente).CurrentValues.SetValues(ecoponto);
             await _context.SaveChangesAsync();
-            return;
+            return ecopontoexistente;
         }
 
-        public async Task DeleteAsync(int IdEcoponto)
+        public async Task<ActionResult<EcopontoModel>> DeleteAsync(int IdEcoponto)
         {
-            EcopontoModel e = await _context.TB_ECOPONTO.FindAsync(IdEcoponto);
-            _context.TB_ECOPONTO.Remove(e);
+            var ecoponto = await _context.TB_ECOPONTO.FirstOrDefaultAsync((EcopontoModel e) => e.IdEcoponto == IdEcoponto);
+            _context.TB_ECOPONTO.Remove(ecoponto);
             await _context.SaveChangesAsync();
-            return;
+            return ecoponto;
         }
 
         public async Task LoginEcopontoAsync(EcopontoModel ecoponto)
