@@ -47,7 +47,7 @@ namespace api.Repository.Utilizador
 
         public async Task<ActionResult<UtilizadorModel>> DeleteAsync(int id)
         {
-            var utilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync((UtilizadorModel u) => u.IdUtilizador == id);
+            var utilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(u => u.IdUtilizador == id);
 
             _context.TB_UTILIZADOR.Remove(utilizador);
             await _context.SaveChangesAsync();
