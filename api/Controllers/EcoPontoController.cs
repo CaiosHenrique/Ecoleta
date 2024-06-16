@@ -57,11 +57,11 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public async Task<ActionResult<IEnumerable<EcopontoModel>>> GetAll()
+        public async Task<ActionResult<EcopontoModel>> GetAll()
         {
             try
             {
-                var ecopontos =await  _ecoPontoRepository.GetAllAsync();
+                var ecopontos = await _ecoPontoRepository.GetAllAsync();
                 return StatusCode(200, ecopontos);
 
             }
