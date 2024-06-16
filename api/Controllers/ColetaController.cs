@@ -56,8 +56,8 @@ namespace api.Controllers
             try
             {
 
-                await _coletaService.GetAsync(IdColeta);
                 var coleta = await _coletaRepository.GetIdAsync(IdColeta);
+                await _coletaService.GetAsync(IdColeta);
 
 
                
@@ -130,11 +130,11 @@ namespace api.Controllers
         {
             try
             {
-                var coleta = await _coletaRepository.DeleteAsync(IdColeta);
                 await _coletaService.DeleteAsync(IdColeta);
+                await _coletaRepository.DeleteAsync(IdColeta);
 
 
-                return Ok(coleta);
+                return Ok("Coleta Deletada com sucesso!");
 
             }
             catch (System.Exception)

@@ -1,6 +1,7 @@
 using api.Models;
 using api.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace api.Repository.Coleta
 {
@@ -31,9 +32,9 @@ namespace api.Repository.Coleta
             return Coleta;
         }
 
-        public async Task<ColetaModel> PutAsync(int IdColeta, ColetaModel coleta)
+        public async Task<ActionResult<ColetaModel>> PutAsync(int IdColeta, ColetaModel coleta)
         {
-            var coletaAtual = await _context.TB_COLETA.FirstOrDefaultAsync(c => c.IdColeta == IdColeta);
+            var coletaAtual = await _context.TB_COLETA.FirstOrDefaultAsync((ColetaModel c) => c.IdColeta == IdColeta);
 
                 coletaAtual.IdColeta = coleta.IdColeta;
                 coletaAtual.IdEcoponto = coleta.IdEcoponto;
@@ -54,7 +55,7 @@ namespace api.Repository.Coleta
         }
         
 
-        public async Task<ColetaModel> DeleteAsync(int IdColeta)
+        public async Task<ActionResult<ColetaModel>> DeleteAsync(int IdColeta)
         {
             var coleta = await _context.TB_COLETA.FirstOrDefaultAsync(c => c.IdColeta == IdColeta);
 
