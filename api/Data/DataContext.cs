@@ -33,8 +33,8 @@ namespace api.Data
             );
 
             modelBuilder.Entity<EcopointsModel>().HasData(
-                new EcopointsModel() { IdUtilizador = 1, IdMaterial = 1, OrdemGrandeza = 'A', Quantidade = 10},
-                new EcopointsModel() { IdUtilizador = 2, IdMaterial = 2, OrdemGrandeza = 'B', Quantidade = 20}
+                new EcopointsModel() { TotalEcoPoints = 100,IdUtilizador = 1, IdMaterial = 1},
+                new EcopointsModel() {TotalEcoPoints = 100, IdUtilizador = 2, IdMaterial = 2}
             );
 
             modelBuilder.Entity<ColetaModel>().HasData(
