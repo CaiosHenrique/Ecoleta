@@ -20,20 +20,20 @@ namespace api.Repository.Coleta
 
         public async Task<ColetaModel> GetIdAsync(int IdColeta)
         {
-            var coleta = await _context.TB_COLETA.FindAsync(IdColeta);
+            var coleta = await _context.TB_COLETA.FirstOrDefaultAsync(c => c.IdColeta == IdColeta);
             return coleta;
         }
 
-        public async Task<ColetaModel> PostAsync(ColetaModel coleta)
+        public async Task<ColetaModel> PostAsync(ColetaModel Coleta)
         {
-            var Coleta = _context.TB_COLETA.Add(coleta);
+            _context.TB_COLETA.Add(Coleta);
             await _context.SaveChangesAsync();
-            return Coleta.Entity;
+            return Coleta;
         }
 
         public async Task<ColetaModel> PutAsync(int IdColeta, ColetaModel coleta)
         {
-            var coletaAtual = await _context.TB_COLETA.FindAsync(IdColeta);
+            var coletaAtual = await _context.TB_COLETA.FirstOrDefaultAsync(c => c.IdColeta == IdColeta);
 
                 coletaAtual.IdColeta = coleta.IdColeta;
                 coletaAtual.IdEcoponto = coleta.IdEcoponto;
@@ -45,8 +45,10 @@ namespace api.Repository.Coleta
                 coletaAtual.Peso = coleta.Peso;
                 coletaAtual.SituacaoColeta = coleta.SituacaoColeta;
 
-                _context.TB_COLETA.Update(coletaAtual);
-                _context.SaveChangesAsync();
+                _context.Entry(coletaAtual).State = EntityState.Modified;
+
+
+                await _context.SaveChangesAsync();
 
                 return coletaAtual;
         }
@@ -54,10 +56,10 @@ namespace api.Repository.Coleta
 
         public async Task<ColetaModel> DeleteAsync(int IdColeta)
         {
-            var coleta = await _context.TB_COLETA.FindAsync(IdColeta);
+            var coleta = await _context.TB_COLETA.FirstOrDefaultAsync(c => c.IdColeta == IdColeta);
 
             _context.TB_COLETA.Remove(coleta);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return coleta;
         }
 

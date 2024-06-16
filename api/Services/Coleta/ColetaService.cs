@@ -1,6 +1,7 @@
 using api.Models;
 using api.Data;
 using api.Services.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Services.Coleta
 {
@@ -18,7 +19,7 @@ namespace api.Services.Coleta
         
         public async Task GetAsync(int IdColeta)
         {
-                var coleta = _context.TB_COLETA.Find(IdColeta);
+                var coleta = _context.TB_COLETA.FirstOrDefaultAsync(c => c.IdColeta == IdColeta);
 
                 if (coleta == null)
                 {
@@ -28,7 +29,7 @@ namespace api.Services.Coleta
 
         public async Task PutAsync(int IdColeta)
         {
-            var coletaAtual = await _context.TB_COLETA.FindAsync(IdColeta);
+            var coletaAtual = await _context.TB_COLETA.FirstOrDefaultAsync(c => c.IdColeta == IdColeta);
 
                 if (coletaAtual == null)
                 {
@@ -38,7 +39,7 @@ namespace api.Services.Coleta
 
         public async Task DeleteAsync(int IdColeta)
         {
-            var coleta = await _context.TB_COLETA.FindAsync(IdColeta);
+            var coleta = await _context.TB_COLETA.FirstOrDefaultAsync(c => c.IdColeta == IdColeta);
 
                 if (coleta == null)
                 {

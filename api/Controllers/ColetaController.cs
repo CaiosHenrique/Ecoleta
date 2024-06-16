@@ -51,17 +51,17 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        public ActionResult<ColetaModel> GetId(int IdColeta)
+        public async Task<ActionResult<ColetaModel>> GetId(int IdColeta)
         {
             try
             {
 
-                _coletaService.GetAsync(IdColeta);
-                var coleta = _coletaRepository.GetIdAsync(IdColeta);
+                await _coletaService.GetAsync(IdColeta);
+                var coleta = await _coletaRepository.GetIdAsync(IdColeta);
 
 
                
-                return StatusCode(200, coleta);
+                return Ok(coleta);
 
             }
 
@@ -78,11 +78,11 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        public ActionResult<ColetaModel> PostColeta([FromBody] ColetaModel coleta)
+        public async Task<ActionResult<ColetaModel>> PostColeta([FromBody] ColetaModel coleta)
         {
             try
             {
-                var Coleta = _coletaRepository.PostAsync(coleta);
+                var Coleta = await _coletaRepository.PostAsync(coleta);
                 return StatusCode(201, Coleta);
 
             }
@@ -100,15 +100,15 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public ActionResult<ColetaModel> PutColeta(int IdColeta, ColetaModel coleta)
+        public async Task<ActionResult<ColetaModel>> PutColeta(int IdColeta, ColetaModel coleta)
         {
             try
             {
 
-                var coletaAtual = _coletaRepository.PutAsync(IdColeta, coleta);
-                _coletaService.PutAsync(IdColeta);
+                var coletaAtual = await _coletaRepository.PutAsync(IdColeta, coleta);
+                await _coletaService.PutAsync(IdColeta);
 
-                return StatusCode(200, coletaAtual);
+                return Ok(coletaAtual);
 
             }
 
@@ -126,15 +126,15 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        public ActionResult<ColetaModel> Delete(int IdColeta)
+        public async Task<ActionResult<ColetaModel>> Delete(int IdColeta)
         {
             try
             {
-                _coletaService.DeleteAsync(IdColeta);
-                var coleta = _coletaRepository.DeleteAsync(IdColeta);
+                var coleta = await _coletaRepository.DeleteAsync(IdColeta);
+                await _coletaService.DeleteAsync(IdColeta);
 
 
-                return StatusCode(200);
+                return Ok(coleta);
 
             }
             catch (System.Exception)
