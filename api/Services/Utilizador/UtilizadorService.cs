@@ -75,14 +75,14 @@ namespace api.Services.Utilizador
     public async Task AutenticarUsuarioAsync(string username, string passwordString)
     {
         UtilizadorModel? usuario = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower()));
-            UtilizadorModel? usuario = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(x => x.PasswordString.ToLower().Equals(passwordString.ToLower()));
+            UtilizadorModel? senha = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(x => x.PasswordString.ToLower().Equals(passwordString.ToLower()));
 
 
         if (usuario == null)
         {
             throw new System.Exception("Usuário não encontrado.");
         }
-        else if (!Criptografia.VerificarPasswordHash(passwordString, usuario.PasswordHash, usuario.PasswordSalt))
+        else if (!Criptografia.VerificarPasswordHash(passwordString, senha.PasswordHash, senha.PasswordSalt))
         {
             throw new System.Exception("Senha incorreta.");
         }

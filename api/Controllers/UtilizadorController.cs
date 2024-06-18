@@ -176,7 +176,7 @@ namespace api.Controllers
         {
             try
             {
-                await _utilizadorService.AutenticarUsuarioAsync(username);
+                await _utilizadorService.AutenticarUsuarioAsync(username, passwordString);
                 await _utilizadorRepository.AutenticarUsuarioAsync(username, passwordString);
 
                     return StatusCode(200);
