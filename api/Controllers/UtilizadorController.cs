@@ -156,9 +156,9 @@ namespace api.Controllers
         {
             try
             {
+                await _utilizadorRepository.RegistrarUsuarioAsync(username, passwordString);
                 await _utilizadorService.RegistrarUserExistente(username);
 
-                await _utilizadorRepository.RegistrarUsuarioAsync(username, passwordString);
 
                 return StatusCode(200);
             }

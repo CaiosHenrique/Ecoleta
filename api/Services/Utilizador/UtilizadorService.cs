@@ -65,14 +65,15 @@ namespace api.Services.Utilizador
     {
             var utilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(u => u.Username == username);
 
-            if (utilizador == null)
+            if (await UsuarioExistente(username))
             {
-                    throw new System.Exception("Nome de usuário nao foi encontrado");
+                    throw new System.Exception("Nome de usuário já existe");
             }
             else if
-            (await UsuarioExistente(username))
+            (utilizador == null)
             {
-                throw new System.Exception("Nome de usuário já existe");
+                throw new System.Exception("Nome De usuario nao encontrado");
+
             }
     }
 
