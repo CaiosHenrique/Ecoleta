@@ -93,19 +93,26 @@ namespace api.Repository.Utilizador
              return false; // Autenticação falhou
             }
 
-        public async Task AlterarSenhaUsuarioAsync(UtilizadorModel credenciais)
-        {
-            UtilizadorModel usuario = await _context.TB_UTILIZADOR //Busca o usuário no banco através do login
-                .FirstOrDefaultAsync(x => x.Username.ToLower().Equals(credenciais.Username.ToLower()));
+           public async Task AlterarSenhaUsuarioAsync(string username, string novaSenha)
+{   
+        UtilizadorModel usuario = await _context.TB_UTILIZADOR
+            .FirstOrDefaultAsync(x => x.Username == username);
 
+        // Cria um novo hash de senha e sal com a nova senha fornecida
+        Criptografia.CriarPasswordHash(novaSenha, out byte[] novoHash, out byte[] novoSal);
 
-                Criptografia.CriarPasswordHash(credenciais.PasswordString, out byte[] hash, out byte[] salt);
-                usuario.PasswordHash = hash; 
-                usuario.PasswordSalt = salt; 
+        // Atualiza o hash de senha e sal do usuário
+        usuario.PasswordHash = novoHash;
+        usuario.PasswordSalt = novoSal;
 
-                _context.TB_UTILIZADOR.Update(usuario);
-                await _context.SaveChangesAsync();
-        }
+        // Marca as propriedades PasswordHash e PasswordSalt como modificadas
+        var attach = _context.Attach(usuario);
+        attach.Property(x => x.PasswordHash).IsModified = true;
+        attach.Property(x => x.PasswordSalt).IsModified = true;
+
+        // Salva as alterações no banco de dados
+        await _context.SaveChangesAsync();
+}
 
         public async Task AlterarEmailUsuarioAsync(int idUtilizador, string email)
         {

@@ -10,7 +10,7 @@ namespace api.Services.Utilizador
         public Task DeleteAsync(int id);
         public Task RegistrarUserExistente(string username);
         public Task AutenticarUsuarioAsync(string username, string passwordString);
-        public Task GetUserAsync(UtilizadorModel credenciais);
+        public Task GetUserAsync(string username);
         public void AddEcoPoints(int IdUtilizador, int quantidade);
     }
 }

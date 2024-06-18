@@ -88,10 +88,9 @@ namespace api.Services.Utilizador
     }
 
 
-    public async Task GetUserAsync(UtilizadorModel credenciais)
+    public async Task GetUserAsync(string username)
     {
-        UtilizadorModel? usuario = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(credenciais.Username.ToLower()));
-                   
+            UtilizadorModel? usuario = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower()));                   
                 if (usuario == null)
                 {
                     throw new System.Exception("Usuário não encontrado.");

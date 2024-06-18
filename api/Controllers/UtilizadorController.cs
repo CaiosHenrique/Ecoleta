@@ -189,12 +189,12 @@ namespace api.Controllers
         }
 
         [HttpPut("AlterarSenha")]
-        public async Task<IActionResult> AlterarSenhaUsuario(UtilizadorModel credenciais)
+        public async Task<IActionResult> AlterarSenhaUsuario(string username, string novaSenha)
         {
             try
             {
-                await _utilizadorService.GetUserAsync(credenciais);
-                await _utilizadorRepository.AlterarSenhaUsuarioAsync(credenciais);
+                await _utilizadorService.GetUserAsync(username);
+                await _utilizadorRepository.AlterarSenhaUsuarioAsync(username, novaSenha);
                  
                 return Ok(200); 
             }

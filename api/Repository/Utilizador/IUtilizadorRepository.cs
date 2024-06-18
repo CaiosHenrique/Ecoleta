@@ -13,7 +13,7 @@ namespace api.Repository.Utilizador
         public Task<ActionResult<UtilizadorModel>> DeleteAsync(int id);
         public Task RegistrarUsuarioAsync(string username, string passwordString);
         public Task<bool> AutenticarUsuarioAsync(string username, string passwordString);
-        public Task AlterarSenhaUsuarioAsync(UtilizadorModel credenciais);
+        public Task AlterarSenhaUsuarioAsync(string username, string novaSenha);
         public Task AlterarEmailUsuarioAsync(int idUtilizador, string email);
         public Task<string> ResgatarBrindeAsync(int idUtilizador, int idBrinde);
     }
