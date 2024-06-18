@@ -29,11 +29,11 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public async Task<ActionResult<ResgateModel>> GetAll(int IdUtilizador)
+        public async Task<ActionResult<ResgateModel>> GetAll()
         {
             try
             {
-                var resgates = await _resgateRepository.GetAllAsync(IdUtilizador);
+                var resgates = await _resgateRepository.GetAllAsync();
                 return StatusCode(200, resgates);
 
             }
@@ -45,7 +45,7 @@ namespace api.Controllers
 
         }
 
-        [HttpGet("GetbyId/{id}")]
+        [HttpGet("GetbyId")]
 
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]

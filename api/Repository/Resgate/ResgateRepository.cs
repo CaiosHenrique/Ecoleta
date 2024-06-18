@@ -14,10 +14,9 @@ namespace api.Repository.Resgate
             _context = context;
         }
 
-        public async Task<List<ResgateModel>> GetAllAsync(int idUtilizador)
+        public async Task<List<ResgateModel>> GetAllAsync()
         {
             var resgates = await _context.TB_RESGATE
-                    .Where(x => x.IdUtilizador == idUtilizador)
                     .ToListAsync();
             return resgates;
         }
