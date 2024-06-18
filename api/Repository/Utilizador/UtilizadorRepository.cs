@@ -155,6 +155,16 @@ namespace api.Repository.Utilizador
         // Atualiza o usuário e o brinde no contexto
         _context.TB_UTILIZADOR.Update(usuario);
         _context.TB_BRINDE.Update(brinde);
+
+
+        var resgate = new ResgateModel
+        {
+            IdUtilizador = idUtilizador,
+            IdBrinde = idBrinde,
+            DataResgate = DateTime.Now
+        };
+        _context.TB_RESGATE.Add(resgate);
+
         await _context.SaveChangesAsync();
 
         string codigoCupom = Guid.NewGuid().ToString();

@@ -14,6 +14,7 @@ namespace api.Data
         public DbSet<ColetaModel> TB_COLETA { get; set; }
         public DbSet<MateriaisModel> TB_MATERIAIS { get; set; }
         public DbSet<BrindeModel> TB_BRINDE { get; set; }
+        public DbSet<ResgateModel> TB_RESGATE { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,6 +40,10 @@ namespace api.Data
             modelBuilder.Entity<BrindeModel>().HasData(
                 new BrindeModel() { IdBrinde = 1, DescricaoBrinde = "Caneca Ecológica", NomeBrinde = "Caneca", Cadastro = 'S', Validade = DateTime.Now.AddYears(1), Quantidade = 100, Saldo = 100, ValorEcopoints = 150 },
                 new BrindeModel() { IdBrinde = 2, DescricaoBrinde = "Camiseta Reciclada", NomeBrinde = "Camiseta", Cadastro = 'S', Validade = DateTime.Now.AddYears(1), Quantidade = 50, Saldo = 50, ValorEcopoints = 200 }
+            );
+            modelBuilder.Entity<ResgateModel>().HasData(
+                new ResgateModel() { IdResgate = 1, IdUtilizador = 1, IdBrinde = 1, DataResgate = DateTime.Now },
+                new ResgateModel() { IdResgate = 2, IdUtilizador = 2, IdBrinde = 2, DataResgate = DateTime.Now }
             );
 
             // Seed data for an admin user

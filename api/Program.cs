@@ -4,10 +4,12 @@ using api.Services.Brinde;
 using api.Services.Coleta;
 using api.Services.EcoPonto;
 using api.Services.Utilizador;
+using api.Services.Resgate;
 using api.Repository.Brinde;
 using api.Repository.Coleta;
 using api.Repository.EcoPonto;
 using api.Repository.Utilizador;
+using api.Repository.Resgate;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,11 +24,13 @@ builder.Services.AddScoped<IUtilizadorService, UtilizadorService>();
 builder.Services.AddScoped<IEcoPontoService, EcoPontoService>();
 builder.Services.AddScoped<IColetaService, ColetaService>();
 builder.Services.AddScoped<IBrindeService, BrindeService>();
+builder.Services.AddScoped<IResgateService, ResgateService>();
 
 builder.Services.AddScoped<IUtilizadorRepository, UtilizadorRepository>();
 builder.Services.AddScoped<IEcoPontoRepository, EcoPontoRepository>();
 builder.Services.AddScoped<IColetaRepository, ColetaRepository>();
 builder.Services.AddScoped<IBrindeRepository, BrindeRepository>();
+builder.Services.AddScoped<IResgateRepository, ResgateRepository>();
 
 
 
