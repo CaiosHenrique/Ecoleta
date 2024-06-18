@@ -152,13 +152,13 @@ namespace api.Controllers
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegistrarUsuario(UtilizadorModel utilizador)
+        public async Task<IActionResult> RegistrarUsuario(string username, string passwordString)
         {
             try
             {
-                _utilizadorService.RegistrarUserExistente(utilizador);
+                await _utilizadorService.RegistrarUserExistente(username);
 
-                _utilizadorRepository.RegistrarUsuarioAsync(utilizador);
+                await _utilizadorRepository.RegistrarUsuarioAsync(username, passwordString);
 
                 return StatusCode(200);
             }
@@ -172,12 +172,12 @@ namespace api.Controllers
 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AutenticarUsuario(UtilizadorModel credenciais)
+        public async Task<IActionResult> AutenticarUsuario(string username, string passwordString)
         {
             try
             {
-                _utilizadorService.AutenticarUsuarioAsync(credenciais);
-                _utilizadorRepository.AutenticarUsuarioAsync(credenciais);
+                await _utilizadorService.RegistrarUserExistente(username);
+                await _utilizadorRepository.AutenticarUsuarioAsync(username, passwordString);
 
                     return StatusCode(200);
                 
@@ -193,8 +193,8 @@ namespace api.Controllers
         {
             try
             {
-                _utilizadorService.GetUserAsync(credenciais);
-                _utilizadorRepository.AlterarSenhaUsuarioAsync(credenciais);
+                await _utilizadorService.GetUserAsync(credenciais);
+                await _utilizadorRepository.AlterarSenhaUsuarioAsync(credenciais);
                  
                 return Ok(200); 
             }
@@ -205,13 +205,13 @@ namespace api.Controllers
         }
 
         [HttpPut("AtualizarEmail")]
-        public async Task<IActionResult> AtualizarEmail(UtilizadorModel u)
+        public async Task<IActionResult> AtualizarEmail(int idUtilizador, string email)
         {
             try
             {
-                _utilizadorRepository.AlterarEmailUsuarioAsync(u);
+                await _utilizadorRepository.AlterarEmailUsuarioAsync(idUtilizador, email);
                 
-                return Ok(200); 
+                return Ok("Email atualizado com sucesso!"); 
             }
             catch (System.Exception ex)
             {

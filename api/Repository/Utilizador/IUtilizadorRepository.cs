@@ -11,10 +11,10 @@ namespace api.Repository.Utilizador
         public Task<ActionResult<UtilizadorModel>> PostAsync(UtilizadorModel utilizador);
         public Task<ActionResult<UtilizadorModel>> PutAsync(int id, UtilizadorModel utilizador);
         public Task<ActionResult<UtilizadorModel>> DeleteAsync(int id);
-        public Task RegistrarUsuarioAsync(UtilizadorModel utilizador);
-        public Task AutenticarUsuarioAsync(UtilizadorModel credenciais);
+        public Task RegistrarUsuarioAsync(string username, string passwordString);
+        public Task<bool> AutenticarUsuarioAsync(string username, string passwordString);
         public Task AlterarSenhaUsuarioAsync(UtilizadorModel credenciais);
-        public Task AlterarEmailUsuarioAsync(UtilizadorModel u);
+        public Task AlterarEmailUsuarioAsync(int idUtilizador, string email);
         public Task<string> ResgatarBrindeAsync(int idUtilizador, int idBrinde);
     }
 }

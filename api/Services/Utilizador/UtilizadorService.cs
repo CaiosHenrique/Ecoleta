@@ -53,6 +53,7 @@ namespace api.Services.Utilizador
 
     private async Task<bool> UsuarioExistente(string username)
         {
+            
             if (await _context.TB_UTILIZADOR.AnyAsync(x => x.Username.ToLower() == username.ToLower()))
             {
                 return true;
@@ -60,27 +61,21 @@ namespace api.Services.Utilizador
             return false;
         }
 
-    public async Task RegistrarUserExistente(UtilizadorModel utilizador)
+    public async Task RegistrarUserExistente(string username)
     {
-            if (await UsuarioExistente(utilizador.Username))
+            var utilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(u => u.Username == username);
+
+            if (utilizador == null)
             {
-                    throw new System.Exception("Nome de usuário já existe");
+                    throw new System.Exception("Nome de usuário nao foi encontrado");
+            }
+            else if
+            (await UsuarioExistente(username))
+            {
+                throw new System.Exception("Nome de usuário já existe");
             }
     }
 
-    public async Task AutenticarUsuarioAsync(UtilizadorModel credenciais)
-    {
-            UtilizadorModel? usuario = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(credenciais.Username.ToLower()));
-                   
-                if (usuario == null)
-                {
-                    throw new System.Exception("Usuário não encontrado.");
-                }
-                else if (!Criptografia.VerificarPasswordHash(credenciais.PasswordString, usuario.PasswordHash, usuario.PasswordSalt))
-                {
-                    throw new System.Exception("Senha incorreta.");
-                }
-    }
 
     public async Task GetUserAsync(UtilizadorModel credenciais)
     {

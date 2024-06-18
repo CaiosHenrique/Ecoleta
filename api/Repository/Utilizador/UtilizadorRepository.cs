@@ -54,26 +54,44 @@ namespace api.Repository.Utilizador
             return utilizador;
         }
 
-        public async Task RegistrarUsuarioAsync(UtilizadorModel utilizador)
+        public async Task RegistrarUsuarioAsync(string username, string passwordString)
         {
-            Criptografia.CriarPasswordHash(utilizador.PasswordString, out byte[] hash, out byte[] salt);
+            Criptografia.CriarPasswordHash(passwordString, out byte[] hash, out byte[] salt);
 
-                utilizador.PasswordString = string.Empty;
-                utilizador.PasswordHash = hash;
-                utilizador.PasswordSalt = salt;
+                UtilizadorModel utilizador = new UtilizadorModel
+            {
+                Username = username,
+                PasswordString = string.Empty, // A senha em texto claro não é armazenada
+                PasswordHash = hash,
+                PasswordSalt = salt
+            };
 
                 await _context.TB_UTILIZADOR.AddAsync(utilizador);
                 await _context.SaveChangesAsync();
         }
 
-        public async Task AutenticarUsuarioAsync(UtilizadorModel credenciais)
+        public async Task<bool> AutenticarUsuarioAsync(string username, string passwordString)
         {
-            UtilizadorModel? usuario = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(credenciais.Username.ToLower()));
-                   
+            UtilizadorModel? usuario = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower()));
+
+            if (usuario != null)
+            {
+             // Verifica se a senha fornecida, após ser criptografada, corresponde ao hash armazenado
+            bool senhaValida = Criptografia.VerificarPasswordHash(passwordString, usuario.PasswordHash, usuario.PasswordSalt);
+
+             if (senhaValida)
+            {
+            // Atualiza a DataAcesso do usuário para agora, indicando um login bem-sucedido
             usuario.DataAcesso = System.DateTime.Now;
             _context.TB_UTILIZADOR.Update(usuario);
             await _context.SaveChangesAsync();
-        }
+
+            return true; // Autenticação bem-sucedida
+            }
+            }
+
+             return false; // Autenticação falhou
+            }
 
         public async Task AlterarSenhaUsuarioAsync(UtilizadorModel credenciais)
         {
@@ -89,18 +107,18 @@ namespace api.Repository.Utilizador
                 await _context.SaveChangesAsync();
         }
 
-        public async Task AlterarEmailUsuarioAsync(UtilizadorModel u)
+        public async Task AlterarEmailUsuarioAsync(int idUtilizador, string email)
         {
-            UtilizadorModel usuario = await _context.TB_UTILIZADOR //Busca o usuário no banco através do Id
-                   .FirstOrDefaultAsync(x => x.IdUtilizador == u.IdUtilizador);
+         UtilizadorModel usuario = await _context.TB_UTILIZADOR
+           .FirstOrDefaultAsync(x => x.IdUtilizador == idUtilizador);
 
-                usuario.Email = u.Email;                
+    
+        usuario.Email = email;
 
-                var attach = _context.Attach(usuario);
-                attach.Property(x => x.IdUtilizador).IsModified = false;
-                attach.Property(x => x.Email).IsModified = true;                
+        var attach = _context.Attach(usuario);
+        attach.Property(x => x.Email).IsModified = true;
 
-                await _context.SaveChangesAsync(); 
+        await _context.SaveChangesAsync();
         }
 
         public async Task<string> ResgatarBrindeAsync(int idUtilizador, int idBrinde)
