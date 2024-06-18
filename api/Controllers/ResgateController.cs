@@ -29,11 +29,11 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public async Task<ActionResult<ResgateModel>> GetAll()
+        public async Task<ActionResult<ResgateModel>> GetAll(int IdUtilizador)
         {
             try
             {
-                var resgates = await _resgateRepository.GetAllAsync();
+                var resgates = await _resgateRepository.GetAllAsync(IdUtilizador);
                 return StatusCode(200, resgates);
 
             }
