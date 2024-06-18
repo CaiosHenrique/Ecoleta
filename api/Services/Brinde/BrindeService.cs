@@ -19,7 +19,7 @@ namespace api.Services.Brinde
 
         public async Task GetAsync(int id)
         {
-            var brinde = _context.TB_BRINDE.FirstOrDefaultAsync((BrindeModel b) => b.IdBrinde == id);
+            var brinde = await _context.TB_BRINDE.FirstOrDefaultAsync((BrindeModel b) => b.IdBrinde == id);
             if (brinde == null)
             {
                 throw new NotFoundException("Brinde não encontrado");
@@ -28,7 +28,7 @@ namespace api.Services.Brinde
 
         public async Task PutAsync(int id)
         {
-            var brinde = _context.TB_BRINDE.FirstOrDefaultAsync((BrindeModel b) => b.IdBrinde == id);
+            var brinde = await _context.TB_BRINDE.FirstOrDefaultAsync((BrindeModel b) => b.IdBrinde == id);
             if (brinde == null)
             {
                 throw new ConflictException("Dados inválidos");

@@ -204,11 +204,11 @@ namespace api.Controllers
         try
         {
 
-        _ecoPontoService.AutenticarEcoPontoAsync(ecoponto);
+        await _ecoPontoService.AutenticarEcoPontoAsync(ecoponto);
 
-        _ecoPontoService.AutenticarTBEcoPontoAsync(ecoponto);
-
-        _ecoPontoRepository.AlterarSenhaAsync(ecoponto);
+        await _ecoPontoService.AutenticarTBEcoPontoAsync(ecoponto);
+        
+        await _ecoPontoRepository.AlterarSenhaAsync(ecoponto);
 
         return StatusCode(200);
         }
@@ -229,11 +229,11 @@ namespace api.Controllers
         try
         {
             
-        _ecoPontoService.AutenticarEcoPontoAsync(ecoponto);
+        await _ecoPontoService.AutenticarEcoPontoAsync(ecoponto);
 
         EcopontoModel EcoPonto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
 
-        _ecoPontoService.AutenticarTBEcoPontoAsync(ecoponto);
+        await _ecoPontoService.AutenticarTBEcoPontoAsync(ecoponto);
 
         EcoPonto.Email = ecoponto.Email;
 

@@ -103,5 +103,43 @@ namespace api.Repository.Utilizador
                 await _context.SaveChangesAsync(); 
         }
 
+        public async Task<string> ResgatarBrindeAsync(int idUtilizador, int idBrinde)
+{
+    var usuario = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(u => u.IdUtilizador == idUtilizador);
+    var brinde = await _context.TB_BRINDE.FirstOrDefaultAsync(b => b.IdBrinde == idBrinde);
+
+    if (usuario == null || brinde == null)
+    {
+        return "Usuário ou brinde não encontrado.";
+    }
+
+    if (usuario.TotalEcoPoints >= brinde.ValorEcopoints)
+    {
+        // Subtrai os pontos do usuário
+        usuario.TotalEcoPoints -= brinde.ValorEcopoints;
+        
+        // Diminui a quantidade disponível do brinde
+        brinde.Quantidade-= 1;
+
+        // Verifica se ainda há brindes disponíveis
+        if (brinde.Quantidade < 0)
+        {
+            return "Brinde não está mais disponível.";
+        }
+
+        // Atualiza o usuário e o brinde no contexto
+        _context.TB_UTILIZADOR.Update(usuario);
+        _context.TB_BRINDE.Update(brinde);
+        await _context.SaveChangesAsync();
+
+        string codigoCupom = Guid.NewGuid().ToString();
+        return $"Código do cupom: {codigoCupom}";
+    }
+    else
+    {
+        return "Pontos insuficientes para resgatar o brinde.";
+    }
+}
+
     }
 }

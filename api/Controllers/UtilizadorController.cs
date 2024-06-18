@@ -219,5 +219,20 @@ namespace api.Controllers
             }
         }
 
+    [HttpPost("ResgatarBrinde/{idUtilizador}/{idBrinde}")]
+    public async Task<IActionResult> ResgatarBrinde(int idUtilizador, int idBrinde)
+{
+    try
+    {
+    var resultado = await _utilizadorRepository.ResgatarBrindeAsync(idUtilizador, idBrinde);
+
+    return Ok(resultado);
     }
+    catch (System.Exception ex)
+    {
+        return BadRequest(ex.Message);
+    }
+
+}
+}
 }

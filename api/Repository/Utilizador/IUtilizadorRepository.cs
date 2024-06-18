@@ -15,5 +15,6 @@ namespace api.Repository.Utilizador
         public Task AutenticarUsuarioAsync(UtilizadorModel credenciais);
         public Task AlterarSenhaUsuarioAsync(UtilizadorModel credenciais);
         public Task AlterarEmailUsuarioAsync(UtilizadorModel u);
+        public Task<string> ResgatarBrindeAsync(int idUtilizador, int idBrinde);
     }
 }
