@@ -53,34 +53,74 @@ namespace api.Repository.EcoPonto
             return ecoponto;
         }
 
-        public async Task LoginEcopontoAsync(EcopontoModel ecoponto)
+        public async Task RegistrarEcopontoAsync(string username, string passwordString)
         {
+            Criptografia.CriarPasswordHash(passwordString, out byte[] hash, out byte[] salt);
 
-           Criptografia.CriarPasswordHash(ecoponto.PasswordString, out byte[] hash, out byte[] salt);
-
-                ecoponto.PasswordString = string.Empty;
-                ecoponto.PasswordHash = hash;
-                ecoponto.PasswordSalt = salt;
+                EcopontoModel ecoponto = new EcopontoModel
+            {
+                Username = username,
+                PasswordString = string.Empty, 
+                PasswordHash = hash,
+                PasswordSalt = salt
+            };
 
                 await _context.TB_ECOPONTO.AddAsync(ecoponto);
                 await _context.SaveChangesAsync();
         }
 
-        public async Task AlterarSenhaAsync(EcopontoModel ecoponto)
+        public async Task<bool> AutenticarEcopontoAsync(string username, string passwordString)
         {
+            EcopontoModel? ecoponto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username.ToLower().Equals(username.ToLower()));
+
+            if (ecoponto != null)
+            {
+             
+            bool senhaValida = Criptografia.VerificarPasswordHash(passwordString, ecoponto.PasswordHash, ecoponto.PasswordSalt);
+
+             if (senhaValida)
+            {
             
-        EcopontoModel EcoPonto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
 
+            _context.TB_ECOPONTO.Update(ecoponto);
+            await _context.SaveChangesAsync();
 
-        Criptografia.CriarPasswordHash(ecoponto.PasswordString, out byte[] hash, out byte[] salt);
+            return true; 
+            }
+            }
 
-        EcoPonto.PasswordString = string.Empty;
-        EcoPonto.PasswordHash = hash;
-        EcoPonto.PasswordSalt = salt;
+             return false; 
+            }
 
-        _context.TB_ECOPONTO.Update(EcoPonto);
+        public async Task AlterarSenhaEcopontoAsync(string username, string novaSenha)
+{   
+        EcopontoModel ecoponto = await _context.TB_ECOPONTO
+            .FirstOrDefaultAsync(x => x.Username == username);
+
+        Criptografia.CriarPasswordHash(novaSenha, out byte[] novoHash, out byte[] novoSal);
+
+        ecoponto.PasswordHash = novoHash;
+        ecoponto.PasswordSalt = novoSal;
+
+        var attach = _context.Attach(ecoponto);
+        attach.Property(x => x.PasswordHash).IsModified = true;
+        attach.Property(x => x.PasswordSalt).IsModified = true;
+
         await _context.SaveChangesAsync();
+}
 
+        public async Task AlterarEmailEcopontoAsync(string username, string email)
+        {
+         EcopontoModel ecoponto = await _context.TB_ECOPONTO
+           .FirstOrDefaultAsync(x => x.Username == username);
+
+    
+        ecoponto.Email = email;
+
+        var attach = _context.Attach(ecoponto);
+        attach.Property(x => x.Email).IsModified = true;
+
+        await _context.SaveChangesAsync();
         }
        
     }

@@ -39,10 +39,7 @@ namespace api.Repository.Coleta
                 coletaAtual.IdColeta = coleta.IdColeta;
                 coletaAtual.IdEcoponto = coleta.IdEcoponto;
                 coletaAtual.IdUtilizador = coleta.IdUtilizador;
-                coletaAtual.CodigoEcoponto = coleta.CodigoEcoponto;
-                coletaAtual.CodigoUtilizador = coleta.CodigoUtilizador;
                 coletaAtual.DataColeta = coleta.DataColeta;
-                coletaAtual.TotalEcopoints = coleta.TotalEcopoints;
                 coletaAtual.Peso = coleta.Peso;
                 coletaAtual.SituacaoColeta = coleta.SituacaoColeta;
 
@@ -62,6 +59,77 @@ namespace api.Repository.Coleta
             _context.TB_COLETA.Remove(coleta);
             await _context.SaveChangesAsync();
             return coleta;
+        }
+
+        public async Task<ActionResult> ConfirmarColeta(int IdEcoponto, int IdUtilizador, int[] classe, double peso)
+        {
+            
+            if (classe == null || classe.Length == 0 || peso <= 0)
+            {
+                return new BadRequestResult(); 
+            }
+
+            
+            int totalEcopoints = Convert.ToInt32(classe.Sum(c => ValorEcopointPorClasse(c) + 0.2 * peso));
+
+            
+            var utilizador = await _context.TB_UTILIZADOR.FindAsync(IdUtilizador);
+            if (utilizador != null)
+            {
+                utilizador.TotalEcoPoints += totalEcopoints;
+            }
+            else
+            {
+                return new NotFoundResult(); 
+            }
+
+            
+            var coleta = await _context.TB_COLETA.FirstOrDefaultAsync(c => c.IdEcoponto == IdEcoponto && c.IdUtilizador == IdUtilizador);
+            if (coleta != null)
+            {
+                coleta.SituacaoColeta = "Concluído";
+            }
+            else
+            {
+                return new NotFoundResult(); 
+            }
+
+            
+            await _context.SaveChangesAsync();
+
+            return new OkResult();
+        }
+
+        private int ValorEcopointPorClasse(int classe)
+        {
+            
+            switch (classe)
+            {
+                case 1:
+                    return 10;
+                case 2:
+                    return 20;
+                case 3:
+                    return 30;
+                case 4:
+                    return 40;
+                case 5:
+                    return 50;
+                case 6:
+                    return 60;
+                case 7:
+                    return 70;
+                case 8:
+                    return 80;
+                case 9:
+                    return 90;
+                case 10:
+                    return 100;
+                case 11:
+                    return 110;
+                default:
+                    return 0;
+            }
         }
 
     }

@@ -29,6 +29,16 @@ namespace api.Repository.Utilizador
 
         public async Task<ActionResult<UtilizadorModel>> PostAsync(UtilizadorModel utilizador)
         {
+            var existingUtilizador = await _context.TB_UTILIZADOR
+                .FirstOrDefaultAsync(u => u.Username == utilizador.Username);
+
+                existingUtilizador.Nome = utilizador.Nome;
+                existingUtilizador.SituacaoEmail = utilizador.SituacaoEmail;
+                existingUtilizador.TotalEcoPoints = utilizador.TotalEcoPoints;
+                existingUtilizador.Latitude = utilizador.Latitude;
+                existingUtilizador.Longitude = utilizador.Longitude;
+                existingUtilizador.Email = utilizador.Email;
+
             utilizador.IdUtilizador = 0;
 
             _context.TB_UTILIZADOR.Add(utilizador);
@@ -61,7 +71,7 @@ namespace api.Repository.Utilizador
                 UtilizadorModel utilizador = new UtilizadorModel
             {
                 Username = username,
-                PasswordString = string.Empty, // A senha em texto claro não é armazenada
+                PasswordString = string.Empty, 
                 PasswordHash = hash,
                 PasswordSalt = salt
             };
@@ -76,21 +86,21 @@ namespace api.Repository.Utilizador
 
             if (usuario != null)
             {
-             // Verifica se a senha fornecida, após ser criptografada, corresponde ao hash armazenado
+             
             bool senhaValida = Criptografia.VerificarPasswordHash(passwordString, usuario.PasswordHash, usuario.PasswordSalt);
 
              if (senhaValida)
             {
-            // Atualiza a DataAcesso do usuário para agora, indicando um login bem-sucedido
+            
             usuario.DataAcesso = System.DateTime.Now;
             _context.TB_UTILIZADOR.Update(usuario);
             await _context.SaveChangesAsync();
 
-            return true; // Autenticação bem-sucedida
+            return true; 
             }
             }
 
-             return false; // Autenticação falhou
+             return false; 
             }
 
            public async Task AlterarSenhaUsuarioAsync(string username, string novaSenha)
@@ -98,19 +108,15 @@ namespace api.Repository.Utilizador
         UtilizadorModel usuario = await _context.TB_UTILIZADOR
             .FirstOrDefaultAsync(x => x.Username == username);
 
-        // Cria um novo hash de senha e sal com a nova senha fornecida
         Criptografia.CriarPasswordHash(novaSenha, out byte[] novoHash, out byte[] novoSal);
 
-        // Atualiza o hash de senha e sal do usuário
         usuario.PasswordHash = novoHash;
         usuario.PasswordSalt = novoSal;
 
-        // Marca as propriedades PasswordHash e PasswordSalt como modificadas
         var attach = _context.Attach(usuario);
         attach.Property(x => x.PasswordHash).IsModified = true;
         attach.Property(x => x.PasswordSalt).IsModified = true;
 
-        // Salva as alterações no banco de dados
         await _context.SaveChangesAsync();
 }
 
@@ -140,19 +146,15 @@ namespace api.Repository.Utilizador
 
     if (usuario.TotalEcoPoints >= brinde.ValorEcopoints)
     {
-        // Subtrai os pontos do usuário
         usuario.TotalEcoPoints -= brinde.ValorEcopoints;
         
-        // Diminui a quantidade disponível do brinde
         brinde.Quantidade-= 1;
 
-        // Verifica se ainda há brindes disponíveis
         if (brinde.Quantidade < 0)
         {
             return "Brinde não está mais disponível.";
         }
 
-        // Atualiza o usuário e o brinde no contexto
         _context.TB_UTILIZADOR.Update(usuario);
         _context.TB_BRINDE.Update(brinde);
 

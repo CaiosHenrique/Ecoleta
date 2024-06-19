@@ -48,7 +48,6 @@ namespace api.Repository.Brinde
             brinde.Cadastro = updatedBrinde.Cadastro;
             brinde.Validade = updatedBrinde.Validade;
             brinde.Quantidade = updatedBrinde.Quantidade;
-            brinde.Saldo = updatedBrinde.Saldo;
             brinde.ValorEcopoints = updatedBrinde.ValorEcopoints;
 
             _context.Entry(brinde).State = EntityState.Modified;

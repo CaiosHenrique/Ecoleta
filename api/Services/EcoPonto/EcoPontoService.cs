@@ -40,34 +40,23 @@ namespace api.Services.EcoPonto
         }
 
 
-        public async Task AutenticarEcoPontoAsync(EcopontoModel ecoponto)
+        public async Task AutenticarEcoPontoAsync(string username)
         {
-            if (ecoponto == null)
+            if (username == null)
             {
             throw new ConflictException("Dados inválidos");
             }
         }
 
-        public async Task AutenticarTBEcoPontoAsync(EcopontoModel ecoponto)
+        public async Task AutenticarTBEcoPontoAsync(string username)
         {
-            EcopontoModel EcoPonto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+            var nomeEcoponto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == username);
 
-            if (EcoPonto == null)
+            if (nomeEcoponto == null)
             {
                 throw new NotFoundException("Ecoponto não encontrado");
             }
         }
-
-        public async Task AutenticarSenhaEcoPonto(EcopontoModel ecoponto)
-        {
-            EcopontoModel EcoPonto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
-
-            if (!Criptografia.VerificarPasswordHash(ecoponto.PasswordString, EcoPonto.PasswordHash, EcoPonto.PasswordSalt))
-            {
-                throw new ConflictException("Senha incorreta");
-            }
-        }
-
 
     }
 }

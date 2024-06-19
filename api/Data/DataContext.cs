@@ -1,6 +1,7 @@
 using System;
 using api.Models;
 using api.Utils;
+using api.Models.Enuns;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Data
@@ -12,7 +13,6 @@ namespace api.Data
         public DbSet<UtilizadorModel> TB_UTILIZADOR { get; set; }
         public DbSet<EcopontoModel> TB_ECOPONTO { get; set; }
         public DbSet<ColetaModel> TB_COLETA { get; set; }
-        public DbSet<MateriaisModel> TB_MATERIAIS { get; set; }
         public DbSet<BrindeModel> TB_BRINDE { get; set; }
         public DbSet<ResgateModel> TB_RESGATE { get; set; }
 
@@ -33,13 +33,13 @@ namespace api.Data
             );
 
             modelBuilder.Entity<ColetaModel>().HasData(
-                new ColetaModel() { IdColeta = 1, IdEcoponto = 1, IdUtilizador = 1, CodigoEcoponto = 1001, CodigoUtilizador = 2001, DataColeta = DateTime.Now, TotalEcopoints = 50.0f, Peso = 15.5, SituacaoColeta = "Completa" },
-                new ColetaModel() { IdColeta = 2, IdEcoponto = 2, IdUtilizador = 2, CodigoEcoponto = 1002, CodigoUtilizador = 2002, DataColeta = DateTime.Now, TotalEcopoints = 75.0f, Peso = 20.0, SituacaoColeta = "Pendente" }
+                new ColetaModel() { IdColeta = 1, IdEcoponto = 1, IdUtilizador = 1, DataColeta = DateTime.Now, Peso = 15.5, SituacaoColeta = "Completa", Classe = Materiais.Papel},
+                new ColetaModel() { IdColeta = 2, IdEcoponto = 2, IdUtilizador = 2, DataColeta = DateTime.Now, Peso = 20.0, SituacaoColeta = "Pendente", Classe = Materiais.Papel}
             );
 
             modelBuilder.Entity<BrindeModel>().HasData(
-                new BrindeModel() { IdBrinde = 1, DescricaoBrinde = "Caneca Ecológica", NomeBrinde = "Caneca", Cadastro = 'S', Validade = DateTime.Now.AddYears(1), Quantidade = 100, Saldo = 100, ValorEcopoints = 150 },
-                new BrindeModel() { IdBrinde = 2, DescricaoBrinde = "Camiseta Reciclada", NomeBrinde = "Camiseta", Cadastro = 'S', Validade = DateTime.Now.AddYears(1), Quantidade = 50, Saldo = 50, ValorEcopoints = 200 }
+                new BrindeModel() { IdBrinde = 1, DescricaoBrinde = "Caneca Ecológica", NomeBrinde = "Caneca", Cadastro = 'S', Validade = DateTime.Now.AddYears(1), Quantidade = 100, ValorEcopoints = 150 },
+                new BrindeModel() { IdBrinde = 2, DescricaoBrinde = "Camiseta Reciclada", NomeBrinde = "Camiseta", Cadastro = 'S', Validade = DateTime.Now.AddYears(1), Quantidade = 50, ValorEcopoints = 200 }
             );
             modelBuilder.Entity<ResgateModel>().HasData(
                 new ResgateModel() { IdResgate = 1, IdUtilizador = 1, IdBrinde = 1, DataResgate = DateTime.Now },

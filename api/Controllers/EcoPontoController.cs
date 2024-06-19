@@ -145,17 +145,17 @@ namespace api.Controllers
             }
         }
 
-        [HttpPost("CadastrarEcoponto")] //Não está funcionando 400 Bad Request ):
+        [HttpPost("CadastrarEcoponto")] 
 
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> RegistrarEcoponto([FromBody] EcopontoModel ecoponto)
+        public async Task<ActionResult> RegistrarEcoponto(string username, string passwordString)     
         {
             try
             {
-                _ecoPontoRepository.LoginEcopontoAsync(ecoponto);
+                await _ecoPontoRepository.RegistrarEcopontoAsync(username, passwordString);
 
-                return StatusCode(201, ecoponto);
+                return StatusCode(201, "Ecoponto cadastrado com sucesso!");
 
             }
 
@@ -172,23 +172,22 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
 
-        public async Task<ActionResult> AutenticarEcoponto([FromBody] EcopontoModel ecoponto)
+        public async Task<ActionResult> AutenticarEcoponto(string username, string passwordString)
     {
         try
         {
         
         
-        _ecoPontoService.AutenticarEcoPontoAsync(ecoponto);
-        _ecoPontoService.AutenticarTBEcoPontoAsync(ecoponto);
-        _ecoPontoService.AutenticarSenhaEcoPonto(ecoponto);
+        await _ecoPontoService.AutenticarEcoPontoAsync(username);
+        await _ecoPontoService.AutenticarTBEcoPontoAsync(username);
+        await _ecoPontoRepository.AutenticarEcopontoAsync(username, passwordString);
 
-        EcopontoModel EcoPonto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
 
-        return StatusCode(200, EcoPonto);
+        return StatusCode(200, "Bem vindo!");
         }
         catch (System.Exception ex)
         {
-            return StatusCode(500, ex.Message);
+            return StatusCode(500, "nome ou senha incorretos!");
         }
     }
 
@@ -199,18 +198,18 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        public async Task<ActionResult> AlterarSenha([FromBody] EcopontoModel ecoponto)
+        public async Task<ActionResult> AlterarSenha(string username, string novaSenha)
     {
         try
         {
 
-        await _ecoPontoService.AutenticarEcoPontoAsync(ecoponto);
+        await _ecoPontoService.AutenticarEcoPontoAsync(username);
 
-        await _ecoPontoService.AutenticarTBEcoPontoAsync(ecoponto);
+        await _ecoPontoService.AutenticarTBEcoPontoAsync(username);
         
-        await _ecoPontoRepository.AlterarSenhaAsync(ecoponto);
+        await _ecoPontoRepository.AlterarSenhaEcopontoAsync(username, novaSenha);
 
-        return StatusCode(200);
+        return StatusCode(200, "Senha alterada com sucesso!");
         }
         catch (System.Exception ex)
         {
@@ -224,23 +223,18 @@ namespace api.Controllers
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-    public async Task<ActionResult> AlterarEmail([FromBody] EcopontoModel ecoponto)
+    public async Task<ActionResult> AlterarEmail(string username, string email)
     {
         try
         {
             
-        await _ecoPontoService.AutenticarEcoPontoAsync(ecoponto);
+        await _ecoPontoService.AutenticarEcoPontoAsync(username);
 
-        EcopontoModel EcoPonto = await _context.TB_ECOPONTO.FirstOrDefaultAsync(x => x.Username == ecoponto.Username);
+        await _ecoPontoService.AutenticarTBEcoPontoAsync(username);
 
-        await _ecoPontoService.AutenticarTBEcoPontoAsync(ecoponto);
+        await _ecoPontoRepository.AlterarEmailEcopontoAsync(username, email);
 
-        EcoPonto.Email = ecoponto.Email;
-
-        _context.TB_ECOPONTO.Update(EcoPonto);
-        await _context.SaveChangesAsync();
-
-        return StatusCode(200, EcoPonto);
+        return StatusCode(200, "Email alterado com sucesso!");
         }
         catch (System.Exception ex)
         {

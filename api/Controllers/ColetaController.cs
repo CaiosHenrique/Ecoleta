@@ -143,5 +143,21 @@ namespace api.Controllers
 
             }
         }
+
+        [HttpPost("ConfirmarColeta/{IdEcoponto}/{IdUtilizador}/{classe}/{peso}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> ConfirmarColeta(int IdEcoponto, int IdUtilizador, int[] classe, double peso)
+        {
+            try
+            {
+                await _coletaRepository.ConfirmarColeta(IdEcoponto, IdUtilizador, classe, peso);
+                return Ok("Coleta confirmada com sucesso!");
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(400);
+            }
+        }
     }
 }

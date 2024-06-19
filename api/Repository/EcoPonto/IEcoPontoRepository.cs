@@ -10,7 +10,9 @@ namespace api.Repository.EcoPonto
         public Task<ActionResult<EcopontoModel>> PostAsync(EcopontoModel ecoponto);
         public Task<ActionResult<EcopontoModel>> PutAsync(int id, EcopontoModel ecoponto);
         public Task<ActionResult<EcopontoModel>> DeleteAsync(int IdEcoponto);
-        public Task LoginEcopontoAsync(EcopontoModel ecoponto);
-        public Task AlterarSenhaAsync(EcopontoModel ecoponto);
+        public Task RegistrarEcopontoAsync(string username, string passwordString);
+        public Task<bool> AutenticarEcopontoAsync(string username, string passwordString);
+        public Task AlterarSenhaEcopontoAsync(string username, string novaSenha);
+        public Task AlterarEmailEcopontoAsync(string username, string email);
     }
 }

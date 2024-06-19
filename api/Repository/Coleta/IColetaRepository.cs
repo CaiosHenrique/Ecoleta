@@ -10,6 +10,7 @@ namespace api.Repository.Coleta
         public Task<ColetaModel> PostAsync(ColetaModel coleta);
         public Task<ActionResult<ColetaModel>> PutAsync(int IdColeta, ColetaModel coleta);
         public Task<ActionResult<ColetaModel>> DeleteAsync(int IdColeta);
+        public Task<ActionResult> ConfirmarColeta(int IdEcoponto, int IdUtilizador, int[] classe, double peso);
 
     }
 }

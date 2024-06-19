@@ -7,8 +7,7 @@ namespace api.Services.EcoPonto
     {
         public Task GetAsync(int IdEcoponto);
         public Task DeleteAsync(int IdEcoponto);
-        public Task AutenticarEcoPontoAsync(EcopontoModel ecoponto);
-        public Task AutenticarTBEcoPontoAsync(EcopontoModel ecoponto);
-        public Task AutenticarSenhaEcoPonto(EcopontoModel ecoponto);
+        public Task AutenticarEcoPontoAsync(string username);
+        public Task AutenticarTBEcoPontoAsync(string username);
     }
 }
