@@ -100,7 +100,7 @@ namespace api.Controllers
         }
 
         
-        [HttpPut("Put/{id}")]
+        [HttpPut("Put/{username}")]
 
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status202Accepted)]

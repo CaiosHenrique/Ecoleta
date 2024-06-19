@@ -41,7 +41,11 @@ namespace api.Repository.Utilizador
         {
             var existingUtilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync((UtilizadorModel u) => u.Username == username);
 
-            _context.Entry(existingUtilizador).CurrentValues.SetValues(utilizador);
+            existingUtilizador.Nome = utilizador.Nome;
+            existingUtilizador.Email = utilizador.Email;
+            existingUtilizador.SituacaoEmail = utilizador.SituacaoEmail;
+
+
             await _context.SaveChangesAsync();
             return existingUtilizador;
         }
@@ -64,8 +68,10 @@ namespace api.Repository.Utilizador
                 Username = username,
                 PasswordString = string.Empty, 
                 PasswordHash = hash,
-                PasswordSalt = salt
+                PasswordSalt = salt,
+                TotalEcoPoints = 0
             };
+
 
                 await _context.TB_UTILIZADOR.AddAsync(utilizador);
                 await _context.SaveChangesAsync();
