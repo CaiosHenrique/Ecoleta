@@ -51,6 +51,7 @@ namespace api.Repository.EcoPonto
             ecopontoexistente.UF = ecoponto.UF;
             ecopontoexistente.Numero = ecoponto.Numero;
             ecopontoexistente.CEP = ecoponto.CEP;
+            ecopontoexistente.Email = ecoponto.Email;
 
 
             await _context.SaveChangesAsync();
