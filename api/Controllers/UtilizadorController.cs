@@ -106,13 +106,13 @@ namespace api.Controllers
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-                public async Task<ActionResult<UtilizadorModel>> Put(int id, [FromBody] UtilizadorModel utilizador)
+                public async Task<ActionResult<UtilizadorModel>> Put(string username, [FromBody] UtilizadorModel utilizador)
                 {       
                 try
                 {
-                    await _utilizadorService.PutAsync(id);
+                    await _utilizadorService.PutAsync(username);
 
-                    await _utilizadorRepository.PutAsync(id, utilizador);
+                    await _utilizadorRepository.PutAsync(username, utilizador);
 
                     return Ok("Utilizador Atualizado com sucesso!");
                 }

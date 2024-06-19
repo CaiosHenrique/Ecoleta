@@ -70,7 +70,7 @@ namespace api.Repository.Coleta
             }
 
             
-            int totalEcopoints = Convert.ToInt32(classe.Sum(c => ValorEcopointPorClasse(c) + 0.2 * peso));
+            int totalEcopoints = Convert.ToInt32(classe.Sum(c => ValorEcopointPorClasse(c) + 0.4 * peso));
 
             
             var utilizador = await _context.TB_UTILIZADOR.FindAsync(IdUtilizador);
@@ -125,8 +125,6 @@ namespace api.Repository.Coleta
                     return 90;
                 case 10:
                     return 100;
-                case 11:
-                    return 110;
                 default:
                     return 0;
             }

@@ -9,7 +9,7 @@ namespace api.Repository.Utilizador
         public Task<List<UtilizadorModel>> GetAllAsync();
         public Task<ActionResult<UtilizadorModel>> GetByIdAsync(int id);
         public Task<ActionResult<UtilizadorModel>> PostAsync(UtilizadorModel utilizador);
-        public Task<ActionResult<UtilizadorModel>> PutAsync(int id, UtilizadorModel utilizador);
+        public Task<ActionResult<UtilizadorModel>> PutAsync(string username, UtilizadorModel utilizador);
         public Task<ActionResult<UtilizadorModel>> DeleteAsync(int id);
         public Task RegistrarUsuarioAsync(string username, string passwordString);
         public Task<bool> AutenticarUsuarioAsync(string username, string passwordString);

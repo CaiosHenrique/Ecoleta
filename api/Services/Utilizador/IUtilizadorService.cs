@@ -6,7 +6,7 @@ namespace api.Services.Utilizador
     {
 
         public Task GetAsync(int id);
-        public Task PutAsync(int id);
+        public Task PutAsync(string username);
         public Task DeleteAsync(int id);
         public Task RegistrarUserExistente(string username);
         public Task AutenticarUsuarioAsync(string username, string passwordString);

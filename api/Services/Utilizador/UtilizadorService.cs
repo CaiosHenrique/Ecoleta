@@ -29,9 +29,9 @@ namespace api.Services.Utilizador
          }
     }
 
-    public async Task PutAsync(int id)
+    public async Task PutAsync(string username)
     {
-        var existingUtilizador = await _context.TB_UTILIZADOR.FindAsync(id);
+        var existingUtilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync(u => u.Username == username);
 
             if (existingUtilizador == null)
             {

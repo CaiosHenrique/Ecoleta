@@ -29,16 +29,7 @@ namespace api.Repository.Utilizador
 
         public async Task<ActionResult<UtilizadorModel>> PostAsync(UtilizadorModel utilizador)
         {
-            var existingUtilizador = await _context.TB_UTILIZADOR
-                .FirstOrDefaultAsync(u => u.Username == utilizador.Username);
-
-                existingUtilizador.Nome = utilizador.Nome;
-                existingUtilizador.SituacaoEmail = utilizador.SituacaoEmail;
-                existingUtilizador.TotalEcoPoints = utilizador.TotalEcoPoints;
-                existingUtilizador.Latitude = utilizador.Latitude;
-                existingUtilizador.Longitude = utilizador.Longitude;
-                existingUtilizador.Email = utilizador.Email;
-
+            
             utilizador.IdUtilizador = 0;
 
             _context.TB_UTILIZADOR.Add(utilizador);
@@ -46,9 +37,9 @@ namespace api.Repository.Utilizador
             return utilizador;
         }
 
-        public async Task<ActionResult<UtilizadorModel>> PutAsync(int id, UtilizadorModel utilizador)
+        public async Task<ActionResult<UtilizadorModel>> PutAsync(string username, UtilizadorModel utilizador)
         {
-            var existingUtilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync((UtilizadorModel u) => u.IdUtilizador == id);
+            var existingUtilizador = await _context.TB_UTILIZADOR.FirstOrDefaultAsync((UtilizadorModel u) => u.Username == username);
 
             _context.Entry(existingUtilizador).CurrentValues.SetValues(utilizador);
             await _context.SaveChangesAsync();
