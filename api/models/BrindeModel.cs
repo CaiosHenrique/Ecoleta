@@ -9,7 +9,6 @@ namespace api.Models
         public int IdBrinde { get; set; }
         public string DescricaoBrinde { get; set; } = string.Empty;
         public string NomeBrinde { get; set; } = string.Empty;
-        public byte[] Imagem { get; set; }
         public char Cadastro { get; set; }
         public DateTime Validade { get; set; }
         public int Quantidade { get; set; }

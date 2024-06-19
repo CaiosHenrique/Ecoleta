@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
-   options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoSomee")); //ConexaoLocal ou ConexaoSomee
+   options.UseSqlServer(builder.Configuration.GetConnectionString("ConexaoLocal")); //ConexaoLocal ou ConexaoSomee
 });
 
 
