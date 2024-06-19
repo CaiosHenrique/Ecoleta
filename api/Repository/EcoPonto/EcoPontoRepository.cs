@@ -36,11 +36,23 @@ namespace api.Repository.EcoPonto
             return ecoponto;
         }
 
-        public async Task<ActionResult<EcopontoModel>> PutAsync(int id, EcopontoModel ecoponto)
+        public async Task<ActionResult<EcopontoModel>> PutAsync(string username, EcopontoModel ecoponto)
         {
-            var ecopontoexistente = await _context.TB_ECOPONTO.FirstOrDefaultAsync(e => e.IdEcoponto == id);
+            var ecopontoexistente = await _context.TB_ECOPONTO.FirstOrDefaultAsync(e => e.Username == username);
 
-            _context.Entry(ecopontoexistente).CurrentValues.SetValues(ecoponto);
+            ecopontoexistente.Nome = ecoponto.Nome;
+            ecopontoexistente.CNPJ = ecoponto.CNPJ;
+            ecopontoexistente.RazaoSocial = ecoponto.RazaoSocial;
+            ecopontoexistente.Logradouro = ecoponto.Logradouro;
+            ecopontoexistente.Endereco = ecoponto.Endereco;
+            ecopontoexistente.Complemento = ecoponto.Complemento;
+            ecopontoexistente.Bairro = ecoponto.Bairro;
+            ecopontoexistente.Cidade = ecoponto.Cidade;
+            ecopontoexistente.UF = ecoponto.UF;
+            ecopontoexistente.Numero = ecoponto.Numero;
+            ecopontoexistente.CEP = ecoponto.CEP;
+
+
             await _context.SaveChangesAsync();
             return ecopontoexistente;
         }

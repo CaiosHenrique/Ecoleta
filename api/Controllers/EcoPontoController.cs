@@ -97,16 +97,16 @@ namespace api.Controllers
          }
 
         
-        [HttpPut("Put/{IdEcoponto}")]//Funcionando 200 Ok
+        [HttpPut("Put/{username}")]//Funcionando 200 Ok
 
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public async Task<ActionResult> Put(int id, EcopontoModel ecoponto)
+        public async Task<ActionResult> Put(string username, EcopontoModel ecoponto)
         {
             try
             {
-                await _ecoPontoRepository.PutAsync(id, ecoponto);
+                await _ecoPontoRepository.PutAsync(username, ecoponto);
                 return StatusCode(202);
 
             }
